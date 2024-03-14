@@ -4,7 +4,6 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
-import { firstValueFrom, take } from 'rxjs';
 
 export function authInitializer(authService: AuthService) {
   return () => authService.asycUserAuthentication();

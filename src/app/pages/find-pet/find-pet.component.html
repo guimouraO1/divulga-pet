@@ -1,6 +1,9 @@
 <div class="main">
   <div class="search">
+    
     <div class="searchHeader">
+      <button mat-stroked-button color="primary" (click)="getMorePets()">Click me!</button>
+
       <h2>Search</h2>
       <button
       matSuffix
@@ -9,8 +12,7 @@
     >
       <mat-icon>search</mat-icon>
     </button>    
-  </div>
-  <button mat-stroked-button color="primary" (click)="getMorePets()">Click me!</button>
+    </div>
 
     <div class="item">
       <mat-form-field appearance="outline" class="forms">
@@ -49,9 +51,7 @@
           }@else {
           <img
             class="img-icon"
-            src="http://localhost/loginPage/backend/upload/{{ pet.user_id }}/{{
-              pet.user_filename
-            }}"
+            src="{{ pet.user_filename }}"
           />
           }
           
@@ -63,12 +63,11 @@
 
         <div class="pet_image">
           @if(pet.filename){
-            <img
-            class="img-pet"
-            src="http://localhost/loginPage/backend/upload/{{ pet.user_id }}/{{
-              pet.filename
-            }}"/>
-
+            @defer (on viewport){
+              <img class="img-pet" src="{{ pet.filename }}"/>
+            } @placeholder (minimum 300ms) {
+              <p-skeleton width="400px" height="300px"></p-skeleton>
+            }
           } @else {
             <p-skeleton width="400px" height="300px"></p-skeleton>
           }
@@ -92,23 +91,40 @@
             (click)="rescue()"
             type="submit"
             class="btn"
-            mat-raised-button
+            color="primary"
+            mat-stroked-button
           >
             Rescue Pet
           </button>
         </div>
       </mat-list>
-      } @empty { @defer () {
-      <div class="error">
-        <h1>Pets not found</h1>
-      </div>
-      } @loading (minimum 3000ms) {
-      <div class="error">
-        <div class="loading">
-          <h1>Loading all lost pets</h1>
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      } @empty {
+        @defer () {
+        <div class="error">
+          <h1>Pets not found</h1>
         </div>
-      </div>
+      } @loading (minimum 3000ms) {
+        <mat-list class="cards">
+          <div class="header-card">
+              <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
+              <p-skeleton class="userName"></p-skeleton>
+              <p-skeleton class="btn-header" ></p-skeleton>
+          </div>
+
+          <div class="pet_image">
+            <p-skeleton width="400px" height="300px"></p-skeleton>
+          </div>
+            <mat-list-item></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+            <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+            <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+            <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+            <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+          <div class="btn-div">
+            <p-skeleton class="btn"></p-skeleton>
+          </div>
+        </mat-list>
       } }
     </div>
     <div class="pagination-container">

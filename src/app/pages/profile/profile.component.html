@@ -2,7 +2,7 @@
   <div class="container-info">
     <div class="card">
       <div class="cardH1">
-        <h1>Hello {{ user?.firstName }}</h1>
+        <h1>Hello {{ user?.name }}</h1>
         <button
           (click)="scrollToContainer()"
           class="btn"
@@ -16,12 +16,10 @@
         <div class="card-user-header">
           <form class="form" enctype="multipart/form-data">
             <div class="card-img">
-              @if(user?.filename){
+              @if(user?.profile_pic){
               <img
                 class="userPerfilImg"
-                src="http://localhost/loginPage/backend/upload/{{ user.id }}/{{
-                  user.filename
-                }}"
+                src="{{ user.profile_pic }}"
                 alt=""
               />
               }@else{

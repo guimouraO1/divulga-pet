@@ -27,5 +27,12 @@ export class PetService {
   getImageLink(fileKey: any){
     return this.http.get(`${this.urlApi}/uploads/${fileKey}`)
   }
+
+  postPet(petForm: any) {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('authorization', `${token}`);
+
+    return this.http.post(`${this.urlApi}/publications`, petForm, { headers });
+  }
   
 }

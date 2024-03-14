@@ -3,12 +3,16 @@
 mat-option,
 h2 {
   font-family: "Comfortaa", sans-serif !important;
-  /* font-family: 'Comic Neue', cursive !important; */
 }
 
+// COR DO SELECT
 ::ng-deep .mdc-list-item__primary-text {
   font-family: "Comfortaa", sans-serif !important;
-  /* font-family: 'Comic Neue', cursive !important; */
+  color: $text_primary !important;
+}
+
+::ng-deep div.mat-mdc-select-panel{
+  background-color: $cardBackground !important;
 }
 
 .main {
@@ -67,8 +71,6 @@ mat-form-field {
 }
 
 .error {
-  margin: 0 !important;
-  padding: 0 !important;
   color: $primary;
   position: absolute;
   display: flex;
@@ -200,13 +202,9 @@ mat-paginator{
   border: 1px solid rgba(100, 100, 100, 0.103) !important;
   transition: none;
   box-shadow: none;
-}
+  font-size: 12px;
 
-.btn {
-  background-color: $primary !important;
-  color: #f8f8f8 !important;
 }
-
 
 /* Substitue a cor da borda do input */
 ::ng-deep .mdc-button--outlined .mdc-button__ripple {
@@ -220,7 +218,6 @@ mat-paginator{
 ::ng-deep .mdc-text-field--focused .mdc-notched-outline > * {
   border-color: $primary !important;
 }
-
 
 mat-label {
   color: $text-primary;

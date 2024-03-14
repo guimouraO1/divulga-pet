@@ -32,10 +32,8 @@ export class AuthService {
       this._isAuthenticated = true;
       localStorage.setItem('token', res.authToken);
       this.router.navigate(['findPet']);
-      this.changeUser(res);
-	    // return res;
+      this.changeUser(res.user);
     } catch (error: any) {
-		  // return error;
     } finally {
       this.disableButton.next(false);
     }

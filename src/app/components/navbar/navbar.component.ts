@@ -6,6 +6,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Subject, takeUntil } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnDestroy, OnInit {
-  user: any = null;  
+  user!: User;  
   private destroy$ = new Subject<void>();
 
   constructor(

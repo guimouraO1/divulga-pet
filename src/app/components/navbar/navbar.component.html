@@ -1,19 +1,25 @@
 <div class="navContainer">
   <a routerLink="home" class="logo">SOSPET</a>
   <ul class="navSection">
-    <li routerLink="home"><a class="navItens">Home</a></li>
+    <!-- <li routerLink="home"><a class="navItens">Home</a></li> -->
     <li routerLink="postPet"><a class="navItens">Post Pet</a></li>
     <li routerLink="findPet"><a class="navItens">Find Pet</a></li>
     <!-- <li (click)="toMap()"><a class="navItens">Map Pet</a></li>  -->
     <li>
       <div class="nav-icon">
-      @if (this.user) {
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>person</mat-icon>
-        </button>
+      @if(user) {
+        @if (user.profile_pic !== '') {
+          <div class="img-nav" [matMenuTriggerFor]="menu">
+            <img src="{{ user.profile_pic }}" alt="">
+          </div>
+        } @else {
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>person</mat-icon>
+          </button>
+        }
       } @else {
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>person_add</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="menu2">
+          <mat-icon>person</mat-icon>
         </button>
       }
 
@@ -34,6 +40,13 @@
           </button>
           
         </mat-menu>
+
+        <mat-menu #menu2="matMenu">
+          <button routerLink="login" mat-menu-item>
+            <span>Go to Login Page</span>
+          </button>
+        </mat-menu>
+        
       </div>
     </li>
   </ul>

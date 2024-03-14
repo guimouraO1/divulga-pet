@@ -1,6 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import {
   FormBuilder,
@@ -9,8 +7,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { lastValueFrom } from 'rxjs';
 import { PetService } from '../../services/pet.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-post-pet',
@@ -32,21 +30,23 @@ import { PetService } from '../../services/pet.service';
     ReactiveFormsModule,
     CommonModule,
     MatSelectModule,
+    ToastModule
   ],
   templateUrl: './post-pet.component.html',
   styleUrl: './post-pet.component.scss',
+  providers: [MessageService]
 })
 export class PostPetComponent implements OnInit {
   petForm: FormGroup;
   // private urlApi = `${environment.urlApi}`;
   protected disableButton: boolean = false;
-  
+  selectedFile: File | null = null;
+
   constructor(
-    private http: HttpClient,
-    private authService: AuthService,
     public dialog: MatDialog,
     private fb: FormBuilder,
-    private petService: PetService
+    private petService: PetService,
+    private messageService: MessageService
   ) {
     this.petForm = this.fb.group({
       name: ['Unknown', [Validators.required]],
@@ -57,7 +57,6 @@ export class PostPetComponent implements OnInit {
       last_location: ['Unknown', [Validators.required]],
     });
   }
-  selectedFile: File | null = null;
 
   ngOnInit(): void {}
 
@@ -68,77 +67,26 @@ export class PostPetComponent implements OnInit {
     }
   }
 
-  // uploadImage(): void {
-  //   if (this.selectedFile) {
-  //     const formData: FormData = new FormData();
-  //     const token = localStorage.getItem('token');
-  //     const headers = new HttpHeaders().set('authorization', `${token}`);
-  //     formData.append('file', this.selectedFile);
-  //     this.http
-  //       .post(`${this.urlApi}/uploadPet`, formData, { headers })
-  //       .subscribe((response: any) => {
-  //         try {
-  //           // this.authService.openSnackBar('Image successfully uploaded!', '✅');
-  //         } catch (e) {
-
-  //         }
-  //       });
-  //   }
-  // }
-
-  // postPet(
-  //   petName: any,
-  //   petRace: any,
-  //   petSpecies: any,
-  //   petSex: any,
-  //   status: any,
-  //   petLastLocation: any,
-  //   petFileName: any
-  // ) {
-  //   const token = localStorage.getItem('token');
-  //   const headers = new HttpHeaders().set('authorization', `${token}`);
-
-  //   this.http
-  //     .post(
-  //       `${this.urlApi}/publication`,
-  //       {
-  //         petName,
-  //         petRace,
-  //         petSpecies,
-  //         petSex,
-  //         status,
-  //         petLastLocation,
-  //         petFileName,
-  //       },
-  //       { headers }
-  //     )
-  //     .subscribe({
-  //       next: (res: any) => {
-  //         if (res) {
-  //           this.router.navigate(['home']);
-  //         }
-  //       },
-  //       error: (e) => {
-  //       },
-  //     });
-  // }
-
   async onSubmit() {
     if (this.selectedFile && this.petForm.valid) {
       try {
         this.disableButton = true;
         const url: any = await lastValueFrom(this.petService.getSignature(this.selectedFile));
         await lastValueFrom(this.petService.uploadImageToCloudFlare(url.signedUrl, this.selectedFile));
-        const urlImage = await lastValueFrom(this.petService.getImageLink(url.fileKey));
-
-
+        const urlImage: any = await lastValueFrom(this.petService.getImageLink(url.fileKey));
+        const petForm = this.petForm.value;
+        petForm.filename = urlImage.signedUrl;
+        await lastValueFrom(this.petService.postPet(petForm));
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pet posted!' });
       } catch (error) {
-
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred when trying to post pet' });
       }finally{
+
+        /// COLOAR ALGO PARA MOSTRAR QUE POSTOU!
         this.disableButton = false;
       }
     } else {
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Fill in all the fields, and add an image.' });
     }
   }
 }

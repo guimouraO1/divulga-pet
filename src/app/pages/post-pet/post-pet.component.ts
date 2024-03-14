@@ -17,6 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { lastValueFrom } from 'rxjs';
+import { PetService } from '../../services/pet.service';
 
 @Component({
   selector: 'app-post-pet',
@@ -37,21 +39,22 @@ import { MatSelectModule } from '@angular/material/select';
 export class PostPetComponent implements OnInit {
   petForm: FormGroup;
   // private urlApi = `${environment.urlApi}`;
-
+  protected disableButton: boolean = false;
+  
   constructor(
     private http: HttpClient,
     private authService: AuthService,
     public dialog: MatDialog,
     private fb: FormBuilder,
-    private router: Router
+    private petService: PetService
   ) {
     this.petForm = this.fb.group({
-      petName: ['Unknown', [Validators.required]],
-      petRace: ['Unknown', [Validators.required]],
-      petSpecies: ['', [Validators.required]],
-      petSex: ['', [Validators.required]],
+      name: ['Unknown', [Validators.required]],
+      breed: ['Unknown', [Validators.required]],
+      species: ['', [Validators.required]],
+      sex: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      petLastLocation: ['Unknown', [Validators.required]],
+      last_location: ['Unknown', [Validators.required]],
     });
   }
   selectedFile: File | null = null;
@@ -113,57 +116,29 @@ export class PostPetComponent implements OnInit {
   //       next: (res: any) => {
   //         if (res) {
   //           this.router.navigate(['home']);
-  //           this.authService.openSnackBar('Pet posted  successful!', '✅');
   //         }
   //       },
   //       error: (e) => {
-  //         this.authService.openSnackBar(e.error.msg, '❗');
   //       },
   //     });
   // }
 
-  // onSubmit() {
-  //   // Check if the form is valid before proceeding
+  async onSubmit() {
+    if (this.selectedFile && this.petForm.valid) {
+      try {
+        this.disableButton = true;
+        const url: any = await lastValueFrom(this.petService.getSignature(this.selectedFile));
+        await lastValueFrom(this.petService.uploadImageToCloudFlare(url.signedUrl, this.selectedFile));
+        const urlImage = await lastValueFrom(this.petService.getImageLink(url.fileKey));
 
-  //   const petNameControl = this.petForm.get('petName');
-  //   const petRaceControl = this.petForm.get('petRace');
-  //   const petSpeciesControl = this.petForm.get('petSpecies');
-  //   const petSexControl = this.petForm.get('petSex');
-  //   const statusControl = this.petForm.get('status');
-  //   const petLastLocationControl = this.petForm.get('petLastLocation');
 
-  //   if (
-  //     petNameControl &&
-  //     petRaceControl &&
-  //     petSpeciesControl &&
-  //     petSexControl &&
-  //     statusControl &&
-  //     petLastLocationControl &&
-  //     this.selectedFile &&
-  //     this.petForm.valid
-  //   ) {
-  //     const petName = petNameControl.value;
-  //     const petRace = petRaceControl.value;
-  //     const petSpecies = petSpeciesControl.value;
-  //     const petSex = petSexControl.value;
-  //     const status = statusControl.value;
-  //     const petLastLocation = petLastLocationControl.value;
-  //     const petFileName = this.selectedFile.name;
+      } catch (error) {
 
-  //     try {
-  //       this.uploadImage();
-  //       this.postPet(
-  //         petName,
-  //         petRace,
-  //         petSpecies,
-  //         petSex,
-  //         status,
-  //         petLastLocation,
-  //         petFileName
-  //       );
-  //     } catch (error) {}
-  //   } else {
-  //     this.authService.openSnackBar('All fields must be filled', '❗');
-  //   }
-  // }
+      }finally{
+        this.disableButton = false;
+      }
+    } else {
+
+    }
+  }
 }

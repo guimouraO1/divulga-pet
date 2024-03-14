@@ -3,18 +3,18 @@
     <h1>Post pet</h1>
 
     <!-- <form (ngSubmit)="onSubmit()" [formGroup]="petForm" class="parent"> -->
-      <form [formGroup]="petForm" class="parent">
+      <form (ngSubmit)="onSubmit()" [formGroup]="petForm" class="parent">
 
       <mat-form-field appearance="outline" class="item">
         <mat-label>Pet Name</mat-label>
-        <input matInput placeholder="Exemple Rex" formControlName="petName" />
+        <input matInput placeholder="Exemple Rex" formControlName="name" />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="item">
         <mat-label>Specie</mat-label>
         <mat-select
           placeholder="Select the species"
-          formControlName="petSpecies"
+          formControlName="species"
         >
           <mat-option value="Dog">Dog</mat-option>
           <mat-option value="Cat">Cat</mat-option>
@@ -28,13 +28,13 @@
         <input
           matInput
           placeholder="Exemple Border collie"
-          formControlName="petRace"
+          formControlName="breed"
         />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="item">
         <mat-label>Sex</mat-label>
-        <mat-select placeholder="Select the sex" formControlName="petSex">
+        <mat-select placeholder="Select the sex" formControlName="sex">
           <mat-option value="Female">Female</mat-option>
           <mat-option value="Male">Male</mat-option>
           <mat-option value="Unknown">Unknown</mat-option>
@@ -46,7 +46,7 @@
         <input
           matInput
           placeholder="Tóquio 423, Parque São Quirino"
-          formControlName="petLastLocation"
+          formControlName="last_location"
         />
       </mat-form-field>
 
@@ -80,7 +80,7 @@
             Upload Pet Image
           </label>
         </form>
-        <button class="btn" mat-raised-button type="submit">
+        <button [disabled]="disableButton" class="btn" color="primary" mat-stroked-button type="submit">
           Post pet
         </button>
       </div>

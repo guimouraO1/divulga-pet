@@ -15,4 +15,17 @@ export class PetService {
   getPublications(offset: number, limit: number): Observable<Pet[]> {
     return this.http.get<Pet[]>(`${this.urlApi}/publications?offset=${offset}&limit=${limit}`);
   }
+
+  getSignature(selectedFile: File){
+    return this.http.post(`${this.urlApi}/uploads`, { "name": selectedFile.name, "contentType": selectedFile.type })
+  }
+
+  uploadImageToCloudFlare(urlPresigned: string, file: File) {
+    return this.http.put(urlPresigned, file);
+  }
+
+  getImageLink(fileKey: any){
+    return this.http.get(`${this.urlApi}/uploads/${fileKey}`)
+  }
+  
 }

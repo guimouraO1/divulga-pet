@@ -9,7 +9,7 @@
     <div class="content">
       <p-toast></p-toast>
 
-      <mat-icon class="content-icon">person</mat-icon>
+      <mat-icon color="primary" class="content-icon">person</mat-icon>
       <form class="card-content" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
         <mat-form-field appearance="outline">
@@ -70,6 +70,26 @@
           </mat-form-field>
 
         <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon color="primary">{{
+              hide ? 'visibility_off' : 'visibility'
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
           <mat-label>Confirm Password</mat-label>
           <input
             matInput
@@ -89,26 +109,8 @@
           </button>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input
-              matInput
-              [type]="hide ? 'password' : 'text'"
-              formControlName="password"
-            />
-            <button
-              type="button"
-              mat-icon-button
-              matSuffix
-              (click)="hide = !hide"
-              [attr.aria-pressed]="hide"
-            >
-              <mat-icon color="primary">{{
-                hide ? 'visibility_off' : 'visibility'
-              }}</mat-icon>
-            </button>
-          </mat-form-field>
-          <button
+          
+        <button
           class="button"
           [disabled]="disableButton"
           type="submit"

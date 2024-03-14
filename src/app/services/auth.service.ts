@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
-import { Subject, lastValueFrom, take } from 'rxjs';
+import { BehaviorSubject, Subject, lastValueFrom, take } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,17 @@ export class AuthService {
   private urlApi = `${environment.url}`;
   private disableButton = new Subject<boolean>();
   private user!: any;
+  private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {}
+
+  User$() {
+    return this.userSubject.asObservable();
+  }
+
+  changeUser(user: any) {
+    this.userSubject.next(user);
+  }
 
   async login(loginForm: {}) {
     this.disableButton.next(true);
@@ -21,15 +31,15 @@ export class AuthService {
       const res: any = await lastValueFrom(this.http.post(`${this.urlApi}/login`, loginForm).pipe(take(1)));
       this._isAuthenticated = true;
       localStorage.setItem('token', res.authToken);
-      this.router.navigate(['chat']);
-	  return res;
+      this.router.navigate(['findPet']);
+      this.changeUser(res);
+	    // return res;
     } catch (error: any) {
-		return error;
+		  // return error;
     } finally {
       this.disableButton.next(false);
     }
   }
-
 
   async register(registerForm: {}) {
     this.disableButton.next(true);
@@ -47,10 +57,9 @@ export class AuthService {
     const authToken = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${authToken}`);
     try {
-      const user = await lastValueFrom(
-        this.http.get(`${this.urlApi}/user/auth`, { headers }).pipe(take(1))
-      );
+      const user = await lastValueFrom(this.http.get(`${this.urlApi}/user/auth`, { headers }).pipe(take(1)));
       this.user = user;
+      this.changeUser(this.user);
       this._isAuthenticated = true;
       return true;
     } catch (e) {

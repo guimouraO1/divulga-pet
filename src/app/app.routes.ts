@@ -14,15 +14,21 @@ export const routes: Routes = [
       },
       {
         path: 'login',
-        title: 'PulseChat | Login',
+        title: 'sospet | Login',
         loadComponent: () =>
           import('./pages/login/login.component').then((p) => p.LoginComponent),
       },
       {
         path: 'register',
-        title: 'PulseChat | Register',
+        title: 'sospet | Register',
         loadComponent: () =>
           import('./pages/register/register.component').then((p) => p.RegisterComponent),
+      },
+      {
+        path: 'findPet',
+        title: 'sospet | Find Pet',
+        loadComponent: () =>
+          import('./pages/find-pet/find-pet.component').then((p) => p.FindPetComponent),
       },
     ],
   },
@@ -32,18 +38,40 @@ export const routes: Routes = [
     children: [
       {
         path: 'chat',
-        title: 'PulseChat | Chat',
+        title: 'sospet | Chat',
         loadComponent: () => import('./pages/chat/chat.component').then((p) => p.ChatComponent),
           children: [{
             path: ':userId',
             component: ConversationMessagesComponent
           }]
       },
+      {
+        path: 'findPet',
+        title: 'sospet | Find Pet',
+        loadComponent: () =>
+          import('./pages/find-pet/find-pet.component').then((p) => p.FindPetComponent),
+      },
+      {
+        path: 'postPet',
+        title: 'sospet | Post Pet',
+        loadComponent: () =>
+          import('./pages/post-pet/post-pet.component').then(
+            (p) => p.PostPetComponent
+          ),
+      },
+      {
+        path: 'profile',
+        title: 'sospet | Profile',
+        loadComponent: () =>
+          import('./pages/profile/profile.component').then(
+            (p) => p.ProfileComponent
+          ),
+      },
     ],
   },
   {
     path: '**',
-    title: 'PulseChat | 404',
+    title: 'Sospet | 404',
     canActivate: [alwaysAllowAuthGuard],
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then(

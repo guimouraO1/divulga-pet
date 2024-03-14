@@ -1,0 +1,196 @@
+<div class="main">
+  <div class="container-info">
+    <div class="card">
+      <div class="cardH1">
+        <h1>Hello {{ user?.firstName }}</h1>
+        <button
+          (click)="scrollToContainer()"
+          class="btn"
+          style="background-color: #673ab7; color: white"
+          mat-raised-button
+        >
+          See your posts
+        </button>
+      </div>
+      <div class="userPanel">
+        <div class="card-user-header">
+          <form class="form" enctype="multipart/form-data">
+            <div class="card-img">
+              @if(user?.filename){
+              <img
+                class="userPerfilImg"
+                src="http://localhost/loginPage/backend/upload/{{ user.id }}/{{
+                  user.filename
+                }}"
+                alt=""
+              />
+              }@else{
+              <mat-icon class="img-icon">account_circle</mat-icon>
+              }
+              <form class="icon" enctype="multipart/form-data">
+                <label class="file-label">
+                  <mat-icon #fileIcon>add_a_photo</mat-icon>
+                  <input
+                    #fileInput
+                    type="file"
+                    class="form-control"
+                    (change)="handleFileInput($event)"
+                  />
+                </label>
+              </form>
+            </div>
+          </form>
+        </div>
+
+        <form class="form2" [formGroup]="userForm">
+          <div class="parent">
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input
+                formControlName="firstName"
+                type="text"
+                placeholder="First name"
+                matInput
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input
+                formControlName="lastName"
+                type="text"
+                placeholder="Last name"
+                matInput
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Telephone</mat-label>
+              <input
+                formControlName="telephone"
+                type="tel"
+                mask="(00) 0 0000 0000"
+                prefix="+55 "
+                placeholder="Telefone: "
+                matInput
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Address</mat-label>
+              <input
+                formControlName="address"
+                type="text"
+                placeholder="Endereço: "
+                matInput
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>CEP</mat-label>
+              <input
+                formControlName="cep"
+                type="text"
+                placeholder="CEP: "
+                mask="00000-000"
+                matInput
+              />
+            </mat-form-field>
+
+            <!-- <mat-form-field appearance="outline">
+              <mat-label>{{ getErrorMessage("email") || "Email" }}</mat-label>
+              <input
+                formControlName="email"
+                type="text"
+                placeholder="New Email"
+                matInput
+              />
+            </mat-form-field> -->
+          </div>
+          <!-- (click)="openDialog()" -->
+          <button
+
+            class="btn"
+            type="submit"
+            style="background-color: #673ab7; color: white"
+            mat-raised-button
+            [disabled]="userForm.invalid"
+          >
+            Update Profile
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-posts" id="container-posts">
+    <div class="petList">
+      <h2>Your posts</h2>
+      <div class="cards-container">
+        @for (pet of paginaterdPets; track pet.publication_id) {
+        <mat-list class="cards">
+          <div class="header-card">
+            @if(!pet?.user_filename){
+            <mat-icon class="icon2">account_circle</mat-icon>
+            }@else {
+            <img
+              class="img-icon2"
+              src="http://localhost/loginPage/backend/upload/{{
+                pet.user_id
+              }}/{{ pet.user_filename }}"
+            />
+            }
+            <h2 class="userName">{{ pet.user_first_name }}</h2>
+            <button class="btn-header" mat-stroked-button>
+              {{ pet.status }}
+            </button>
+          </div>
+
+          <div class="pet_image">
+            <img
+              class="img-pet"
+              src="http://localhost/loginPage/backend/upload/{{
+                pet.user_id
+              }}/{{ pet.pet_filename }}"
+            />
+          </div>
+
+          <mat-list-item></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Pet Name: {{ pet.pet_name }}</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Breed: {{ pet.pet_breed }}</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Specie: {{ pet.pet_species }}</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Sex: {{ pet.pet_sex }}</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item
+            >Last Location: {{ pet.pet_last_location }}</mat-list-item
+          >
+          <mat-divider></mat-divider>
+
+          <div class="btn-div">
+            <button type="submit" class="btn" mat-raised-button>
+              Edit post
+            </button>
+          </div>
+        </mat-list>
+        } @empty { @defer () {
+        <h2>You have no publications</h2>
+        } @loading (minimum 2000ms) {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        <h2>Uploading your posts...</h2>
+        } }
+      </div>
+      <div class="pagination-container">
+        <mat-paginator
+          [length]="totalItems"
+          [pageSize]="pageSize"
+          (page)="pageChange($event)"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

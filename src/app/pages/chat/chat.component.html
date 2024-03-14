@@ -1,5 +1,7 @@
 <main class="main-container">
   <div class="side-nav" [class.hide]="hide">
+    <p-toast></p-toast>
+    <p-confirmPopup></p-confirmPopup>
     <div class="side-nav-content" [class.hide]="hide">
       <div class="menu" [class.hide]="hide">
         <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -59,8 +61,6 @@
       </div>
 
       <div class="friends" [class.hide]="hide">
-        <p-toast></p-toast>
-        <p-confirmPopup></p-confirmPopup>
         @if (filteredFriendList.length > 0) {
         <span>My friend list</span>
         } @for (friend of filteredFriendList; track $index) {

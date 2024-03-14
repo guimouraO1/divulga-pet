@@ -10,7 +10,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
@@ -26,7 +25,6 @@ import { MessageService } from 'primeng/api';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatSnackBarModule,
     MatTooltipModule,
     ToastModule
   ],
@@ -43,7 +41,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar,
     private authService: AuthService,
     private router: Router,
     private messageService: MessageService
@@ -64,13 +61,13 @@ export class LoginComponent implements OnInit {
 
   async login() {
     const res = await this.authService.login(this.loginForm.value);
-    if(res.error)
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'Alert',
-      detail: res.error.msg,
-      life: 3000,
-    });
+    // if(res.error)
+    // this.messageService.add({
+    //   severity: 'warn',
+    //   summary: 'Alert',
+    //   detail: res.error.msg,
+    //   life: 3000,
+    // });
   }
 
   onSubmit(): void {
@@ -97,7 +94,7 @@ export class LoginComponent implements OnInit {
   async isLogged() {
     let result = await this.authService.asycUserAuthentication();
     if (result) {
-      this.router.navigate(['chat']);
+      this.router.navigate(['findPet']);
     } else {
       this.router.navigate(['login']);
     }

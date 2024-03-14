@@ -1,0 +1,124 @@
+<div class="main">
+  <div class="search">
+    <div class="searchHeader">
+      <h2>Search</h2>
+      <button
+      matSuffix
+      color="primary"
+      mat-icon-button
+    >
+      <mat-icon>search</mat-icon>
+    </button>    
+  </div>
+  <button mat-stroked-button color="primary" (click)="getMorePets()">Click me!</button>
+
+    <div class="item">
+      <mat-form-field appearance="outline" class="forms">
+        <mat-label>Filter by species</mat-label>
+        <mat-select (selectionChange)="filter($event, 'species')">
+          <mat-option value="all">All</mat-option>
+          <mat-option value="dog">Dog</mat-option>
+          <mat-option value="cat">Cat</mat-option>
+          <mat-option value="bird">Bird</mat-option>
+          <mat-option value="other">Other</mat-option>
+        </mat-select>
+        <mat-hint>{{ getHintMessage() }}</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="item">
+      <mat-form-field appearance="outline" class="forms">
+        <mat-label>Filter by status</mat-label>
+        <mat-select (selectionChange)="filter($event, 'status')">
+          <mat-option value="all">All</mat-option>
+          <mat-option value="lost">Lost</mat-option>
+          <mat-option value="found">Found</mat-option>
+          <mat-option value="seen nearby">Seen nearby</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="petList">
+    <div class="cards-container">
+      @for (pet of updatedListPet$ | async; track pet.id) {
+      <mat-list class="cards">
+        <div class="header-card">
+          @if(!pet.user_filename){
+            <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
+          }@else {
+          <img
+            class="img-icon"
+            src="http://localhost/loginPage/backend/upload/{{ pet.user_id }}/{{
+              pet.user_filename
+            }}"
+          />
+          }
+          
+          <p class="userName">{{ pet.user_firstName }}</p>
+          <button class="btn-header" mat-stroked-button>
+            {{ pet.status }}
+          </button>
+        </div>
+
+        <div class="pet_image">
+          @if(pet.filename){
+            <img
+            class="img-pet"
+            src="http://localhost/loginPage/backend/upload/{{ pet.user_id }}/{{
+              pet.filename
+            }}"/>
+
+          } @else {
+            <p-skeleton width="400px" height="300px"></p-skeleton>
+          }
+        </div>
+
+        <mat-list-item></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Pet Name: {{ pet.name }}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Breed: {{ pet.breed }}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Specie: {{ pet.species }}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Sex: {{ pet.sex }}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Last Location: {{ pet.last_location }}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <div class="btn-div">
+          <button
+            (click)="rescue()"
+            type="submit"
+            class="btn"
+            mat-raised-button
+          >
+            Rescue Pet
+          </button>
+        </div>
+      </mat-list>
+      } @empty { @defer () {
+      <div class="error">
+        <h1>Pets not found</h1>
+      </div>
+      } @loading (minimum 3000ms) {
+      <div class="error">
+        <div class="loading">
+          <h1>Loading all lost pets</h1>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+      </div>
+      } }
+    </div>
+    <div class="pagination-container">
+      <mat-paginator
+        [length]="totalItems"
+        [pageSize]="pageSize"
+        aria-label="Select page"
+        (page)="pageChange($event)"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>

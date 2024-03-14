@@ -1,0 +1,16 @@
+@use '../../../assets/colors/colors.scss' as *;
+
+.main {
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Comfortaa', sans-serif;
+
+}
+.btn{
+  background-color: $primary !important;
+  color: #F8F8FF  !important;
+}

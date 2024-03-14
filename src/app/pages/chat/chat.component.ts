@@ -19,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -64,7 +65,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private friendsService: FriendsService,
     private router: Router,
     private chatService: ChatService,
@@ -101,7 +102,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToUserChanges(): void {
-    this.userService
+    this.authService
       .User$()
       .pipe(takeUntil(this.destroy$))
       .subscribe((user) => (this.user = user));

@@ -1,0 +1,111 @@
+@use '../../../assets/colors/colors.scss' as *;
+
+.navContainer {
+  height: 10vh;
+  min-height: 80px;
+  background-color: $primary;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 4vw;
+  color: #dce1de;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 25px;
+}
+
+.navSection {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  padding-right: 5vw;
+  align-items: center;
+}
+
+.navItens {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $text_primary;
+  text-decoration: none;
+  margin: 0px 10px;
+  width: 200px;
+  transition: 0.8s;
+  height: 45px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 100;
+  font-size: 25px;
+}
+
+.navItens:hover {
+
+  background-color: $background;
+  color: $primary;
+
+}
+
+.navMode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 30px;
+  margin: 0px 5px;
+  transition: 0.8s;
+  width: 6em;
+  height: 45px;
+  border-radius: 6px;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 100%;
+  transition: 0.8s;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  font-weight: 100;
+  margin: 0px 10px;
+
+}
+
+mat-icon {
+  color: #ffffff;
+}
+
+.userPerfilImg {
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  background-color: #ffffff;
+  overflow: hidden;
+
+}
+
+.userPerfilImg img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+
+}
+
+.item {
+  padding-right: 50px !important;
+
+}
+
+::ng-deep .item .mat-badge-content {
+  top: 12px !important;
+  right: 15px !important;
+}

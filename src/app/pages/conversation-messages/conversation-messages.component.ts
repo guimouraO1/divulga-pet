@@ -22,6 +22,7 @@ import { FriendsService } from '../../services/friends.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-conversation-messages',
@@ -61,7 +62,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
-    private userService: UserService,
+    private authService: AuthService,
     private friendsService: FriendsService,
     private router: Router,
     private messageService: MessageService
@@ -81,7 +82,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToUserChanges(): void {
-    this.userService
+    this.authService
       .User$()
       .pipe(takeUntil(this.destroy$))
       .subscribe((user) => (this.user = user));
@@ -173,7 +174,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   }
 
   // Send message to private recipient in real time, and backend save on db.
-  sendMessage(): void {
+  sendMessage() {
     if (!this.inputMessage || this.inputMessage.trim() === '')
       return;
     if(!this.friendList.some(friend => friend.id === this.recipient.id)){
@@ -187,6 +188,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
       this.recipient.id, // recipientId
       new Date() // time
     );
+    
     this.inputMessage = '';
     this.messageComps.changes
       .pipe(takeUntil(this.destroy$))

@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Friends } from '../models/friends.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,17 +11,8 @@ import { Friends } from '../models/friends.model';
 
 export class UserService {
   private urlApi = `${environment.url}`;
-  private userSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
   constructor(public authService: AuthService, private http: HttpClient) {}
-
-  User$() {
-    return this.userSubject.asObservable();
-  }
-
-  changeUser(user: User) {
-    this.userSubject.next(user);
-  }
 
   getUser(): Observable<User[]> {
     const token = localStorage.getItem('token');

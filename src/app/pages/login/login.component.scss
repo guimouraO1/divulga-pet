@@ -2,12 +2,20 @@
 
 .main-container {
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.cardBackground{
+  color: black;
+  position: absolute;
+  transform: scale(14) rotate(60deg);
+  margin-bottom: 10%;
+  opacity: 0.1;
+}
+// #1f2937
 .card {
   min-width: 500px;
   height: 550px;
@@ -16,7 +24,7 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: colors.$background2;
+  background-color: colors.$cardBackground;
   border-radius: 10px;
   p {
     span {

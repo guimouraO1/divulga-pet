@@ -1,0 +1,94 @@
+@use './../../../assets/colors/colors.scss' as *;
+
+* {
+    font-family: 'Comfortaa', sans-serif !important;;
+    /* font-family: 'Comic Neue', cursive !important; */
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* i {
+    padding-top: 4px;
+    padding-left: 2px;
+    font-size: 2.4rem;
+} */
+.card {
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 50vw;
+    min-height: 500px;
+    border-radius: 10px;
+    box-shadow: $cardShadowPrimary;
+    background-color: $cardBackground !important;
+}
+
+.card h1 {
+    color: $primary;
+}
+
+.parent {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 60vw;
+    min-width: 60vw;
+    column-gap: 20px;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.custom-file-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: 500;
+    height: 35px;
+    width: 200px;
+    color: $primary;
+    border: 1px solid $primary;
+}
+
+.custom-file-upload input {
+    display: none;
+
+}
+
+.btn {
+    width: 200px;
+    background-color: $primary !important;
+    color: #F8F8F8 !important;
+}
+
+mat-form-field {
+    width: 26vw !important;
+
+}
+
+.form2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+span {
+    color: rgba(80, 80, 80, 0.37);
+}

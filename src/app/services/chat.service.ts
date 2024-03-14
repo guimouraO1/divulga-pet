@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom, takeLast } from 'rxjs';
 import { MessagesInterface } from '../models/messages.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
@@ -11,14 +11,13 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class ChatService {
-
   @Output() newMessageEmmiterId = new EventEmitter<string>();
 
   private socket!: Socket;
   private urlApi = `${environment.url}`;
   private recipient$ = new BehaviorSubject({
     id: '',
-    name: ''
+    name: '',
   });
 
   constructor(private http: HttpClient) {}
@@ -37,7 +36,7 @@ export class ChatService {
   addNewRecipient(recipientId: string, recipientName: string) {
     this.recipient$.next({
       id: recipientId,
-      name: recipientName
+      name: recipientName,
     });
   }
 
@@ -52,28 +51,59 @@ export class ChatService {
   }
 
   sendMessage(
-      message: string,
-      authorMessageId: string,
-      recipientId: string,
-      time: Date) {
-      this.socket.emit('message', {
-        message,
-        authorMessageId,
-        recipientId,
-        time,
-      });
+    message: string,
+    authorMessageId: string,
+    recipientId: string,
+    time: Date
+  ) {
+    this.socket.emit('message', {
+      message,
+      authorMessageId,
+      recipientId,
+      time,
+    });
   }
 
-  sentNewFriendship(authorMessageId: string, recipientId: string, name: string, idFriendship: string) {
-    this.socket.emit('friendship', { authorMessageId, recipientId, name, idFriendship });
+  sentNewFriendship(
+    authorMessageId: string,
+    recipientId: string,
+    name: string,
+    idFriendship: string
+  ) {
+    this.socket.emit('friendship', {
+      authorMessageId,
+      recipientId,
+      name,
+      idFriendship,
+    });
   }
 
-  acceptFriendship(authorMessageId: string, recipientId: string, name: string, idFriendship: string) {
-    this.socket.emit('acceptedFriendship', { authorMessageId, recipientId, name, idFriendship });
+  acceptFriendship(
+    authorMessageId: string,
+    recipientId: string,
+    name: string,
+    idFriendship: string
+  ) {
+    this.socket.emit('acceptedFriendship', {
+      authorMessageId,
+      recipientId,
+      name,
+      idFriendship,
+    });
   }
 
-  deleteFriendshipRequest(authorMessageId: string, recipientId: string, name: string, idFriendship: string) {
-    this.socket.emit('deleteFriendshipRequest', { authorMessageId, recipientId, name, idFriendship });
+  deleteFriendshipRequest(
+    authorMessageId: string,
+    recipientId: string,
+    name: string,
+    idFriendship: string
+  ) {
+    this.socket.emit('deleteFriendshipRequest', {
+      authorMessageId,
+      recipientId,
+      name,
+      idFriendship,
+    });
   }
 
   getMessagesDb(
@@ -85,7 +115,7 @@ export class ChatService {
     const headers = new HttpHeaders().set('authorization', `${token}`);
     // Adicione o recipientId, offset e limit como parâmetros na URL
     const url = `${this.urlApi}/messages?recipientId=${recipient.id}&offset=${offset}&limit=${limit}`;
-   
+
     return this.http.get(url, { headers });
   }
 

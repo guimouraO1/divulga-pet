@@ -1,8 +1,6 @@
 <div class="main">
   <div class="search">
-    
     <div class="searchHeader">
-      <button mat-stroked-button color="primary" (click)="getMorePets()">Click me!</button>
 
       <h2>Search</h2>
       <button
@@ -24,7 +22,6 @@
           <mat-option value="bird">Bird</mat-option>
           <mat-option value="other">Other</mat-option>
         </mat-select>
-        <mat-hint>{{ getHintMessage() }}</mat-hint>
       </mat-form-field>
     </div>
 
@@ -39,6 +36,8 @@
         </mat-select>
       </mat-form-field>
     </div>
+    <button mat-stroked-button color="primary" (click)="getMorePets()">Click me!</button>
+
   </div>
 
   <div class="petList">
@@ -56,7 +55,7 @@
           }
           
           <p class="userName">{{ pet.user_firstName }}</p>
-          <button class="btn-header" mat-stroked-button>
+          <button color="warn" class="btn-header" mat-stroked-button>
             {{ pet.status }}
           </button>
         </div>
@@ -101,7 +100,7 @@
       } @empty {
         @defer () {
         <div class="error">
-          <h1>Pets not found</h1>
+          <h2>No pets found</h2>
         </div>
       } @loading (minimum 3000ms) {
         <mat-list class="cards">
@@ -137,4 +136,7 @@
       </mat-paginator>
     </div>
   </div>
+
+
+  
 </div>

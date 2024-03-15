@@ -60,11 +60,11 @@
     }
     /* Substitue a cor da borda do input */
     ::ng-deep .mdc-button--outlined .mdc-button__ripple {
-      border-color: colors.$searchColorDeafaut;
+      border-color: colors.$borderPrimary;
     }
     /* Substitue a cor da borda do input */
     ::ng-deep .mdc-notched-outline > * {
-      border-color: colors.$searchColorDeafaut !important;
+      border-color: colors.$borderPrimary !important;
     }
     /* Substitue a cor da borda do input quando selecionado */
     ::ng-deep .mdc-text-field--focused .mdc-notched-outline > * {

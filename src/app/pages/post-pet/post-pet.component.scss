@@ -90,3 +90,18 @@ mat-form-field {
 span {
     color: rgba(80, 80, 80, 0.37);
 }
+
+mat-select {
+    color: $primary !important;
+}
+mat-label{
+    color: $text_primary;
+  }
+  ::ng-deep .mdc-notched-outline > * {
+    border-color: $borderPrimary !important;
+  }
+  /* Substitue a cor do texto do input */
+  input {
+    color: $text_primary !important;
+  }
+  

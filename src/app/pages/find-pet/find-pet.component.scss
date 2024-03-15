@@ -76,17 +76,11 @@ mat-form-field {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 50%;
   height: 50%;
   gap: 20px;
-  /* flex-direction: column; */
   flex-wrap: wrap;
-  .loading {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px;
-  }
+
 }
 
 .cards {
@@ -196,33 +190,34 @@ mat-paginator{
 }
 
 .btn-header {
-  text-transform: uppercase;
-  color: red !important;
   width: 100px;
-  border: 1px solid rgba(100, 100, 100, 0.103) !important;
-  transition: none;
-  box-shadow: none;
-  font-size: 12px;
+  font-size: 16px;
 
 }
 
 /* Substitue a cor da borda do input */
-::ng-deep .mdc-button--outlined .mdc-button__ripple {
-  border-color: $primary;
-}
+// ::ng-deep .mdc-button--outlined .mdc-button__ripple {
+//   border-color: $primary;
+// }
+
 /* Substitue a cor da borda do input */
 ::ng-deep .mdc-notched-outline > * {
-  border-color: $primary !important;
+  border-color: $borderPrimary !important;
 }
+
 /* Substitue a cor da borda do input quando selecionado */
 ::ng-deep .mdc-text-field--focused .mdc-notched-outline > * {
   border-color: $primary !important;
 }
 
-mat-label {
-  color: $text-primary;
+mat-label{
+  color: $text_primary;
+}
+
+ mat-select {
+  color: $primary !important;
 }
 /* Substitue a cor do texto do input */
 input {
-  color: $text_primary;
+  color: $text_primary !important;
 }

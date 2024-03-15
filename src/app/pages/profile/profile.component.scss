@@ -10,14 +10,6 @@
   margin: 0;
 }
 
-h1 {
-  padding-top: 30px;
-  padding-left: 50px;
-  text-wrap: wrap;
-  color: $primary;
-  font-family: "Comfortaa", sans-serif !important;
-  /* font-family: 'Comic Neue', cursive !important; */
-}
 ::ng-deep .mdc-list-item__primary-text {
   font-family: "Comfortaa", sans-serif !important;
 
@@ -30,8 +22,28 @@ h1 {
 
 h2 {
   font-family: "Comfortaa", sans-serif !important;
-  /* font-family: 'Comic Neue', cursive !important; */
   color: $primary;
+  padding-top: 30px;
+  padding-left: 50px;
+  text-wrap: wrap;
+  
+}
+h3{
+  color: $primary;
+}
+
+mat-paginator {
+  color: $text_primary !important;
+}
+mat-label{
+  color: $text_primary;
+}
+::ng-deep .mdc-notched-outline > * {
+  border-color: $borderPrimary !important;
+}
+/* Substitue a cor do texto do input */
+input {
+  color: $text_primary !important;
 }
 
 .cardH1 {
@@ -78,9 +90,7 @@ h2 {
 }
 
 .btn {
-  min-width: 240px;
-  background-color: $primary !important;
-  color: #f8f8f8 !important;
+  width: 200px;
 }
 
 .card-img {
@@ -171,24 +181,15 @@ input::placeholder {
 }
 
 .img-icon {
-  cursor: auto;
-  opacity: 1;
-  transform: scale(14);
-  color: #ffffff;
-  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  object-fit: cover;
 }
 
 .userPerfilImg {
   position: absolute;
   box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.1);
-}
-
-.img-icon:hover {
-  cursor: auto;
-  border-radius: 100%;
-  color: #ffffff;
-  opacity: 1;
-  position: absolute;
 }
 
 .form2 {
@@ -239,6 +240,13 @@ mat-form-field {
   align-items: center;
   text-align: center;
   justify-content: space-around;
+
+  .img-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    object-fit: cover;
+}
 }
 
 .userName {

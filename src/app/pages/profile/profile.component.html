@@ -2,12 +2,12 @@
   <div class="container-info">
     <div class="card">
       <div class="cardH1">
-        <h1>Hello {{ user?.name }}</h1>
+        <h2>Hello {{ user?.name }}</h2>
         <button
           (click)="scrollToContainer()"
           class="btn"
-          style="background-color: #673ab7; color: white"
-          mat-raised-button
+          color="primary"
+          mat-stroked-button
         >
           See your posts
         </button>
@@ -90,28 +90,16 @@
                 formControlName="cep"
                 type="text"
                 placeholder="CEP: "
-                mask="00000-000"
+                mask="99-999999"
                 matInput
               />
             </mat-form-field>
-
-            <!-- <mat-form-field appearance="outline">
-              <mat-label>{{ getErrorMessage("email") || "Email" }}</mat-label>
-              <input
-                formControlName="email"
-                type="text"
-                placeholder="New Email"
-                matInput
-              />
-            </mat-form-field> -->
           </div>
-          <!-- (click)="openDialog()" -->
           <button
-
             class="btn"
             type="submit"
-            style="background-color: #673ab7; color: white"
-            mat-raised-button
+            color="primary"
+            mat-stroked-button
             [disabled]="userForm.invalid"
           >
             Update Profile
@@ -123,64 +111,88 @@
 
   <div class="container-posts" id="container-posts">
     <div class="petList">
-      <h2>Your posts</h2>
+      <h3>Your posts</h3>
+
       <div class="cards-container">
-        @for (pet of paginaterdPets; track pet.publication_id) {
+        @for (pet of petList; track pet.id) {
         <mat-list class="cards">
           <div class="header-card">
-            @if(!pet?.user_filename){
-            <mat-icon class="icon2">account_circle</mat-icon>
+            @if(!pet.user_filename){
+              <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
             }@else {
             <img
-              class="img-icon2"
-              src="http://localhost/loginPage/backend/upload/{{
-                pet.user_id
-              }}/{{ pet.user_filename }}"
+              class="img-icon"
+              src="{{ pet.user_filename }}"
             />
             }
-            <h2 class="userName">{{ pet.user_first_name }}</h2>
-            <button class="btn-header" mat-stroked-button>
+            
+            <p class="userName">{{ pet.user_firstName }}</p>
+            <button color="warn" class="btn-header" mat-stroked-button>
               {{ pet.status }}
             </button>
           </div>
-
+  
           <div class="pet_image">
-            <img
-              class="img-pet"
-              src="http://localhost/loginPage/backend/upload/{{
-                pet.user_id
-              }}/{{ pet.pet_filename }}"
-            />
+            @if(pet.filename){
+              @defer (on viewport){
+                <img class="img-pet" src="{{ pet.filename }}"/>
+              } @placeholder (minimum 300ms) {
+                <p-skeleton width="400px" height="300px"></p-skeleton>
+              }
+            } @else {
+              <p-skeleton width="400px" height="300px"></p-skeleton>
+            }
           </div>
-
+  
           <mat-list-item></mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item>Pet Name: {{ pet.pet_name }}</mat-list-item>
+          <mat-list-item>Pet Name: {{ pet.name }}</mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item>Breed: {{ pet.pet_breed }}</mat-list-item>
+          <mat-list-item>Breed: {{ pet.breed }}</mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item>Specie: {{ pet.pet_species }}</mat-list-item>
+          <mat-list-item>Specie: {{ pet.species }}</mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item>Sex: {{ pet.pet_sex }}</mat-list-item>
+          <mat-list-item>Sex: {{ pet.sex }}</mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item
-            >Last Location: {{ pet.pet_last_location }}</mat-list-item
-          >
+          <mat-list-item>Last Location: {{ pet.last_location }}</mat-list-item>
           <mat-divider></mat-divider>
-
+  
           <div class="btn-div">
-            <button type="submit" class="btn" mat-raised-button>
-              Edit post
+            <button
+              type="submit"
+              class="btn"
+              color="primary"
+              mat-stroked-button
+            >
+              Rescue Pet
             </button>
           </div>
         </mat-list>
-        } @empty { @defer () {
-        <h2>You have no publications</h2>
-        } @loading (minimum 2000ms) {
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        <h2>Uploading your posts...</h2>
-        } }
+        } @empty {
+            <mat-list class="cards">
+              <div class="header-card">
+                  <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
+                  <p-skeleton class="userName"></p-skeleton>
+                  <p-skeleton class="btn-header" ></p-skeleton>
+              </div>
+    
+              <div class="pet_image">
+                <p-skeleton width="400px" height="300px"></p-skeleton>
+              </div>
+                <mat-list-item></mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+              <div class="btn-div">
+                <p-skeleton class="btn"></p-skeleton>
+              </div>
+            </mat-list>
+        } 
       </div>
+
       <div class="pagination-container">
         <mat-paginator
           [length]="totalItems"

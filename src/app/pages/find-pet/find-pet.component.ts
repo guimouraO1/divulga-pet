@@ -88,21 +88,6 @@ export class FindPetComponent {
     await this.getPublications();
   }
   
-  getHintMessage(): string {
-    switch (this.pet.species) {
-      case 'dog':
-        return 'Woof, woof!';
-      case 'cat':
-        return 'Meeoow!';
-      case 'bird':
-        return 'Tweet, tweet!';
-      case 'other':
-        return '';
-      default:
-        return '';
-    }
-  }
-
   pageChange(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
     this.updateupdatedListPet$();

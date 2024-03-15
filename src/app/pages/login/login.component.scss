@@ -1,4 +1,5 @@
 @use '../../../assets/colors/colors.scss' as colors;
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
 
 .main-container {
   width: 100vw;
@@ -74,7 +75,8 @@
     }
     /* Substitue a cor do texto do input */
     input {
-      color: colors.$text-primary;
+      font-family: "Comfortaa", sans-serif !important;
+      color: colors.$primary;
     }
   }
   .icon {

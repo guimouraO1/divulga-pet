@@ -33,7 +33,9 @@ export class AuthService {
       localStorage.setItem('token', res.authToken);
       this.router.navigate(['findPet']);
       this.changeUser(res.user);
+      return res;
     } catch (error: any) {
+      return error;
     } finally {
       this.disableButton.next(false);
     }

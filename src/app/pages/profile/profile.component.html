@@ -14,29 +14,42 @@
       </div>
       <div class="userPanel">
         <div class="card-user-header">
+          <p-toast></p-toast>
+          <p-confirmPopup></p-confirmPopup>
           <form class="form" enctype="multipart/form-data">
             <div class="card-img">
-              @if(user?.profile_pic){
+              @if(user.profile_pic){
               <img
                 class="userPerfilImg"
                 src="{{ user.profile_pic }}"
                 alt=""
-              />
+              />            
               }@else{
-              <mat-icon class="img-icon">account_circle</mat-icon>
+                <p-skeleton height="100%" class="img-icon" shape="circle"></p-skeleton>
+              } 
+              @if (!this.selectedFile) {
+                <form class="icon" enctype="multipart/form-data">
+                  <label class="file-label">
+                    <mat-icon #fileIcon>add_a_photo</mat-icon>
+                    <input
+                      #fileInput
+                      type="file"
+                      class="form-control"
+                      (change)="handleFileInput($event)"
+                    />
+                  </label>
+                </form>
+              } @else {
+
+                <div class="icon">
+                  <button (click)="confirm1($event)" class="upload" color="primary" mat-icon-button>
+                    <mat-icon>cloud_upload</mat-icon>
+                  </button>
+                </div>
               }
-              <form class="icon" enctype="multipart/form-data">
-                <label class="file-label">
-                  <mat-icon #fileIcon>add_a_photo</mat-icon>
-                  <input
-                    #fileInput
-                    type="file"
-                    class="form-control"
-                    (change)="handleFileInput($event)"
-                  />
-                </label>
-              </form>
+
             </div>
+
           </form>
         </div>
 
@@ -47,7 +60,6 @@
               <input
                 formControlName="firstName"
                 type="text"
-                placeholder="First name"
                 matInput
               />
             </mat-form-field>
@@ -57,7 +69,6 @@
               <input
                 formControlName="lastName"
                 type="text"
-                placeholder="Last name"
                 matInput
               />
             </mat-form-field>
@@ -69,7 +80,6 @@
                 type="tel"
                 mask="(00) 0 0000 0000"
                 prefix="+55 "
-                placeholder="Telefone: "
                 matInput
               />
             </mat-form-field>
@@ -79,7 +89,6 @@
               <input
                 formControlName="address"
                 type="text"
-                placeholder="Endereço: "
                 matInput
               />
             </mat-form-field>
@@ -89,7 +98,6 @@
               <input
                 formControlName="cep"
                 type="text"
-                placeholder="CEP: "
                 mask="99-999999"
                 matInput
               />
@@ -116,6 +124,7 @@
       <div class="cards-container">
         @for (pet of petList; track pet.id) {
         <mat-list class="cards">
+          
           <div class="header-card">
             @if(!pet.user_filename){
               <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>

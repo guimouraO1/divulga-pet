@@ -60,14 +60,16 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    const res = await this.authService.login(this.loginForm.value);
-    // if(res.error)
-    // this.messageService.add({
-    //   severity: 'warn',
-    //   summary: 'Alert',
-    //   detail: res.error.msg,
-    //   life: 3000,
-    // });
+    const res: any = await this.authService.login(this.loginForm.value);
+    if(res.error){
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Alert',
+        detail: res.error.msg,
+        life: 3000,
+      });
+    }
+
   }
 
   onSubmit(): void {

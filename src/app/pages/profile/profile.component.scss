@@ -43,7 +43,7 @@ mat-label{
 }
 /* Substitue a cor do texto do input */
 input {
-  color: $text_primary !important;
+  color: $primary !important;
 }
 
 .cardH1 {
@@ -102,22 +102,29 @@ input {
   height: 280px;
   width: 280px;
   background-size: cover;
-  background-color: $primary;
+  background-color: $cardBackground;
   border: 1px solid $primary;
   overflow: hidden;
+  p-skeleton{
+    height: 280px;
+    width: 280px;
+    object-fit: cover;
+    position: absolute;
+  }
+  img {
+    height: 280px;
+    width: 280px;
+    object-fit: cover;
+    border-radius: 100%;
+  }  
 }
-
-.card-img img {
-  height: 300px;
-  width: 300px;
-  object-fit: cover;
-  border-radius: 100%;
-}
-
 .icon {
   text-align: center;
   margin-top: 80%;
   color: #ffffff;
+  .upload{
+    background-color: $cardBackground !important;
+  }
 }
 
 mat-icon {
@@ -178,6 +185,7 @@ input::placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .img-icon {

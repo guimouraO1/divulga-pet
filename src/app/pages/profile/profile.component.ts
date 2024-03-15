@@ -1,5 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -10,8 +9,6 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { UserService } from '../../services/user.service';
-import { User } from '../../models/user.model';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +17,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SkeletonModule } from 'primeng/skeleton';
+import { Subject, takeUntil } from 'rxjs';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 @Component({
   selector: 'app-profile',
@@ -35,29 +36,33 @@ import { SkeletonModule } from 'primeng/skeleton';
     MatListModule,
     MatPaginatorModule,
     MatProgressBarModule,
-    SkeletonModule
+    SkeletonModule,
+    ToastModule,
+    ConfirmPopupModule
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
+  providers: [ConfirmationService, MessageService]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   userForm: FormGroup;
   user: any;
   petList?: any = [];
-  paginaterdPets: any[] = []; // Lista de pets exibidos na página atual
-  pageSize: number = 3; // Tamanho da página
-  currentPage: number = 1; // Página atual
+  paginaterdPets: any[] = [];
+  pageSize: number = 3; 
+  currentPage: number = 1;
   currentFilter: any;
   totalItems: number = 0;
-  // private urlApi = `${environment.urlApi}`;
+  private destroy$ = new Subject<void>();
+  protected selectedFile: File | null = null;
 
   constructor(
-    private http: HttpClient,
     private authService: AuthService,
     private fb: FormBuilder,
     public dialog: MatDialog,
     private el: ElementRef,
-    private _userService: UserService
+    private confirmationService: ConfirmationService, 
+    private messageService: MessageService
   ) {
     this.userForm = this.fb.group({
       firstName: ['', [Validators.maxLength(60)]],
@@ -67,25 +72,24 @@ export class ProfileComponent implements OnInit {
       cep: ['', [Validators.maxLength(60)]],
     });
   }
-  selectedFile: File | null = null;
 
   ngOnInit(): void {
-    this._userService.getUser().subscribe({
-      next: (_user: User[]) => {
-        this.user = _user;
+    this.subscribeToUserChanges();
+  }
+
+  private subscribeToUserChanges(): void {
+    this.authService
+      .User$()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((user: any) => {
+        this.user =  user;
         this.userForm.patchValue({
-          firstName: this.user.firstName,
-          lastName: this.user.lastName,
+          firstName: this.user.name,
           telephone: this.user.telephone,
           address: this.user.address,
           cep: this.user.cep,
         });
-      },
-      error: (error) => {
-        console.error('Erro ao obter usuário:', error);
-      },
-    });
-    // this.getPublications();
+      });
   }
 
   onSubmit() {
@@ -99,101 +103,14 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  getErrorMessage(controlName: string): string {
-    const control = this.userForm.get(controlName);
-
-    if (!control) {
-      return '';
-    }
-
-    if (control.hasError('required')) {
-      return 'Field is required';
-    }
-
-    if (controlName === 'email' && control.hasError('email')) {
-      return 'Invalid email';
-    }
-
-    return '';
-  }
-
-
-  // updateProfile(
-  //   firstName: string,
-  //   lastName: string,
-  //   telephone: any,
-  //   cep: any,
-  //   address: any
-  // ) {
-  //   this.authService.updateProfile(
-  //     firstName,
-  //     lastName,
-  //     telephone,
-  //     cep,
-  //     address
-  //   );
-  // }
-
   handleFileInput(event: any): void {
     const files: FileList = event.target.files;
     if (files && files.length > 0) {
       this.selectedFile = files[0];
-      // this.uploadImage();
     }
+    console.log(this.selectedFile);
   }
 
-  // uploadImage(): void {
-  //   if (this.selectedFile) {
-  //     const formData: FormData = new FormData();
-  //     const token = localStorage.getItem('token');
-  //     const headers = new HttpHeaders().set('authorization', `${token}`);
-
-  //     formData.append('file', this.selectedFile);
-  //     this.http
-  //       .post(`${this.urlApi}/upload`, formData, { headers })
-  //       .subscribe((response: any) => {
-  //         try {
-  //           if (response.update) {
-  //             this._userService.getUser().subscribe({
-  //               next: (_user: User[]) => {
-  //                 this.user = _user;
-  //                 this.userForm.patchValue({
-  //                   firstName: this.user.firstName,
-  //                   lastName: this.user.lastName,
-  //                   telephone: this.user.telephone,
-  //                   address: this.user.address,
-  //                   cep: this.user.cep,
-  //                 });
-  //               },
-  //               error: (error) => {
-  //                 console.error('Erro ao obter usuário:', error);
-  //               },
-  //             });
-              
-  //           } else {
-
-  //           }
-  //         } catch (e) {}
-  //       });
-  //   }
-  // }
-
-  // getPublications() {
-  //   const token = localStorage.getItem('token');
-  //   const headers = new HttpHeaders().set('authorization', `${token}`);
-  //   this.http.get(`${this.urlApi}/userPublications`, { headers }).subscribe({
-  //     next: (res: any) => {
-  //       this.petList = res;
-  //       this.totalItems = this.petList.length;
-  //       this.updatepaginaterdPets();
-  //     },
-  //     error: (error) => {
-  //     },
-  //   });
-  // }
-
-  // Método chamado quando a página é alterada
-  
   pageChange(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
     this.updatepaginaterdPets();
@@ -226,5 +143,26 @@ export class ProfileComponent implements OnInit {
       // Rola até o elemento
       containerElement.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  confirm1(event: Event) {
+    this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: 'Are you sure you want to add this image as your profile picture?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.selectedFile = null;
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+        },
+        reject: () => {
+            this.selectedFile = null;
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        }
+    });
+}
+  
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

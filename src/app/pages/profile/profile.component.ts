@@ -17,10 +17,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SkeletonModule } from 'primeng/skeleton';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { PetService } from '../../services/pet.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -59,10 +61,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    public dialog: MatDialog,
     private el: ElementRef,
     private confirmationService: ConfirmationService, 
-    private messageService: MessageService
+    private messageService: MessageService,
+    private petService: PetService,
+    private userService: UserService
   ) {
     this.userForm = this.fb.group({
       firstName: ['', [Validators.maxLength(60)]],
@@ -150,9 +153,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
         target: event.target as EventTarget,
         message: 'Are you sure you want to add this image as your profile picture?',
         icon: 'pi pi-exclamation-triangle',
-        accept: () => {
+        accept: async () => {
+            if(this.selectedFile){
+              await this.uploadImage();
+              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+            }
             this.selectedFile = null;
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
         },
         reject: () => {
             this.selectedFile = null;
@@ -160,6 +166,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
     });
 }
+
+  async uploadImage(){
+    const url: any = await lastValueFrom(this.petService.getSignature(this.selectedFile!));
+    await lastValueFrom(this.petService.uploadImageToCloudFlare(url.signedUrl, this.selectedFile!));
+    const filename: any = await lastValueFrom(this.petService.getImageLink(url.fileKey));
+    this.user.profile_pic = filename.signedUrl;
+    await lastValueFrom(this.userService.profilePic(filename));
+  }
   
   ngOnDestroy() {
     this.destroy$.next();

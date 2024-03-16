@@ -30,6 +30,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/find-pet/find-pet.component').then((p) => p.FindPetComponent),
       },
+      {
+        path: 'map',
+        title: 'sospet | Map',
+        loadComponent: () =>
+          import('./components/map/map.component').then((p) => p.MapComponent),
+      },
     ],
   },
   {

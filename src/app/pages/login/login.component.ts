@@ -17,21 +17,20 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatTooltipModule,
-    ToastModule
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-  providers: [MessageService],
-
+    selector: 'app-login',
+    standalone: true,
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
+    providers: [MessageService],
+    imports: [
+        MatButtonModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatTooltipModule,
+        ToastModule
+      ]
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;

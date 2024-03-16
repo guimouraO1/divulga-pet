@@ -1,0 +1,22 @@
+<div class="main">
+  <div class="searchLocation">
+    <mat-form-field appearance="outline">
+      <input
+        (keyup.enter)="autocomplete(input.value)"
+        matInput
+        placeholder="Digite o local"
+        #input
+      />
+    </mat-form-field>
+    <button
+       mat-stroked-button
+      (click)="autocomplete(input.value)"
+    >
+      Pesquisar Localização
+    </button>
+  </div>
+  @if(locationList !== '' || this.options){
+    <p>Você quis dizer {{ locationList }} ?</p>
+    <google-map width="600px" height="400px" [options]="options!"  />
+  }
+</div>

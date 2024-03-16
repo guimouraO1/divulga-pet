@@ -47,19 +47,16 @@ html{
 body {
   height: 100vh;
   width: 100vw;
-  overflow: auto;
   background-color: colors.$background;
   margin: 0;
   font-family: "Comfortaa", sans-serif !important;
-  color: colors.$text_primary;
 }
 *{
   &::-webkit-scrollbar {
     width: 7px;
-
+    
     &-thumb {
-      background-color: colors.$background2;
-      border-radius: 7px;
+      background-color: colors.$cardBackground;
     }
 
     &-track {

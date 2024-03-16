@@ -11,23 +11,21 @@ import { take } from 'rxjs';
   standalone: true,
   imports: [
     GoogleMap,
+    MapMarker,
+    
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MapMarker,
-    FormsModule,
   ],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',
 })
 export class MapComponent {
-  locationList: string = '';
-  lat: any;
-  lon: any;
-  options?: google.maps.MapOptions;
-  markerOptions: google.maps.MarkerOptions = { draggable: false };
-  position!: google.maps.LatLngLiteral;
+  location: string = '';
   locationInput: any;
+  options?: google.maps.MapOptions;
+  positionLatLng!: google.maps.LatLngLiteral;
 
   constructor(private geocoder: MapGeocoder) {}
 
@@ -37,47 +35,39 @@ export class MapComponent {
         .geocode({ address: query, language: 'pt-BR' })
         .pipe(take(1))
         .subscribe(({ results }) => {
-          console.log(results);
-          this.locationList = results[0].formatted_address;
+          this.location = results[0].formatted_address;
           this.locationInput = results[0].formatted_address;
-          this.lat = results[0].geometry.location.lat();
-          this.lon = results[0].geometry.location.lng();
 
-          this.position = { lat: this.lat, lng: this.lon };
+          this.positionLatLng = { lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
 
           this.options = {
-            center: { lat: this.lat, lng: this.lon },
+            center: this.positionLatLng,
             zoom: 16,
           };
         });
     } else {
-      
     }
   }
 
   getUserLocation() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lon = position.coords.longitude;
-        this.position = { lat: this.lat, lng: this.lon };
+      navigator.geolocation.getCurrentPosition((positionLatLng) => {
+        this.positionLatLng = { lat: positionLatLng.coords.latitude, lng: positionLatLng.coords.longitude };
 
         this.geocoder
-          .geocode({ location: { lat: this.lat, lng: this.lon } })
+          .geocode({ location: this.positionLatLng })
           .pipe(take(1))
           .subscribe(({ results }) => {
-            this.locationList = results[0].formatted_address;
+            this.location = results[0].formatted_address;
             this.locationInput = results[0].formatted_address;
 
             this.options = {
-              center: { lat: this.lat, lng: this.lon },
+              center: this.positionLatLng,
               zoom: 16,
             };
           });
       });
     } else {
-
     }
   }
-
 }

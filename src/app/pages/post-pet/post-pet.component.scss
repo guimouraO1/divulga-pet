@@ -1,9 +1,5 @@
 @use './../../../assets/colors/colors.scss' as *;
 
-* {
-    font-family: 'Comfortaa', sans-serif !important;;
-    /* font-family: 'Comic Neue', cursive !important; */
-}
 
 .main {
     display: flex;
@@ -20,14 +16,17 @@
     margin-top: 20vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    min-width: 50vw;
-    min-height: 500px;
+    width: 60vw;
     border-radius: 10px;
     box-shadow: $cardShadowPrimary;
     background-color: $cardBackground !important;
+    overflow: hidden;
+    .locationForm{
+        display: flex;
+    }
 }
 
 .card h1 {
@@ -35,14 +34,26 @@
 }
 
 .parent {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, auto);
     justify-content: center;
-    flex-wrap: wrap;
-    width: 60vw;
-    min-width: 60vw;
-    column-gap: 20px;
-    padding: 40px;
-    border-radius: 10px;
+    align-items: center;
+    width: 100%;
+    gap: 0px 20px;    
+    
+    .map{
+        grid-column: 1 / span 2;
+        justify-self: center;
+    }
+
+    .mapButton{
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 20px;
+    }
 }
 
 .custom-file-upload {
@@ -66,12 +77,11 @@
 .btn {
     width: 200px;
 }
-
-mat-form-field {
-    width: 26vw !important;
-
+.lastBtn {
+  grid-column: 1 / span 2;
+  justify-self: center;
+  width: 200px;
 }
-
 .form2 {
     display: flex;
     align-items: center;
@@ -85,6 +95,9 @@ mat-form-field {
     align-items: center;
     justify-content: center;
     gap: 20px;
+    grid-column: 1 / span 2;
+    justify-self: center;
+    margin-top: 20px;
 }
 
 span {
@@ -105,3 +118,26 @@ mat-label{
     color: $text_primary !important;
   }
   
+::ng-deep .mat-horizontal-stepper-header-container{
+    margin-top: 20px;
+}
+::ng-deep .mat-horizontal-stepper-wrapper{
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+::ng-deep .mat-horizontal-content-container{
+        overflow: hidden;
+        padding: 0 24px 24px 24px;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: flex-end;
+}
+
+::ng-deep .mat-step-label{
+    color: $text_primary !important;
+}

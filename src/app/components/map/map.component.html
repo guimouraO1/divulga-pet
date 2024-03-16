@@ -8,32 +8,31 @@
         [(ngModel)]="locationInput"
       />
     </mat-form-field>
+
     <div class="btnsDiv">
       <button
         mat-stroked-button
         (click)="autocomplete(locationInput)"
       >
-        Pesquisar Localização
+        Search location
       </button>
       <button
         mat-stroked-button
         (click)="getUserLocation()"
       >
-        Get You current Location
+        Get your current location
       </button>
     </div>
   </div>
-  @if(locationList !== '' || this.options){
-  <p>Você quis dizer {{ locationList }} ?</p>
-  <google-map
-    width="600px"
-    height="400px"
-    [options]="options!"
-  >
-    <map-marker
-      [position]="position"
-      [options]="markerOptions"
-    />
-  </google-map>
+  @if(location !== '' || this.options){
+    <p>Você quis dizer {{ location }} ?</p>
+    <google-map
+      class="map"
+      width="600px"
+      height="400px"
+      [options]="options!"
+    >
+      <map-marker [position]="positionLatLng"/>
+    </google-map>
   }
 </div>

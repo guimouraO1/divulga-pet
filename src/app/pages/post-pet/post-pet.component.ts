@@ -75,7 +75,8 @@ export class PostPetComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   handleFileInput(event: any): void {
     const files: FileList = event.target.files;

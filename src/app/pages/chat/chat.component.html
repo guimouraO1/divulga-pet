@@ -34,31 +34,31 @@
         </div>
       </div>
 
-      <div [class.hide]="hide" class="user-greeting">
-        <span class="welcome">Welcome back </span>
-        <span class="username">{{ user?.name }}</span>
-      </div>
+        <div [class.hide]="hide" class="user-greeting">
+          <span class="welcome">Welcome back </span>
+          <span class="username">{{ user?.name }}</span>
+        </div>
 
-      <div class="search" [class.hide]="hide">
-        <mat-form-field class="chat-input" appearance="outline">
-          <input
-            matInput
-            [(ngModel)]="searchInput"
-            (keyup.enter)="searchFriendFunc()"
-            placeholder="Search"
-            #searchField
-          />
-          <button
-            matSuffix
-            color="primary"
-            mat-icon-button
-            class="searchIcon"
-            (click)="searchFriendFunc()"
-          >
-            <mat-icon>search</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
+        <div class="search" [class.hide]="hide">
+          <mat-form-field class="chat-input" appearance="outline">
+            <input
+              matInput
+              [(ngModel)]="searchInput"
+              (keyup.enter)="searchFriendFunc()"
+              placeholder="Search"
+              #searchField
+            />
+            <button
+              matSuffix
+              color="primary"
+              mat-icon-button
+              class="searchIcon"
+              (click)="searchFriendFunc()"
+            >
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
 
       <div class="friends" [class.hide]="hide">
         @if (filteredFriendList.length > 0) {

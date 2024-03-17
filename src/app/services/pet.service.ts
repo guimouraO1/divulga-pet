@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pet } from '../models/pet.model';
-import { Observable, lastValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -12,8 +12,19 @@ export class PetService {
 
   constructor(private http: HttpClient) {}
 
-  getPublications(offset: number, limit: number): Observable<Pet[]> {
-    return this.http.get<Pet[]>(`${this.urlApi}/publications?offset=${offset}&limit=${limit}`);
+  getPublications(filter: any, offset: number, limit: number): Observable<Pet[]> {
+    let params = new HttpParams()
+      .set('offset', offset.toString())
+      .set('limit', limit.toString());
+
+    if (filter.species) {
+      params = params.set('species', filter.species);
+    }
+    if (filter.status) {
+      params = params.set('status', filter.status);
+    }
+
+    return this.http.get<Pet[]>(`${this.urlApi}/publications`, { params: params });
   }
 
   getSignature(selectedFile: File){

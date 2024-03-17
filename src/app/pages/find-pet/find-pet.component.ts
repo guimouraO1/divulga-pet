@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -30,33 +30,34 @@ import { User } from '../../models/user.model';
     MatSelectModule,
     CommonModule,
     AsyncPipe,
-    SkeletonModule
+    SkeletonModule,
   ],
   templateUrl: './find-pet.component.html',
   styleUrl: './find-pet.component.scss',
 })
 export class FindPetComponent {
-
   protected petList: Pet[] = [];
   protected updatedListPet$: Observable<Pet[]> | undefined;
   private destroy$ = new Subject<void>();
   protected pageSize: number = 3; // Tamanho da página
   protected currentPage: number = 1; // Página atual
   protected totalItems: number = 0;
+  protected totalPet: number = 0;
   protected user!: User;
-  protected offset =  0;
+  protected offset = 0;
   protected limit = 9;
-
+  protected pageIndex = 0;
   protected pet: any = {
-    species: 'all',
-    status: 'all',
+    species: '',
+    status: '',
   };
+  pageSizeOptions = [3, 6];
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(
-  private authService: AuthService,
-  private petService: PetService    
-  ) {
-  }
+    private authService: AuthService,
+    private petService: PetService
+  ) {}
 
   async ngOnInit() {
     this.subscribeToUserChanges();
@@ -68,54 +69,54 @@ export class FindPetComponent {
       .User$()
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: any) => {
-        this.user =  user;
+        this.user = user;
       });
-    }
-  
-  async getPublications() {
+  }
+
+  async getPublications(clearList: boolean = false) {
     try {
-      const petList: Pet[] = await lastValueFrom(this.petService.getPublications(this.offset, this.limit));
+      if (clearList) {
+        this.petList = [];
+        this.offset = 0;
+        this.pageIndex = 0;
+        this.currentPage = 1;
+        this.paginator.firstPage();
+      }
+      if(this.petList.length > 0 && this.petList.length === this.totalPet){
+        console.log('Final da lista');
+        return;
+      }
+
+      const res: any = await lastValueFrom(
+        this.petService.getPublications(this.pet, this.offset, this.limit)
+      );
+
+      const petList: Pet[] = res.publications;
+      this.totalPet = res.totalItems;
+
       this.petList.push(...petList);
       this.totalItems = this.petList.length;
       this.updateupdatedListPet$();
+
     } catch (error) {
 
     }
   }
 
-  async getMorePets() {
-    this.offset += this.limit;
-    await this.getPublications();
-  }
-  
-  pageChange(event: PageEvent) {
+  async pageChange(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    if (this.currentPage === Math.ceil(this.totalItems / this.pageSize)) {
+      this.offset += this.limit;
+      await this.getPublications();
+    }
+
     this.updateupdatedListPet$();
   }
 
   updateupdatedListPet$() {
     let filteredList = this.petList;
   
-    if (this.pet.status !== 'all' || this.pet.species !== 'all') {
-      if (this.pet.status !== 'all' && this.pet.species !== 'all') {
-        filteredList = this.petList
-          .filter((pet: any) =>
-            this.pet.status.includes(pet.status?.toLowerCase())
-          )
-          .filter((pet: any) =>
-            this.pet.species.includes(pet.species?.toLowerCase())
-          );
-      } else if (this.pet.status === 'all') {
-        filteredList = this.petList.filter((pet: any) =>
-          this.pet.species.includes(pet.species?.toLowerCase())
-        );
-      } else if (this.pet.species === 'all') {
-        filteredList = this.petList.filter((pet: any) =>
-          this.pet.status.includes(pet.status?.toLowerCase())
-        );
-      }
-    }
-
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
 
@@ -133,7 +134,7 @@ export class FindPetComponent {
   }
 
   filter(event: any, filter: any) {
-    console.log(event.value)
+
     if (filter === 'status') {
       this.pet.status = event.value;
     }
@@ -141,13 +142,12 @@ export class FindPetComponent {
     if (filter === 'species') {
       this.pet.species = event.value;
     }
-    console.log(this.pet);
-    this.updateupdatedListPet$();
+    this.getPublications(true);
   }
 
   rescue() {
     try {
-      console.log('fazer algo!')
+      console.log('fazer algo!');
     } catch (error) {}
   }
 }

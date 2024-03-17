@@ -16,7 +16,7 @@
       <mat-form-field appearance="outline" class="forms">
         <mat-label>Filter by species</mat-label>
         <mat-select (selectionChange)="filter($event, 'species')">
-          <mat-option value="all">All</mat-option>
+          <mat-option value="">All</mat-option>
           <mat-option value="dog">Dog</mat-option>
           <mat-option value="cat">Cat</mat-option>
           <mat-option value="bird">Bird</mat-option>
@@ -29,15 +29,13 @@
       <mat-form-field appearance="outline" class="forms">
         <mat-label>Filter by status</mat-label>
         <mat-select (selectionChange)="filter($event, 'status')">
-          <mat-option value="all">All</mat-option>
+          <mat-option value="">All</mat-option>
           <mat-option value="lost">Lost</mat-option>
           <mat-option value="found">Found</mat-option>
           <mat-option value="seen nearby">Seen nearby</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <button mat-stroked-button color="primary" (click)="getMorePets()">Click me!</button>
-
   </div>
 
   <div class="petList">
@@ -128,7 +126,10 @@
     </div>
     <div class="pagination-container">
       <mat-paginator
-        [length]="totalItems"
+        color="primary"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        [length]="totalPet"
         [pageSize]="pageSize"
         aria-label="Select page"
         (page)="pageChange($event)"

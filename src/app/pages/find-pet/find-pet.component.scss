@@ -221,3 +221,9 @@ mat-label{
 input {
   color: $text_primary !important;
 }
+::ng-deep .mat-mdc-select-value{
+  color: $text_primary;
+}
+::ng-deep .mat-mdc-icon-button:enabled .mat-mdc-paginator-icon {
+  fill: $primary !important;
+}

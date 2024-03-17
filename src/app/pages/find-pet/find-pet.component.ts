@@ -14,6 +14,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { PetService } from '../../services/pet.service';
 import { SkeletonModule } from 'primeng/skeleton';
 import { User } from '../../models/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-find-pet',
@@ -56,12 +57,18 @@ export class FindPetComponent {
 
   constructor(
     private authService: AuthService,
-    private petService: PetService
+    private petService: PetService,
+    private route: ActivatedRoute, 
+    private router: Router
   ) {}
 
   async ngOnInit() {
     this.subscribeToUserChanges();
-    await this.getPublications();
+    this.route.queryParamMap.subscribe(async params => {
+      this.pet.status = params.get('status');
+      this.pet.species = params.get('species');
+      await this.getPublications(true);
+    });
   }
 
   private subscribeToUserChanges(): void {
@@ -90,10 +97,10 @@ export class FindPetComponent {
       const res: any = await lastValueFrom(
         this.petService.getPublications(this.pet, this.offset, this.limit)
       );
-
+      
       const petList: Pet[] = res.publications;
       this.totalPet = res.totalItems;
-
+      console.log(petList);
       this.petList.push(...petList);
       this.totalItems = this.petList.length;
       this.updateupdatedListPet$();
@@ -134,15 +141,23 @@ export class FindPetComponent {
   }
 
   filter(event: any, filter: any) {
-
     if (filter === 'status') {
       this.pet.status = event.value;
     }
-
     if (filter === 'species') {
       this.pet.species = event.value;
     }
-    this.getPublications(true);
+
+    const queryParams = {
+      status: this.pet.status,
+      species: this.pet.species,
+    };
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge'
+    });
   }
 
   rescue() {

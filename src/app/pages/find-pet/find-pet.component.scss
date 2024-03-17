@@ -195,10 +195,6 @@ mat-paginator{
 
 }
 
-/* Substitue a cor da borda do input */
-// ::ng-deep .mdc-button--outlined .mdc-button__ripple {
-//   border-color: $primary;
-// }
 
 /* Substitue a cor da borda do input */
 ::ng-deep .mdc-notched-outline > * {
@@ -221,9 +217,11 @@ mat-label{
 input {
   color: $text_primary !important;
 }
+
 ::ng-deep .mat-mdc-select-value{
   color: $text_primary;
 }
+
 ::ng-deep .mat-mdc-icon-button:enabled .mat-mdc-paginator-icon {
   fill: $primary !important;
 }

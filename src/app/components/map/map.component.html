@@ -1,38 +1,20 @@
 <div class="main">
-  <div class="searchLocation">
-    <mat-form-field appearance="outline">
-      <input
-        (keyup.enter)="autocomplete(locationInput)"
-        matInput
-        placeholder="Digite o local"
-        [(ngModel)]="locationInput"
-      />
-    </mat-form-field>
-
-    <div class="btnsDiv">
-      <button
-        mat-stroked-button
-        (click)="autocomplete(locationInput)"
-      >
-        Search location
-      </button>
-      <button
-        mat-stroked-button
-        (click)="getUserLocation()"
-      >
-        Get your current location
-      </button>
-    </div>
-  </div>
-  @if(location !== '' || this.options){
-    <p>Você quis dizer {{ location }} ?</p>
-    <google-map
-      class="map"
-      width="600px"
-      height="400px"
-      [options]="options!"
-    >
-      <map-marker [position]="positionLatLng"/>
-    </google-map>
+  <google-map
+    width="100%"
+    height="100%"
+    class="map"
+    [options]="options!"
+  >
+  <!-- (mapClick)="addMarker($event)" -->
+  @for (pet of this.petList; track pet.id) {
+    <map-marker #marker="mapMarker" (mapClick)="openInfoWindow(marker)" [position]="pet.latLon">
+   </map-marker>
+    <map-info-window class="wimdow">
+      <img class="mapImg" src="{{ pet.filename }}" alt="">
+      <p>Name: {{pet.name}}</p>
+      <p> {{ pet.latLon.lat }} </p>
+    </map-info-window>
   }
+
+  </google-map>
 </div>

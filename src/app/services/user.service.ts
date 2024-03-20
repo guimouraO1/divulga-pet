@@ -28,4 +28,11 @@ export class UserService {
     return this.http.post(`${this.urlApi}/upload`, { filename: filename }, { headers });
   }
 
+  updateProfile(userForm: User) {
+    console.log(userForm);
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('authorization', `${token}`);
+
+    return this.http.put(`${this.urlApi}/user`, userForm, { headers });
+  }
 }

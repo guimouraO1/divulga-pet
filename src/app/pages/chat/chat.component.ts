@@ -46,21 +46,16 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ChatComponent implements OnInit, OnDestroy {
   private recipient: any;
-  // This user {}.
   protected user: any;
-  // If you have the id in the array and newMessages = true matBadge appears in the friend that there will be new messages.
   protected newMessages: Map<any, any> = new Map();
-
+  
   protected searchInput: string = '';
-  protected searchUserInfo: any;
-
+  
   protected hide: boolean = true;
 
   protected onlineFriends: Friends[] = [];
   protected friendList: Friends[] = [];
   protected filteredFriendList: Friends[] = [];
-  protected friendListRequestSent: Friends[] = [];
-  protected friendListRequestReceived: Friends[] = [];
 
   private destroy$ = new Subject<void>();
 
@@ -70,7 +65,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     private router: Router,
     private chatService: ChatService,
     public dialog: MatDialog,
-    private confirmationService: ConfirmationService,
     public messageService: MessageService
   ) {
     this.subscribeToUserChanges();
@@ -87,18 +81,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     // Listens for new messages from newMessageEmmiter and newMessageEmmiterId.
     this.setupMessageListeners();
 
-    this.newFriendsRequestsListener();
-
-    this.acceptedFriendsListener();
-
-    this.deleteFriendshipRequestListener();
-
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Login Success',
-      detail: `Welcome back ${this.user.name}`,
-      life: 3000,
-    });
+    // this.messageService.add({
+    //   severity: 'success',
+    //   summary: 'Login Success',
+    //   detail: `Welcome back ${this.user.name}`,
+    //   life: 3000,
+    // });
   }
 
   private subscribeToUserChanges(): void {
@@ -141,27 +129,16 @@ export class ChatComponent implements OnInit, OnDestroy {
       const friends: Friends[] = await firstValueFrom(
         this.friendsService.getFriends()
       );
-      this.friendListRequestSent = friends.filter(
-        (friend) =>
-          friend.senderID === this.user.id && friend.status === 'Pending'
-      );
-      this.friendListRequestReceived = friends.filter(
-        (friend) =>
-          friend.senderID !== this.user.id && friend.status === 'Pending'
-      );
       this.friendList = friends.filter(
         (friend) => friend.status === 'Accepted'
       );
 
-      await Promise.all(
-        this.friendList.map(async (friend) => {
+      await Promise.all(this.friendList.map(async (friend) => {
           await this.getMessages(friend, 0, 10);
         })
       );
-
+      console.log(this.friendList)
       this.filteredFriendList = this.friendList;
-
-      // Atualize a lista de amigos usando o serviço
       this.friendsService.updateFriendList(this.friendList);
     } catch (error) {
       console.error('Error while fetching friends:', error);
@@ -175,15 +152,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     limit: number
   ): Promise<void> {
     try {
-      const messages = await firstValueFrom(
-        this.chatService.getMessagesDb(recipient, offset, limit)
-      );
+      const messages = await firstValueFrom(this.chatService.getMessagesDb(recipient, offset, limit));
       messages.forEach((message: MessagesInterface) => {
         if (message.read === 'false') {
-          this.newMessages.set(
-            message.authorMessageId,
-            (this.newMessages.get(message.authorMessageId) || 0) + 1
-          );
+          this.newMessages.set(message.authorMessageId,
+            (this.newMessages.get(message.authorMessageId) || 0) + 1);
         }
       });
     } catch (error) {
@@ -204,80 +177,20 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
   }
 
-  newFriendsRequestsListener(): void {
-    this.chatService
-      .newFriendsRequestsListener()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: any) => {
-        this.friendListRequestReceived.push(user);
-      });
-  }
-
-  acceptedFriendsListener(): void {
-    this.chatService
-      .acceptedFriendsListener()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: any) => {
-        this.friendListRequestSent.splice(
-          this.friendListRequestSent.indexOf(user),
-          1
-        );
-        this.friendList.push(user);
-        this.filteredFriendList = this.friendList;
-      });
-  }
-
-  deleteFriendshipRequestListener(): void {
-    this.chatService
-      .deleteFriendshipRequestListener()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: any) => {
-        this.friendListRequestSent.splice(
-          this.friendListRequestSent.indexOf(user),
-          1
-        );
-        this.friendListRequestReceived.splice(
-          this.friendListRequestReceived.indexOf(user),
-          1
-        );
-      });
-  }
-
   // Listens for new messages from newMessageEmmiterId. If the array contains the id of a specific friend, it means that there are new messages from that friend.
   setupMessageListeners() {
     this.chatService.newMessageEmmiterId
       .pipe(takeUntil(this.destroy$))
       .subscribe((newMessageId: string) => {
-        this.newMessages.set(
-          newMessageId,
+        this.newMessages.set(newMessageId,
           (this.newMessages.get(newMessageId) || 0) + 1
         );
       });
   }
 
-  async searchUser(username: string) {
-    try {
-      if (this.searchInput.trim() === '') return;
-      const user: any = await firstValueFrom(
-        this.friendsService.searchUser(username)
-      );
-      if (
-        this.user.id === user.id ||
-        this.friendList.find((friend) => friend.id === user.id) ||
-        this.friendListRequestSent.find((friend) => friend.id === user.id) ||
-        this.friendListRequestReceived.find((friend) => friend.id === user.id)
-      ) {
-        this.searchInput = '';
-        return;
-      }
-      this.searchUserInfo = user;
-      this.searchInput = '';
-    } catch (error) {
-      console.error('Error while fetching friends:', error);
-    }
-  }
-
+  /// MELHORAR URGENTEMENTE
   isFrindConnected(friend: Friends): boolean {
+    console.log('s')
     if (!this.onlineFriends) {
       return false;
     }
@@ -288,9 +201,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   // After reading a new message read = 'true' on the message that have already been read.
   async updateMessageAsRead(authorMessageId: string, recipientId: string) {
-    await firstValueFrom(
-      this.chatService.updateMessageAsRead(authorMessageId, recipientId)
-    );
+    await firstValueFrom(this.chatService.updateMessageAsRead(authorMessageId, recipientId));
   }
 
   // When click on a friend card it takes you to chat with that user.
@@ -301,7 +212,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.addNewRecipient(recipient.id, recipient.name);
     // Checks if userId is present in newMessagesId.
     if (this.newMessages.has(recipient.id)) {
-      // Remove userId do set newMessagesId.
+      // Remove userId to newMessagesId.
       this.newMessages.delete(recipient.id);
     }
     // Checks if recipient is your friend.
@@ -311,171 +222,41 @@ export class ChatComponent implements OnInit, OnDestroy {
   searchFriendFunc() {
     if (this.searchInput.trim() == '') {
       this.filteredFriendList = this.friendList;
-      this.searchUserInfo = false;
       return;
     }
-    this.searchUser(this.searchInput);
     this.filteredFriendList = this.friendList.filter((friend) =>
       friend.name.toLowerCase().includes(this.searchInput.toLowerCase())
     );
-  }
-
-  // LogOut
-  logout(): void {
-    localStorage.removeItem('token');
-    this.chatService.socketdisconnect();
-    this.router.navigate(['login']);
   }
 
   changeHide() {
     this.hide = !this.hide;
   }
 
-  async addThisUser(user: any) {
-    const idFriendship = await firstValueFrom(
-      this.friendsService.sendFriendRequest(user.id)
-    );
-    this.chatService.sentNewFriendship(
-      this.user.id,
-      user.id,
-      this.user.name,
-      idFriendship
-    );
-    user.idFriendship = idFriendship;
-    this.searchInput = '';
-    this.friendListRequestSent.push(user);
-    this.searchUserInfo = '';
-    this.filteredFriendList = this.friendList;
-  }
-
-  async refuseFriendshipReceived(friend: any) {
-    await firstValueFrom(
-      this.friendsService.removeFriendRequest(friend.idFriendship)
-    );
-    this.friendListRequestReceived.splice(
-      this.friendListRequestReceived.indexOf(friend),
-      1
-    );
-    this.chatService.deleteFriendshipRequest(
-      this.user.id,
-      friend.id,
-      this.user.name,
-      friend.idFriendship
-    );
-  }
-
-  async refuseFriendshipSent(friend: any) {
-    await firstValueFrom(
-      this.friendsService.removeFriendRequest(friend.idFriendship)
-    );
-    this.friendListRequestSent.splice(
-      this.friendListRequestSent.indexOf(friend),
-      1
-    );
-    this.chatService.deleteFriendshipRequest(
-      this.user.id,
-      friend.id,
-      this.user.name,
-      friend.idFriendship
-    );
-  }
-
-  async acceptFriendship(friend: any) {
-    try {
-      await firstValueFrom(
-        this.friendsService.acceptFriendship(friend.idFriendship)
-      );
-      this.friendList.push(friend);
-      this.friendListRequestReceived.splice(
-        this.friendListRequestReceived.indexOf(friend),
-        1
-      );
-      this.chatService.acceptFriendship(
-        this.user.id,
-        friend.id,
-        this.user.name,
-        friend.idFriendship
-      );
-      this.searchInput = ``;
-    } catch {}
-  }
-
-  acceptNgFriendship(event: Event, friend: Friends) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Are you sure you want to accept this friend request?',
-      icon: 'pi pi-exclamation-triangle',
-      accept: async () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Confirmed',
-          detail: `You have accepted ${friend.name}`,
-          life: 4000,
-        });
-        await this.acceptFriendship(friend);
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Canceled',
-          detail: `You have canceled the action`,
-          life: 4000,
-        });
-      },
-    });
-  }
-
-  refuseNgFriendship(event: Event, friend: Friends) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Do you want to reject this friend request?',
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-sm',
-      accept: async () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: `Request for friendship with ${friend.name} has been rejected.`,
-          life: 3000,
-        });
-        await this.refuseFriendshipReceived(friend);
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Canceled',
-          detail: 'You have canceled the action',
-          life: 3000,
-        });
-      },
-    });
-  }
-
-  refuseNgFriendshipSent(event: Event, friend: Friends) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Do you want to delete this friend request?',
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-sm',
-      accept: async () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: `The friend request to ${friend.name} has been cancelled.`,
-          life: 3000,
-        });
-        await this.refuseFriendshipSent(friend);
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Canceled',
-          detail: 'You have canceled the action',
-          life: 3000,
-        });
-      },
-    });
-  }
+  // acceptNgFriendship(event: Event, friend: Friends) {
+  //   this.confirmationService.confirm({
+  //     target: event.target as EventTarget,
+  //     message: 'Are you sure you want to accept this friend request?',
+  //     icon: 'pi pi-exclamation-triangle',
+  //     accept: async () => {
+  //       this.messageService.add({
+  //         severity: 'success',
+  //         summary: 'Confirmed',
+  //         detail: `You have accepted ${friend.name}`,
+  //         life: 4000,
+  //       });
+  //       await this.acceptFriendship(friend);
+  //     },
+  //     reject: () => {
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: 'Canceled',
+  //         detail: `You have canceled the action`,
+  //         life: 4000,
+  //       });
+  //     },
+  //   });
+  // }
 
   ngOnDestroy() {
     this.destroy$.next();

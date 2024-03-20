@@ -1,13 +1,7 @@
 @use "../../../assets/colors/colors.scss" as *;
 
-mat-option,
-h2 {
-  font-family: "Comfortaa", sans-serif !important;
-}
-
 // COR DO SELECT
 ::ng-deep .mdc-list-item__primary-text {
-  font-family: "Comfortaa", sans-serif !important;
   color: $text_primary !important;
 }
 
@@ -91,6 +85,7 @@ mat-form-field {
   box-shadow: $cardShadowPrimary;
   border-radius: 10px;
   background-color: $cardBackground !important;
+  
 }
 
 .header-card {
@@ -107,6 +102,7 @@ mat-form-field {
   padding: 0;
   margin-left: 2%;
   font-weight: 100;
+  color: $text_primary !important;
 }
 
 .img-icon {

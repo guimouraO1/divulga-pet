@@ -91,6 +91,9 @@
                 type="text"
                 matInput
               />
+              <button (click)="autocomplete(this.userForm.value.address)" color="primary" mat-icon-button matSuffix style="cursor: pointer;">
+                <mat-icon color="primary">search</mat-icon>
+              </button>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -98,7 +101,7 @@
               <input
                 formControlName="cep"
                 type="text"
-                mask="99-999999"
+                mask="00000-000"
                 matInput
               />
             </mat-form-field>
@@ -108,7 +111,8 @@
             type="submit"
             color="primary"
             mat-stroked-button
-            [disabled]="userForm.invalid"
+            [disabled]="disableButton"
+            (click)="confirm2($event)"
           >
             Update Profile
           </button>
@@ -124,23 +128,13 @@
       <div class="cards-container">
         @for (pet of petList; track pet.id) {
         <mat-list class="cards">
-          
           <div class="header-card">
-            @if(!pet.user_filename){
-              <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
-            }@else {
-            <img
-              class="img-icon"
-              src="{{ pet.user_filename }}"
-            />
-            }
-            
-            <p class="userName">{{ pet.user_firstName }}</p>
+            <img class="img-icon" src="{{ user.profile_pic }}"/>
+            <p class="userName">{{ user.name }}</p>
             <button color="warn" class="btn-header" mat-stroked-button>
               {{ pet.status }}
             </button>
           </div>
-  
           <div class="pet_image">
             @if(pet.filename){
               @defer (on viewport){
@@ -168,7 +162,8 @@
   
           <div class="btn-div">
             <button
-              type="submit"
+              [disabled]="true"
+              type="text"
               class="btn"
               color="primary"
               mat-stroked-button
@@ -201,15 +196,6 @@
             </mat-list>
         } 
       </div>
-
-      <div class="pagination-container">
-        <mat-paginator
-          [length]="totalItems"
-          [pageSize]="pageSize"
-          (page)="pageChange($event)"
-        >
-        </mat-paginator>
       </div>
     </div>
   </div>
-</div>

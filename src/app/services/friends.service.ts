@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -12,7 +11,6 @@ import { Friends } from '../models/friends.model';
 export class FriendsService {
   private urlApi = `${environment.url}`;
   private friendListSubject: BehaviorSubject<Friends[]> = new BehaviorSubject<Friends[]>([]);
-  // public friendList$: Observable<Friends[]> = this.friendListSubject.asObservable();
 
   constructor(public authService: AuthService, private http: HttpClient) {}
 
@@ -31,33 +29,10 @@ export class FriendsService {
     this.friendListSubject.next(friendList);
   }
 
-  searchUser(username: string): Observable<Friends[]> {
+  sendFriendRequest(friendUserId: string, postPetId: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${token}`);
-
-    return this.http.get<Friends[]>(`${this.urlApi}/friends/${username}`, {
-      headers,
-    });
-  }
-
-  sendFriendRequest(friendUserId: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('authorization', `${token}`);
-    const body = { friendUserId: friendUserId };
-    return this.http.post(`${this.urlApi}/friends`, body, { headers });
-  }
-
-  removeFriendRequest(id: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('authorization', `${token}`);
-
-    return this.http.delete(`${this.urlApi}/friends/${id}`, { headers });
-  }
-
-  acceptFriendship(id: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('authorization', `${token}`);
-
-    return this.http.put(`${this.urlApi}/friends`, {friendshipId: id}, { headers });
+    // const body = { friendUserId: friendUserId };
+    return this.http.post(`${this.urlApi}/friends`, {friendUserId, postPetId}, { headers });
   }
 }

@@ -12,7 +12,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   .content {
     width: 50vw;
     height: 600px;
@@ -23,8 +22,9 @@
     gap: 10px;
     background-color: colors.$cardBackground;
     border-radius: 10px;
-
+    box-shadow: colors.$cardShadowPrimary;
     .p{
+      color: colors.$text_primary;
       span{
         cursor: pointer;
         color: colors.$primary;

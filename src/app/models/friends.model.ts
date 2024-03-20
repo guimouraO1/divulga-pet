@@ -3,5 +3,8 @@ export interface Friends {
     id: string,
     name: string,
     senderID?: string,
-    friendID?: string
+    friendID?: string,
+    userFilename?: any,
+    petFilename?: any,
+    petName?: any
 }

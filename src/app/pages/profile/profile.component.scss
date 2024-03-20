@@ -8,26 +8,23 @@
   align-items: center;
   justify-content: center;
   height: 90vh;
+  width: 100%;
   margin: 0;
 }
 
-::ng-deep .mdc-list-item__primary-text {
-  font-family: "Comfortaa", sans-serif !important;
+// ::ng-deep .mdc-list-item__primary-text {
 
-  /* font-family: 'Comic Neue', cursive !important; */
-}
+// }
 
 .icon2 {
   border-radius: 100%;
 }
 
 h2 {
-  font-family: "Comfortaa", sans-serif !important;
   color: $primary;
   padding-top: 30px;
   padding-left: 50px;
   text-wrap: wrap;
-  
 }
 h3{
   color: $primary;
@@ -248,7 +245,9 @@ mat-form-field {
   align-items: center;
   text-align: center;
   justify-content: space-around;
-
+  p{
+    color: $primary;
+  }
   .img-icon {
     width: 60px;
     height: 60px;
@@ -346,4 +345,7 @@ mat-paginator {
   transform: scale(1.4);
   margin-right: 20px;
   cursor: pointer;
+}
+::ng-deep .mdc-list-item__primary-text {
+  color: $text_primary !important;
 }

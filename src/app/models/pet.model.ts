@@ -11,5 +11,8 @@ export interface Pet {
     user_filename: string;
     user_firstName: string;
     date: string;
+    latLon?: any;
+    userFilename?: any,
+    petFilename?: any
 }
   

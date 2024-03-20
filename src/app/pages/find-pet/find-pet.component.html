@@ -1,4 +1,6 @@
 <div class="main">
+  <p-toast></p-toast>
+  <p-confirmPopup></p-confirmPopup>
   <div class="search">
     <div class="searchHeader">
 
@@ -71,21 +73,21 @@
         </div>
 
         <mat-list-item></mat-list-item>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
         <mat-list-item>Pet Name: {{ pet.name }}</mat-list-item>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
         <mat-list-item>Breed: {{ pet.breed }}</mat-list-item>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
         <mat-list-item>Specie: {{ pet.species }}</mat-list-item>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
         <mat-list-item>Sex: {{ pet.sex }}</mat-list-item>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
         <mat-list-item>Last Location: {{ pet.last_location }}</mat-list-item>
-        <mat-divider></mat-divider>
+        <!-- <mat-divider></mat-divider> -->
 
         <div class="btn-div">
           <button
-            (click)="rescue()"
+            (click)="confirm1($event, pet.user_id, pet.id)"
             type="submit"
             class="btn"
             color="primary"

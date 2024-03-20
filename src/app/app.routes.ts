@@ -14,25 +14,25 @@ export const routes: Routes = [
       },
       {
         path: 'login',
-        title: 'sospet | Login',
+        title: 'FindPet | Login',
         loadComponent: () =>
           import('./pages/login/login.component').then((p) => p.LoginComponent),
       },
       {
         path: 'register',
-        title: 'sospet | Register',
+        title: 'FindPet | Register',
         loadComponent: () =>
           import('./pages/register/register.component').then((p) => p.RegisterComponent),
       },
       {
         path: 'findPet',
-        title: 'sospet | Find Pet',
+        title: 'FindPet | Find Pet',
         loadComponent: () =>
           import('./pages/find-pet/find-pet.component').then((p) => p.FindPetComponent),
       },
       {
         path: 'map',
-        title: 'sospet | Map',
+        title: 'FindPet | Map',
         loadComponent: () =>
           import('./components/map/map.component').then((p) => p.MapComponent),
       },
@@ -44,7 +44,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'chat',
-        title: 'sospet | Chat',
+        title: 'FindPet | Chat',
         loadComponent: () => import('./pages/chat/chat.component').then((p) => p.ChatComponent),
           children: [{
             path: ':userId',
@@ -53,13 +53,13 @@ export const routes: Routes = [
       },
       {
         path: 'findPet',
-        title: 'sospet | Find Pet',
+        title: 'FindPet | Find Pet',
         loadComponent: () =>
           import('./pages/find-pet/find-pet.component').then((p) => p.FindPetComponent),
       },
       {
         path: 'postPet',
-        title: 'sospet | Post Pet',
+        title: 'FindPet | Post Pet',
         loadComponent: () =>
           import('./pages/post-pet/post-pet.component').then(
             (p) => p.PostPetComponent
@@ -67,7 +67,7 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        title: 'sospet | Profile',
+        title: 'FindPet | Profile',
         loadComponent: () =>
           import('./pages/profile/profile.component').then(
             (p) => p.ProfileComponent

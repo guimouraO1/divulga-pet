@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 75vw;
-  height: 100vh;
+  height: 90vh;
 
   .userInfo {
     display: flex;
@@ -16,9 +16,11 @@
     border-radius: 4px;
     color: colors.$text-primary;
     width: 90%;
-    margin-top: 9vh;
-    background-color: colors.$background2;
+    margin-top: 30px;
     padding: 24px;
+    background-color: colors.$cardBackground;
+    box-shadow: colors.$cardShadowPrimary;
+    gap: 10px;
     .username {
       color: colors.$primary;
     }
@@ -30,12 +32,12 @@
     padding: 0px 20px;
     width: 90%;
     min-height: 70%;
-
+    
     &::-webkit-scrollbar {
       width: 7px;
 
       &-thumb {
-        background-color: colors.$background2;
+        background-color: colors.$cardBackground;
         border-radius: 7px;
       }
 

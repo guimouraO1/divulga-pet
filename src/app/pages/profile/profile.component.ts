@@ -17,12 +17,14 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SkeletonModule } from 'primeng/skeleton';
-import { Subject, lastValueFrom, takeUntil } from 'rxjs';
+import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { PetService } from '../../services/pet.service';
 import { UserService } from '../../services/user.service';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { GoogleMap, MapGeocoder } from '@angular/google-maps';
 
 @Component({
   selector: 'app-profile',
@@ -40,44 +42,48 @@ import { UserService } from '../../services/user.service';
     MatProgressBarModule,
     SkeletonModule,
     ToastModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    NgxMaskDirective,
+    GoogleMap,
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService, provideNgxMask()],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  userForm: FormGroup;
-  user: any;
-  petList?: any = [];
-  paginaterdPets: any[] = [];
-  pageSize: number = 3; 
-  currentPage: number = 1;
-  currentFilter: any;
-  totalItems: number = 0;
+  protected userForm: FormGroup;
+  protected user: any;
+  protected petList?: any = [];
   private destroy$ = new Subject<void>();
   protected selectedFile: File | null = null;
+  protected disableButton: boolean = false;
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private el: ElementRef,
-    private confirmationService: ConfirmationService, 
+    private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private petService: PetService,
-    private userService: UserService
+    private userService: UserService,
+    private geocoder: MapGeocoder
   ) {
     this.userForm = this.fb.group({
-      firstName: ['', [Validators.maxLength(60)]],
-      lastName: ['', [Validators.maxLength(60)]],
-      telephone: ['', [Validators.maxLength(60)]],
-      address: ['', [Validators.maxLength(60)]],
+      firstName: ['', [Validators.maxLength(40), Validators.minLength(4)]],
+      lastName: ['', [Validators.maxLength(40)]],
+      telephone: ['', [Validators.maxLength(40)]],
+      address: ['', [Validators.maxLength(800)]],
       cep: ['', [Validators.maxLength(60)]],
     });
   }
 
   ngOnInit(): void {
     this.subscribeToUserChanges();
+    this.getUserPublications();
+  }
+
+  async getUserPublications(){
+    this.petList = await lastValueFrom(this.petService.getUserPublications());
   }
 
   private subscribeToUserChanges(): void {
@@ -85,9 +91,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .User$()
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: any) => {
-        this.user =  user;
+        this.user = user;
         this.userForm.patchValue({
           firstName: this.user.name,
+          lastName: this.user.lastName,
           telephone: this.user.telephone,
           address: this.user.address,
           cep: this.user.cep,
@@ -97,12 +104,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.userForm.valid) {
-      const firstName = this.userForm.get('firstName')!.value;
-      const lastName = this.userForm.get('lastName')!.value;
-      const telephone = this.userForm.get('telephone')!.value;
-      const cep = this.userForm.get('cep')!.value;
-      const address = this.userForm.get('address')!.value;
-      // this.updateProfile(firstName, lastName, telephone, cep, address);
+      lastValueFrom(this.userService.updateProfile(this.userForm.value));
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'You have updated your profile!',
+        life: 3000,
+      });
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Canceled',
+        detail: 'Fill in the fields correctly',
+        life: 3000,
+      });
+      return;
     }
   }
 
@@ -111,37 +127,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (files && files.length > 0) {
       this.selectedFile = files[0];
     }
-    console.log(this.selectedFile);
-  }
-
-  pageChange(event: PageEvent) {
-    this.currentPage = event.pageIndex + 1;
-    this.updatepaginaterdPets();
-  }
-
-  updatepaginaterdPets() {
-    let filteredList = this.petList;
-
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-
-    // Ajuste para garantir que a quantidade de animais por página seja consistente
-    const remainingItems = filteredList.length - startIndex;
-    this.paginaterdPets =
-      remainingItems >= this.pageSize
-        ? filteredList.slice(startIndex, endIndex)
-        : filteredList.slice(startIndex);
-
-    // Atualize o comprimento total da lista para a variável totalItems
-    this.totalItems = filteredList.length;
   }
 
   scrollToContainer() {
-    // Obtenha uma referência ao elemento com id 'container'
     const containerElement =
       this.el.nativeElement.querySelector('#container-posts');
-
-    // Verifique se o elemento foi encontrado
     if (containerElement) {
       // Rola até o elemento
       containerElement.scrollIntoView({ behavior: 'smooth' });
@@ -150,31 +140,81 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   confirm1(event: Event) {
     this.confirmationService.confirm({
-        target: event.target as EventTarget,
-        message: 'Are you sure you want to add this image as your profile picture?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: async () => {
-            if(this.selectedFile){
-              await this.uploadImage();
-              this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-            }
-            this.selectedFile = null;
-        },
-        reject: () => {
-            this.selectedFile = null;
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+      target: event.target as EventTarget,
+      message:
+        'Are you sure you want to add this image as your profile picture?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        if (this.selectedFile) {
+          await this.uploadImage();
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Confirmed',
+            detail: 'You have accepted',
+            life: 3000,
+          });
         }
+        this.selectedFile = null;
+      },
+      reject: () => {
+        this.selectedFile = null;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Rejected',
+          detail: 'You have rejected',
+          life: 3000,
+        });
+      },
     });
-}
+  }
 
-  async uploadImage(){
-    const url: any = await lastValueFrom(this.petService.getSignature(this.selectedFile!));
-    await lastValueFrom(this.petService.uploadImageToCloudFlare(url.signedUrl, this.selectedFile!));
-    const filename: any = await lastValueFrom(this.petService.getImageLink(url.fileKey));
+  confirm2(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to update your profile information?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.onSubmit();
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Canceled',
+          detail: 'You canceled the action',
+          life: 3000,
+        });
+      },
+    });
+  }
+
+  async uploadImage() {
+    const url: any = await lastValueFrom(
+      this.petService.getSignature(this.selectedFile!)
+    );
+    await lastValueFrom(
+      this.petService.uploadImageToCloudFlare(url.signedUrl, this.selectedFile!)
+    );
+    const filename: any = await lastValueFrom(
+      this.petService.getImageLink(url.fileKey)
+    );
     this.user.profile_pic = filename.signedUrl;
     await lastValueFrom(this.userService.profilePic(filename));
   }
-  
+
+  autocomplete(query: string) {
+    if (query) {
+      this.geocoder
+        .geocode({ address: query, language: 'pt-BR' })
+        .pipe(take(1))
+        .subscribe(({ results }) => {
+          this.userForm.patchValue({
+            address: results[0].formatted_address,
+          });
+        });
+    } else {
+    }
+  }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

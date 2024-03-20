@@ -3,5 +3,8 @@ export interface User {
     email: string,
     name: string,
     username?: string,
-    profile_pic?: string
+    profile_pic?: string,
+    address?: string,
+    lastName: string,
+    cep?: string
 }

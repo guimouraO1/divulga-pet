@@ -69,7 +69,6 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   ) {
     this.subscribeToUserChanges();
     this.subscribeToRecipientChanges();
-    this.friendList$();
   }
 
   protected friendList$(): void {
@@ -100,6 +99,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this.friendList$();
     // get the old messages from DB
     await this.getMessages(this.recipient, this.offset, this.limit);
     // Listens for new parameter change to change receiver.
@@ -196,10 +196,10 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   }
 
   // Infinite scrolling. When the user scrolls to the last top message, the client sends a get request for 11 more messages.
-  scrollOnTop(): void {
+  async scrollOnTop() {
     if (this.scrollPanel.nativeElement.scrollTop === 0) {
       this.offset += this.limit;
-      this.getMessages(this.recipient, this.offset, this.limit);
+      await this.getMessages(this.recipient, this.offset, this.limit);
     }
   }
 

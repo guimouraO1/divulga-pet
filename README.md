@@ -1,8 +1,8 @@
-# Sospet - Aplicação Web para Encontrar Pets Perdidos
+# FindPet - Aplicação Web para Encontrar Pets Perdidos
 
 ## Descrição
 
-Sospet é uma aplicação web onde os usuários podem postar informações sobre seus animais de estimação perdidos ou encontrados. A plataforma permite que os usuários publiquem fotos dos animais, seus nomes, espécies (por exemplo, gato, cachorro), sexo, status (perdido ou encontrado), última localização e raça.
+FindPet é uma aplicação web onde os usuários podem postar informações sobre seus animais de estimação perdidos ou encontrados. A plataforma permite que os usuários publiquem fotos dos animais, seus nomes, espécies (por exemplo, gato, cachorro), sexo, status (perdido ou encontrado), última localização e raça.
 
 ## Requisitos
 

@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 export function authInitializer(authService: AuthService) {
   return () => authService.asycUserAuthentication();
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(),
+    provideEnvironmentNgxMask(),
     {
       provide: APP_INITIALIZER,
       useFactory: authInitializer,

@@ -27,7 +27,9 @@
   padding: 10px;
   background-color: colors.$cardBackground;
   border-radius: 10px;
+  box-shadow: colors.$cardShadowPrimary;
   p {
+    color: colors.$text-primary;
     span {
       color: colors.$primary;
       cursor: pointer;

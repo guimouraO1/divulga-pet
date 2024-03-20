@@ -1,33 +1,30 @@
-.main{
-    width: 100vw;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.main {
+  width: 100vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .map {
 
-    .searchLocation{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        mat-form-field{
-            width: 400px;
-        }
-        .btnsDiv{
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-        }
+    width: 80%;
+    height: 80%;
+
+    map-info-window {
+
+        width: 1px;
+
+      img {
+        object-fit: cover;
+        width: 200px !important;
+        height: 200px;
+        border-radius: 50%;
+      }
     }
+  }
+  }
 
-    p{
-        color: black;
-    }
+  p {
+    color: black;
+  }
 
-
-    // .map{
-        
-    // }
-}

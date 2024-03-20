@@ -12,6 +12,13 @@ export class PetService {
 
   constructor(private http: HttpClient) {}
 
+  getUserPublications(): Observable<Pet[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('authorization', `${token}`);
+    
+    return this.http.get<Pet[]>(`${this.urlApi}/userPublications`, { headers });
+  }
+
   getPublications(filter: any, offset: number, limit: number): Observable<Pet[]> {
     let params = new HttpParams()
       .set('offset', offset.toString())
@@ -44,6 +51,14 @@ export class PetService {
     const headers = new HttpHeaders().set('authorization', `${token}`);
 
     return this.http.post(`${this.urlApi}/publications`, petForm, { headers });
+  }
+
+
+  rescuePet(friendUserId: string, petPostId: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('authorization', `${token}`);
+
+    return this.http.post(`${this.urlApi}/friends`, { friendUserId, petPostId }, { headers });
   }
   
 }

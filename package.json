@@ -27,7 +27,7 @@
     "dotenv": "^16.4.5",
     "ngx-mask": "^17.0.4",
     "primeicons": "^6.0.1",
-    "primeng": "^17.10.0",
+    "primeng": "^17.11.0",
     "rxjs": "~7.8.0",
     "socket.io": "^4.7.4",
     "socket.io-client": "^4.7.4",

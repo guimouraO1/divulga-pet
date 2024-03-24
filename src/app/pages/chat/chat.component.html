@@ -32,7 +32,7 @@
           <div class="status">
             @if (friend.petFilename !== '') {
               <div class="img-nav">
-                @if (isFrindConnected(friend)){
+                @if (friend.online){
                   <mat-icon color="primary" class="connected">fiber_manual_record</mat-icon>
                 } @else {
                 <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
@@ -41,7 +41,7 @@
               </div>
             } @else {
               <div class="img-nav">
-                @if (isFrindConnected(friend)){
+                @if (friend.online){
                   <mat-icon color="primary" class="connected">fiber_manual_record</mat-icon>
                 } @else {
                 <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>

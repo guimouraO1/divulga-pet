@@ -5,11 +5,10 @@
 // Plus imports for other components in your app.
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Delius+Unicase:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
 // @import "primeng/resources/themes/lara-dark-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
-
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -76,10 +75,8 @@ body {
   overflow-x: hidden;
   background-color: colors.$background;
   margin: 0;
-  // font-family: "Comfortaa", sans-serif !important;
-  // font-family: "Madimi One", sans-serif;
-  font-family: "Delius Unicase", cursive;
-  font-weight: 200;
+  font-family: "Delius", cursive;
+  font-weight: 400;
   font-style: normal;
 }
 *{

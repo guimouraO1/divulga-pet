@@ -228,7 +228,17 @@ export class FindPetComponent {
       message: 'Are you sure you want to rescue this pet?',
       icon: 'pi pi-exclamation-triangle',
       accept: async () => {
+        if(!this.user){
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Unauthorized',
+            detail: 'You must be logged in to rescue this pet',
+            life: 3000,
+          });
+          return;
+        }
         await this.rescuePet(userId, postPetId);
+
       },
       reject: () => {
         this.messageService.add({

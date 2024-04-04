@@ -115,9 +115,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
     limit: number
   ): Promise<void> {
     try {
-      const messages = await firstValueFrom(
-        this.chatService.getMessagesDb(recipient, offset, limit)
-      );
+      const messages = await firstValueFrom(this.chatService.getMessagesDb(recipient, offset, limit));
       const newMessages = messages.map((message: MessagesInterface) => ({
         ...message,
         isMine: message.authorMessageId === this.user.id,
@@ -134,10 +132,10 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
       this.activatedRoute.paramMap
         .pipe(takeUntil(this.destroy$))
         .subscribe(async (params) => {
-          if (!this.recipient.id || !this.recipient.name) {
-            this.recipient.id = params.get('userId');
-            const friend: any = await firstValueFrom(this.chatService.getFriendById(this.recipient));
-            this.chatService.addNewRecipient(this.recipient.id, friend.name);
+          if (!this.recipient.id || !this.recipient.name || !this.recipient.idFriendship) {
+            this.recipient.idFriendship = params.get('userId');
+            const friend: any = await firstValueFrom(this.chatService.getFriendById(this.recipient.idFriendship));
+            this.chatService.addNewRecipient(friend.id, friend.name, friend.profile_pic, this.recipient.idFriendship);
           }
           this.messages = [];
           this.offset = 0;
@@ -169,6 +167,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
           isMine: message.authorMessageId === this.user.id,
           message: message.message,
           read: message.read,
+          type: message.type
         });
       });
   }
@@ -177,16 +176,14 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   sendMessage() {
     if (!this.inputMessage || this.inputMessage.trim() === '')
       return;
-    if(!this.friendList.some(friend => friend.id === this.recipient.id)){
-      this.showError();
-      return;
-    }
-
+    const type = 'message'
     this.chatService.sendMessage(
       this.inputMessage, // message
       this.user.id, // authorMessageId
       this.recipient.id, // recipientId
-      new Date() // time
+      new Date(),
+      type,
+      this.recipient.idFriendship
     );
     
     this.inputMessage = '';

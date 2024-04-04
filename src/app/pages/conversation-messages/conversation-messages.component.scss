@@ -11,16 +11,23 @@
   .userInfo {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: start;
     border-radius: 4px;
     color: colors.$text-primary;
     width: 90%;
     margin-top: 30px;
-    padding: 24px;
+    padding: 10px 40px;
     background-color: colors.$cardBackground;
     box-shadow: colors.$cardShadowPrimary;
     gap: 10px;
+    
+    img{
+      object-fit: cover;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
     .username {
       color: colors.$primary;
     }
@@ -33,18 +40,21 @@
     width: 90%;
     min-height: 70%;
     
-    &::-webkit-scrollbar {
-      width: 7px;
-
-      &-thumb {
-        background-color: colors.$cardBackground;
-        border-radius: 7px;
+      --sb-track-color: transparent;
+      --sb-thumb-color: colors.$primary;
+      --sb-size: 7px;
+    
+      &::-webkit-scrollbar {
+        width: 6px;
+        
+        &-thumb {
+          background-color: colors.$primary;
+        }
+    
+        &-track {
+          background-color: transparent;
+        }
       }
-
-      &-track {
-        background-color: transparent;
-      }
-    }
   }
 
   .chat-input {

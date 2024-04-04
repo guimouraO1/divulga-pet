@@ -1,0 +1,163 @@
+<div class="main">
+    <p-toast></p-toast>
+    <p-confirmPopup [ngStyle]="{backgroundColor:'var(--highlight-bg)', color: 'var(--highlight-text-color)'}"></p-confirmPopup>
+    <div class="search">
+      <div class="searchHeader">
+  
+        <h2>Search</h2>
+        <button
+        matSuffix
+        color="primary"
+        mat-icon-button
+      >
+        <mat-icon>search</mat-icon>
+      </button>    
+      </div>
+  
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Search by ID</mat-label>
+          <input matInput  [(ngModel)]="searchId">
+          <button
+          (click)="filter(searchId, 'id')"
+          matSuffix
+          color="primary"
+          mat-icon-button
+          >
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+  
+      <div class="item">
+        <mat-form-field appearance="outline" class="forms">
+          <mat-label>Filter by species</mat-label>
+          <mat-select value="{{ pet.species }}"  (selectionChange)="filter($event, 'species')">
+            <mat-option value="">All</mat-option>
+            <mat-option value="dog">Dog</mat-option>
+            <mat-option value="cat">Cat</mat-option>
+            <mat-option value="bird">Bird</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="item">
+        <mat-form-field appearance="outline" class="forms">
+          <mat-label>Filter by status</mat-label>
+          <mat-select value="{{ pet.status }}" (selectionChange)="filter($event, 'status')">
+            <mat-option value="">All</mat-option>
+            <mat-option value="lost">Lost</mat-option>
+            <mat-option value="found">Found</mat-option>
+            <mat-option value="seen nearby">Seen nearby</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+    </div>
+  
+  
+    <div class="petList">
+      <div class="cards-container">
+        @for (pet of updatedListPet$ | async; track pet.id) {
+        <mat-list class="cards">
+          <div class="header-card">
+            @if(!pet.user_filename){
+              <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
+            }@else {
+            <img
+              class="img-icon"
+              src="{{ pet.user_filename }}"
+            />
+            }
+            
+            <p class="userName">{{ pet.user_firstName }}</p>
+            <button color="accent" class="btn-header" mat-stroked-button>
+              {{ pet.status }}
+            </button>
+          </div>
+  
+          <div class="pet_image">
+            @if(pet.filename){
+              @defer (on viewport){
+                <img class="img-pet" src="{{ pet.filename }}"/>
+              } @placeholder (minimum 300ms) {
+                <p-skeleton width="400px" height="300px"></p-skeleton>
+              }
+            } @else {
+              <p-skeleton width="400px" height="300px"></p-skeleton>
+            }
+          </div>
+  
+          <mat-list-item></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Id: <span>{{ pet.id }}</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Pet Name: <span>{{ pet.name }}</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Breed: <span>{{ pet.breed }}</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Specie: <span>{{ pet.species }}</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Sex: <span>{{ pet.sex }}</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Last Location: <span>{{ pet.last_location }}</span></mat-list-item>
+          <mat-divider></mat-divider>
+  
+          <div class="btn-div">
+            <button
+              type="submit"
+              class="btn"
+              color="accent"
+              mat-stroked-button
+            >
+            See rescue
+            </button>
+          </div>
+        </mat-list>
+        } @empty {
+          @defer () {
+          <div class="error">
+            <h2>No pets found</h2>
+          </div>
+        } @loading (minimum 3000ms) {
+          <mat-list class="cards2">
+            <div class="header-card">
+                <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
+                <p-skeleton class="userName"></p-skeleton>
+                <p-skeleton class="btn-header" ></p-skeleton>
+            </div>
+  
+            <div class="pet_image">
+              <p-skeleton width="400px" height="300px"></p-skeleton>
+            </div>
+              <mat-list-item></mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+            <div class="btn-div">
+              <p-skeleton class="btn"></p-skeleton>
+            </div>
+          </mat-list>
+        } }
+      </div>
+      <div class="pagination-container">
+        <mat-paginator
+          color="primary"
+          [pageSizeOptions]="pageSizeOptions"
+          [pageIndex]="pageIndex"
+          [length]="totalPet"
+          [pageSize]="pageSize"
+          aria-label="Select page"
+          (page)="pageChange($event)"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  
+  
+    
+  </div>
+  

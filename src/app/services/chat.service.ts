@@ -18,25 +18,29 @@ export class ChatService {
   private recipient$ = new BehaviorSubject({
     id: '',
     name: '',
+    profilePic: '',
+    idFriendship: ''
   });
 
   constructor(private http: HttpClient) {}
 
-  getFriendById(user: any): Observable<User[]> {
+  getFriendById(id: any): Observable<User[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${token}`);
 
-    return this.http.get<User[]>(`${this.urlApi}/user/${user.id}`, { headers });
+    return this.http.get<User[]>(`${this.urlApi}/user/${id}`, { headers });
   }
 
   returnRecipient$() {
     return this.recipient$.asObservable();
   }
 
-  addNewRecipient(recipientId: string, recipientName: string) {
+  addNewRecipient(recipientId: string, recipientName: string, recipientProfilePic: string, idFriendship: string) {
     this.recipient$.next({
       id: recipientId,
       name: recipientName,
+      profilePic: recipientProfilePic,
+      idFriendship: idFriendship
     });
   }
 
@@ -54,55 +58,17 @@ export class ChatService {
     message: string,
     authorMessageId: string,
     recipientId: string,
-    time: Date
+    time: Date,
+    type: string,
+    friendshipId: string
   ) {
     this.socket.emit('message', {
       message,
       authorMessageId,
       recipientId,
       time,
-    });
-  }
-
-  sentNewFriendship(
-    authorMessageId: string,
-    recipientId: string,
-    name: string,
-    idFriendship: string
-  ) {
-    this.socket.emit('friendship', {
-      authorMessageId,
-      recipientId,
-      name,
-      idFriendship,
-    });
-  }
-
-  acceptFriendship(
-    authorMessageId: string,
-    recipientId: string,
-    name: string,
-    idFriendship: string
-  ) {
-    this.socket.emit('acceptedFriendship', {
-      authorMessageId,
-      recipientId,
-      name,
-      idFriendship,
-    });
-  }
-
-  deleteFriendshipRequest(
-    authorMessageId: string,
-    recipientId: string,
-    name: string,
-    idFriendship: string
-  ) {
-    this.socket.emit('deleteFriendshipRequest', {
-      authorMessageId,
-      recipientId,
-      name,
-      idFriendship,
+      type,
+      friendshipId
     });
   }
 
@@ -113,8 +79,9 @@ export class ChatService {
   ): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${token}`);
+
     // Adicione o recipientId, offset e limit como parâmetros na URL
-    const url = `${this.urlApi}/messages?recipientId=${recipient.id}&offset=${offset}&limit=${limit}`;
+    const url = `${this.urlApi}/messages?recipientId=${recipient.id}&friendshipId=${recipient.idFriendship}&offset=${offset}&limit=${limit}`;
 
     return this.http.get(url, { headers });
   }
@@ -157,24 +124,10 @@ export class ChatService {
     });
   }
 
-  acceptedFriendsListener(): Observable<any> {
+  rescueListener(): Observable<any> {
     return new Observable((observer) => {
       // Escute as mensagens recebidas do servidor
-      this.socket.on('acceptedFriendship', (message: any) => {
-        observer.next(message);
-      });
-
-      // Limpe os recursos quando o observador é cancelado
-      return () => {
-        this.socket.disconnect();
-      };
-    });
-  }
-
-  deleteFriendshipRequestListener(): Observable<any> {
-    return new Observable((observer) => {
-      // Escute as mensagens recebidas do servidor
-      this.socket.on('deleteFriendshipRequest', (message: any) => {
+      this.socket.on('newRescue', (message: any) => {
         observer.next(message);
       });
 
@@ -200,6 +153,6 @@ export class ChatService {
   }
 
   socketdisconnect() {
-    this.socket.disconnect().connect();
+    this.socket.disconnect();
   }
 }

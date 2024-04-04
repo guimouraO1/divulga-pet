@@ -1,4 +1,6 @@
 @use "../../../assets/colors/colors.scss" as *;
+@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+
 * {
   margin: 0;
 }
@@ -102,6 +104,7 @@ input {
   background-size: cover;
   background-color: $cardBackground;
   overflow: hidden;
+
   p-skeleton{
     height: 280px;
     width: 280px;
@@ -190,6 +193,7 @@ input::placeholder {
   height: 60px;
   border-radius: 100%;
   object-fit: cover;
+  box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.1);
 }
 
 .userPerfilImg {
@@ -328,7 +332,6 @@ mat-paginator {
 
 .btn-header {
   text-transform: uppercase;
-  color: red !important;
   width: 100px;
   border: 1px solid rgba(100, 100, 100, 0.103) !important;
   transition: none;
@@ -359,4 +362,41 @@ mat-paginator {
 }
 ::ng-deep .mdc-list-item__primary-text {
   color: $text_primary !important;
+}
+
+
+mat-list-item{
+  font-weight: bold;
+  span{
+    font-weight: 100;
+    color: $primary !important;
+  }
+}
+
+::ng-deep .p-confirm-popup {
+  font-family: "Delius", cursive;
+  font-weight: 400;
+  font-style: normal;
+  background-color: $cardBackground !important;
+  color: $text_primary;
+  border: none;
+  box-shadow: 0px 0px 15px -3px rgba(0,0,0,0.1);
+
+  .p-button.p-button-text {
+    color: $text_primary !important;
+  }
+  .p-button {
+    color: #030712;
+    background: $cardBackground;
+    border: none;
+    padding: 0.4rem 1.25rem;
+    font-size: 1rem;
+    box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.1);
+    border-radius: 6px;
+  }
+}
+
+
+::ng-deep .mdc-list-item__content{
+  color: $text_primary;
 }

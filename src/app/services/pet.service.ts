@@ -19,7 +19,14 @@ export class PetService {
     return this.http.get<Pet[]>(`${this.urlApi}/userPublications`, { headers });
   }
 
-  getPublications(filter: any, offset: number, limit: number): Observable<Pet[]> {
+  deletePublications(id: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('authorization', `${token}`);
+    
+    return this.http.delete(`${this.urlApi}/publications/${id}`, { headers });
+  }
+
+  getPublications(filter: any, offset: number, limit: number, page: string): Observable<Pet[]> {
     let params = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString());
@@ -30,6 +37,11 @@ export class PetService {
     if (filter.status) {
       params = params.set('status', filter.status);
     }
+    if (filter.id) {
+      params = params.set('id', filter.id);
+    }
+    
+    params = params.set('page', page);
 
     return this.http.get<Pet[]>(`${this.urlApi}/publications`, { params: params });
   }
@@ -54,11 +66,11 @@ export class PetService {
   }
 
 
-  rescuePet(friendUserId: string, petPostId: string): Observable<any> {
+  rescuePet(pet: Pet): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${token}`);
 
-    return this.http.post(`${this.urlApi}/friends`, { friendUserId, petPostId }, { headers });
+    return this.http.post(`${this.urlApi}/friends`, { friendUserId: pet.user_id, petPostId: pet.id }, { headers });
   }
   
 }

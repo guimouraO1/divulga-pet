@@ -30,33 +30,42 @@
         } @for (friend of filteredFriendList; track $index) {
         <div class="friends-card" (click)="goToUser(friend)">
           <div class="status">
-            @if (friend.petFilename !== '') {
+            @if (friend.userFilename !== '') {
               <div class="img-nav">
                 @if (friend.online){
-                  <mat-icon color="primary" class="connected">fiber_manual_record</mat-icon>
+                  <mat-icon color="accent" class="connected">fiber_manual_record</mat-icon>
                 } @else {
                 <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
                 }
-                <img src="{{ friend.petFilename }}" alt="">
+                <img src="{{ friend.userFilename }}" alt="">
               </div>
             } @else {
               <div class="img-nav">
                 @if (friend.online){
-                  <mat-icon color="primary" class="connected">fiber_manual_record</mat-icon>
+                  <mat-icon color="accent" class="connected">fiber_manual_record</mat-icon>
                 } @else {
-                <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
+                   <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
                 }
                 <button color="primary" mat-icon-button>
                   <mat-icon>person</mat-icon>
                 </button>
             </div>
             }
-            <p class="userName">🐾 {{ friend.petName }} & {{ friend.name }} </p>
+            <p class="userName"> {{ friend.name }} </p>
           </div>
 
-          @if (this.newMessages.has(friend.id) &&
-          this.newMessages.get(friend.id) > 0) { @if
-          (this.newMessages.get(friend.id) > 9) {
+        @if (this.newMessages.has(friend.id) && this.newMessages.get(friend.id) > 0) 
+          { 
+            @if (this.newMessages.get(friend.id) > 9) {
+        <button
+            matSuffix
+            type="button"
+            color="primary"
+            mat-icon-button
+            matTooltip="Rescue pet? Click here!"
+            matTooltipPosition="after">
+          <mat-icon>pets</mat-icon>
+        </button>
           <button
             matSuffix
             color="primary"
@@ -70,6 +79,15 @@
           } @else {
           <div class="messages">
             <button
+            matSuffix
+            type="button"
+            color="primary"
+            mat-icon-button
+            matTooltip="Rescue pet? Click here!"
+            matTooltipPosition="after">
+          <mat-icon>pets</mat-icon>
+        </button>
+            <button
               matSuffix
               color="primary"
               mat-icon-button
@@ -81,8 +99,20 @@
               <mat-icon>mail_outline</mat-icon>
             </button>
           </div>
-          } } @else {
+          } 
+        
+        } @else {
+            
           <div class="message">
+          <button
+              matSuffix
+              type="button"
+              color="primary"
+              mat-icon-button
+              matTooltip="Rescue pet? Click here!"
+              matTooltipPosition="after">
+            <mat-icon>pets</mat-icon>
+          </button>
             <button matSuffix color="primary" mat-icon-button>
               <mat-icon>mail_outline</mat-icon>
             </button>
@@ -93,61 +123,7 @@
         } @empty { 
           
         } 
-        
-        <!-- @if(this.friendListRequestReceived.length > 0) {
-        <span>Friend request recived</span>
-        } @for (friend of this.friendListRequestReceived; track $index) {
-        <div class="friends-card">
-          <div class="status">
-            <mat-icon>fiber_manual_record</mat-icon>
-            <p class="userName">{{ friend.name }}</p>
-          </div>
-          <div class="message">
-            <button
-              (click)="refuseNgFriendship($event, friend)"
-              mat-icon-button
-              color="warn"
-            >
-              <mat-icon>delete_forever</mat-icon>
-            </button>
-            <button
-              (click)="acceptNgFriendship($event, friend)"
-              mat-icon-button
-              color="primary"
-            >
-              <mat-icon>check_circle</mat-icon>
-            </button>
-          </div>
-        </div>
 
-        } @if(this.friendListRequestSent.length > 0) {
-        <span>Friend request sent</span>
-        } @for (friend of this.friendListRequestSent; track $index) {
-        <div class="friends-card">
-          <div class="status">
-            <mat-icon>fiber_manual_record</mat-icon>
-            <p class="userName">{{ friend.name }}</p>
-          </div>
-          <div class="message">
-            <button
-              (click)="refuseNgFriendshipSent($event, friend)"
-              mat-icon-button
-              color="warn"
-            >
-              <mat-icon>delete_forever</mat-icon>
-            </button>
-
-            <button
-              matTooltip="Waiting for user response"
-              matTooltipPosition="after"
-              mat-icon-button
-              color="primary"
-            >
-              <mat-icon>autorenew</mat-icon>
-            </button>
-          </div>
-        </div>
-        } -->
       </div>
     </div>
   </div>

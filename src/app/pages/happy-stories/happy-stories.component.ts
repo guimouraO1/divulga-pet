@@ -15,10 +15,8 @@ import { MatSelectModule } from '@angular/material/select';
 import {
   Observable,
   Subject,
-  firstValueFrom,
   lastValueFrom,
   of,
-  take,
   takeUntil,
 } from 'rxjs';
 import { Pet } from '../../models/pet.model';
@@ -30,12 +28,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
-import { ChatService } from '../../services/chat.service';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
+
 @Component({
-  selector: 'app-find-pet',
+  selector: 'app-happy-stories',
   standalone: true,
   imports: [
     FormsModule,
@@ -55,11 +53,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatInputModule,
     MatFormFieldModule
   ],
-  templateUrl: './find-pet.component.html',
-  styleUrl: './find-pet.component.scss',
+  templateUrl: './happy-stories.component.html',
+  styleUrl: './happy-stories.component.scss',
   providers: [ConfirmationService, MessageService],
 })
-export class FindPetComponent {
+export class HappyStoriesComponent {
   protected petList: Pet[] = [];
   protected updatedListPet$: Observable<Pet[]> | undefined;
   private destroy$ = new Subject<void>();
@@ -85,9 +83,7 @@ export class FindPetComponent {
     private petService: PetService,
     private route: ActivatedRoute,
     private router: Router,
-    public messageService: MessageService,
-    private confirmationService: ConfirmationService,
-    private chatService: ChatService
+    public messageService: MessageService
   ) {}
 
   async ngOnInit() {
@@ -106,7 +102,6 @@ export class FindPetComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe( async (user: any) => {
         this.user = user;
-        await this.connectUser();
       });
   }
 
@@ -125,7 +120,7 @@ export class FindPetComponent {
       }
 
       const res: any = await lastValueFrom(
-        this.petService.getPublications(this.pet, this.offset, this.limit, 'find')
+        this.petService.getPublications(this.pet, this.offset, this.limit, 'happy')
       );
 
       const petList: Pet[] = res.publications;
@@ -190,99 +185,6 @@ export class FindPetComponent {
     });
   }
 
-  async connectUser() {
-    try {
-      this.chatService.connect(this.user);
-    } catch (e) {
-      //
-    }
-  }
-  
-  async rescuePet(pet: Pet) {
 
-    if (this.user.id === pet.user_id){
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Error',
-        detail: 'You cannot redeem in your own post',
-        life: 3000,
-      });
-      return;
-    } 
-    try {
-      const friendshipId: any = await firstValueFrom(this.petService.rescuePet(pet));
-      // console.log(res)
-      this.messageService.add({
-        severity: 'info',
-        summary: 'Confirmed',
-        detail: 'You have accepted',
-        life: 3000,
-      });
-      
-      await this.router.navigate(['/chat',  friendshipId])
-      
-      this.sendFirstMessage(pet, friendshipId);
-
-
-    } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: error.error,
-        life: 3000,
-      });
-    }
-  }
-
-  // Send message to private recipient in real time, and backend save on db.
-  sendFirstMessage(pet: Pet, friendshipId: string) {
-    
-    this.chatService.sendMessage(
-      pet.filename, // message
-      this.user.id, // authorMessageId
-      pet.user_id, // recipientId
-      new Date(),
-      "img",
-      friendshipId // Id post pet
-    );
-
-    this.chatService.sendMessage(
-      `Olá eu me chamo ${ this.user.name } e desejo resgatar o ${ pet.name } com id ${ pet.id }`, // message
-      this.user.id, // authorMessageId
-      pet.user_id, // recipientId
-      new Date(), // time
-      "message", // type
-      friendshipId // Id post pet
-    );
-  }
-
-  confirm1(event: Event, pet: Pet) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Are you sure you want to rescue this pet?',
-      icon: 'pi pi-exclamation-triangle',
-      accept: async () => {
-        if(!this.user){
-          this.messageService.add({
-            severity: 'warn',
-            summary: 'Unauthorized',
-            detail: 'You must be logged in to rescue this pet',
-            life: 3000,
-          });
-          return;
-        }
-        await this.rescuePet(pet);
-
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: 'warn',
-          summary: 'Cancel',
-          detail: 'You canceled the redemption',
-          life: 3000,
-        });
-      }
-    });
-  }
-  
 }
+

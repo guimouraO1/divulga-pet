@@ -121,81 +121,80 @@
     </div>
   </div>
 
-  <div class="container-posts" id="container-posts">
-    <div class="petList">
-      <h3>Your posts</h3>
-
-      <div class="cards-container">
-        @for (pet of petList; track pet.id) {
-        <mat-list class="cards">
-          <div class="header-card">
-            <img class="img-icon" src="{{ user.profile_pic }}"/>
-            <p class="userName">{{ user.name }}</p>
-            <button color="warn" class="btn-header" mat-stroked-button>
-              {{ pet.status }}
-            </button>
-          </div>
-          <div class="pet_image">
-            @if(pet.filename){
-              @defer (on viewport){
-                <img class="img-pet" src="{{ pet.filename }}"/>
-              } @placeholder (minimum 300ms) {
+  @if (this.petList.length > 0) {
+    <div class="container-posts" id="container-posts">
+      <div class="petList">
+        <h3>Your posts</h3>
+        <div class="cards-container">
+          @for (pet of petList; track pet.id) {
+          <mat-list class="cards">
+            <div class="header-card">
+              <img class="img-icon" src="{{ user.profile_pic }}"/>
+              <p class="userName">{{ user.name }}</p>
+              @if (pet.status == 'Rescued') {
+                <button color="accent" class="btn-header" mat-stroked-button>
+                  {{ pet.status }}
+                </button>
+              }@else {
+                <button color="warn" class="btn-header" mat-stroked-button>
+                  {{ pet.status }}
+                </button>
+              }
+            </div>
+            <div class="pet_image">
+              @if(pet.filename){
+                @defer (on viewport){
+                  <img class="img-pet" src="{{ pet.filename }}"/>
+                } @placeholder (minimum 300ms) {
+                  <p-skeleton width="400px" height="300px"></p-skeleton>
+                }
+              } @else {
                 <p-skeleton width="400px" height="300px"></p-skeleton>
               }
-            } @else {
-              <p-skeleton width="400px" height="300px"></p-skeleton>
-            }
-          </div>
-  
-          <mat-list-item></mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>Pet Name: {{ pet.name }}</mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>Breed: {{ pet.breed }}</mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>Specie: {{ pet.species }}</mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>Sex: {{ pet.sex }}</mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>Last Location: {{ pet.last_location }}</mat-list-item>
-          <mat-divider></mat-divider>
-  
-          <div class="btn-div">
-            <button
-              [disabled]="true"
-              type="text"
-              class="btn"
-              color="primary"
-              mat-stroked-button
-            >
-              Rescue Pet
-            </button>
-          </div>
-        </mat-list>
-        } @empty {
-            <mat-list class="cards2">
-              <div class="header-card">
-                  <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
-                  <p-skeleton class="userName"></p-skeleton>
-                  <p-skeleton class="btn-header" ></p-skeleton>
-              </div>
+            </div>
     
-              <div class="pet_image">
-                <p-skeleton width="400px" height="300px"></p-skeleton>
-              </div>
-                <mat-list-item></mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
-                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
-                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
-                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
-                <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
-              <div class="btn-div">
-                <p-skeleton class="btn"></p-skeleton>
-              </div>
-            </mat-list>
-        } 
+            <mat-list-item></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>Id: <span>{{ pet.id }}</span></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>Pet Name: <span>{{ pet.name }}</span></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>Breed: <span>{{ pet.breed }}</span></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>Specie: <span>{{ pet.species }}</span></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>Sex: <span>{{ pet.sex }}</span></mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>Last Location: <span>{{ pet.last_location }}</span></mat-list-item>
+            <mat-divider></mat-divider>
+    
+            <div class="btn-div">
+              @if (pet.status == 'Rescued') {
+                <button
+                type="text"
+                class="btn"
+                color="accent"
+                mat-stroked-button
+              >
+                See happy storie
+              </button>
+              } @else {
+                <button
+                (click)="confirm3($event, pet.id)"
+                type="text"
+                class="btn"
+                color="warn"
+                mat-stroked-button
+              >
+                Delete post
+              </button>
+              }
+            </div>
+          </mat-list>
+          }
+        </div>
+        </div>
       </div>
-      </div>
-    </div>
+
+  }
   </div>

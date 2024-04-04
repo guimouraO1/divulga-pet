@@ -13,7 +13,7 @@
   display: flex;
   justify-content: flex-start;
   margin-left: 4vw;
-  color: #dce1de;
+  color: $background;
   cursor: pointer;
   text-decoration: none;
   font-weight: 900;
@@ -32,7 +32,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $text_primary;
+  color: $background;
   text-decoration: none;
   margin: 0px 10px;
   width: 200px;

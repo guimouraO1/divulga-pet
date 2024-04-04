@@ -7,5 +7,6 @@ export interface Friends {
     userFilename?: any,
     petFilename?: any,
     petName?: any,
-    online?: boolean
+    online?: boolean,
+    idFriendship: string
 }

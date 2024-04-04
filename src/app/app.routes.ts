@@ -31,10 +31,10 @@ export const routes: Routes = [
           import('./pages/find-pet/find-pet.component').then((p) => p.FindPetComponent),
       },
       {
-        path: 'map',
-        title: 'FindPet | Map',
+        path: 'happyStories',
+        title: 'FindPet | Happy Stories',
         loadComponent: () =>
-          import('./components/map/map.component').then((p) => p.MapComponent),
+          import('./pages/happy-stories/happy-stories.component').then((p) => p.HappyStoriesComponent),
       },
     ],
   },

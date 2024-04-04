@@ -1,8 +1,24 @@
-<div class="container" [class.isMine]="message.isMine">
+@if (message.type === 'img') {
+<div
+  class="container"
+  [class.isMine]="message.isMine"
+>
+  <img
+    style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;"
+    src="{{ message.message }}"
+    alt=""
+  />
+</div>
+} @else {
+<div
+  class="container"
+  [class.isMine]="message.isMine"
+>
   <div class="balloon">
     <span>{{ message.message }}</span>
     <span class="time">
-        {{ message.time | date: 'hh:mm a' }}
+      {{ message.time | date : 'hh:mm a' }}
     </span>
   </div>
 </div>
+}

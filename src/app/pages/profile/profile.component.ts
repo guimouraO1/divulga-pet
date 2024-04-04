@@ -25,6 +25,7 @@ import { PetService } from '../../services/pet.service';
 import { UserService } from '../../services/user.service';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { GoogleMap, MapGeocoder } from '@angular/google-maps';
+import { Pet } from '../../models/pet.model';
 
 @Component({
   selector: 'app-profile',
@@ -69,7 +70,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private geocoder: MapGeocoder
   ) {
     this.userForm = this.fb.group({
-      firstName: ['', [Validators.maxLength(40), Validators.minLength(4)]],
+      firstName: ['', [Validators.maxLength(40), Validators.minLength(3)]],
       lastName: ['', [Validators.maxLength(40)]],
       telephone: ['', [Validators.maxLength(40)]],
       address: ['', [Validators.maxLength(800)]],
@@ -130,10 +131,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   scrollToContainer() {
-    const containerElement =
-      this.el.nativeElement.querySelector('#container-posts');
+    if(this.petList.length <= 0){
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'You have no publications',
+        life: 3000,
+      });
+      return;
+    }
+    const containerElement = this.el.nativeElement.querySelector('#container-posts');
     if (containerElement) {
-      // Rola até o elemento
       containerElement.scrollIntoView({ behavior: 'smooth' });
     }
   }
@@ -185,6 +193,45 @@ export class ProfileComponent implements OnInit, OnDestroy {
         });
       },
     });
+  }
+  
+  confirm3(event: Event, id: string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to delete this post?',
+      icon: 'pi pi-exclamation-triangle',
+      accept: async () => {
+        await this.deletePublications(id);
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Canceled',
+          detail: 'You canceled the action',
+          life: 3000,
+        });
+      },
+    });
+  }
+
+  async deletePublications(id: string){
+    try {
+      await lastValueFrom(this.petService.deletePublications(id));
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: `Publication id ${id} deleted`,
+        life: 3000,
+      });
+      this.petList = this.petList.filter((pet: Pet) => pet.id !== id);
+    } catch (error) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Error, try again',
+        life: 3000,
+      });
+    }
   }
 
   async uploadImage() {

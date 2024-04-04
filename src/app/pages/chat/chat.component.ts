@@ -80,6 +80,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.fetchMessages();
     // Listens for new messages from newMessageEmmiter and newMessageEmmiterId.
     this.setupMessageListeners();
+
+    // this.rescueListener();
   }
 
   private subscribeToUserChanges(): void {
@@ -125,15 +127,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   async getFriends() {
     try {
-      const friends: Friends[] = await firstValueFrom(
-        this.friendsService.getFriends()
-      );
-      this.friendList = friends.filter(
-        (friend) => friend.status === 'Accepted'
-      );
+      const friends: Friends[] = await firstValueFrom(this.friendsService.getFriends());
+      this.friendList = friends.filter((friend) => friend.status === 'Accepted');
 
       await Promise.all(this.friendList.map(async (friend) => {
-          await this.getMessages(friend, 0, 10);
+          // await this.getMessages(friend, 0, 10);
         })
       );
 
@@ -193,18 +191,18 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   // When click on a friend card it takes you to chat with that user.
-  goToUser(recipient: Friends) {
+  goToUser(friend: Friends) {
     try {
-      this.updateMessageAsRead(recipient.id, this.user.id);
+      this.updateMessageAsRead(friend.id, this.user.id);
     } catch (error) {}
-    this.chatService.addNewRecipient(recipient.id, recipient.name);
+    this.chatService.addNewRecipient(friend.id, friend.name, friend.userFilename, friend.idFriendship);
     // Checks if userId is present in newMessagesId.
-    if (this.newMessages.has(recipient.id)) {
+    if (this.newMessages.has(friend.id)) {
       // Remove userId to newMessagesId.
-      this.newMessages.delete(recipient.id);
+      this.newMessages.delete(friend.id);
     }
     // Checks if recipient is your friend.
-    this.router.navigate(['chat', recipient.id]);
+    this.router.navigate(['chat', friend.idFriendship]);
   }
 
   searchFriendFunc() {

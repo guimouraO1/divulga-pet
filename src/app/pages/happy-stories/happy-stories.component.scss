@@ -78,7 +78,7 @@ mat-form-field {
 .cards {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 420px;
   height: 650px;
   box-shadow: $cardShadowPrimary;
   border-radius: 10px;
@@ -91,23 +91,33 @@ mat-form-field {
   display: flex;
   align-items: center;
   text-align: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0px 20px;
+
+  .header-img-name{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+  }
 }
+
 mat-list-item{
   font-weight: bold;
   span{
     font-weight: 100;
-    color: $primary !important;
+    color: $text_primary !important;
+    opacity: .8;
   }
 }
 
 .userName {
   margin: 0;
   padding: 0;
-  // margin-left: 2%;
   font-weight: 600;
   color: $text_primary !important;
 }
+
 
 .img-icon {
   width: 60px;
@@ -144,9 +154,7 @@ mat-icon:first-child {
   transform: scale(2.8);
 }
 
-mat-icon:last-child {
-  transform: scale(1.4);
-  margin-right: 20px;
+mat-icon:last-child { //Copy ID
   cursor: pointer;
 }
 
@@ -180,29 +188,37 @@ mat-paginator {
 .pet_image {
   width: 400px;
   height: 300px;
+  margin: 10px;
   object-fit: cover;
+  border-radius: 20px;
 }
 
 .img-pet {
   width: 400px;
   height: 300px;
   object-fit: cover;
+  border-radius: 8px;
 }
 
 .btn-header {
-  width: 100px;
-  font-size: 16px;
+  border-radius: 20px;
+  margin: 4px 8px;
+  align-self: flex-end;
+  color: #fff !important;
 }
+
 .cards2 {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 420px;
   height: 650px;
-  box-shadow: $cardShadowPrimary;
   border-radius: 10px;
-  background-color: #343a40 !important;
+  background-color: #272727 !important;
+  gap: 10px;
 }
-
+.itemSke {
+  padding: 0px 10px;
+}
 /* Substitue a cor da borda do input */
 ::ng-deep .mdc-notched-outline > * {
   border-color: $borderPrimary !important;
@@ -261,4 +277,3 @@ input {
 ::ng-deep .mdc-list-item__content{
   color: $text_primary;
 }
-

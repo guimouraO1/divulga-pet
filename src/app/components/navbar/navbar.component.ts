@@ -21,7 +21,7 @@ export class NavbarComponent implements OnDestroy, OnInit {
   private destroy$ = new Subject<void>();
 
   constructor(
-    private router: Router,
+    protected router: Router,
     private authService: AuthService,
     private chatService: ChatService
   ) {

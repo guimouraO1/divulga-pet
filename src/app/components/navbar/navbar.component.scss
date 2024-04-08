@@ -3,7 +3,7 @@
 .navContainer {
   height: 10vh;
   min-height: 80px;
-  background-color: $primary;
+  background: $primary;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,7 +32,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $background;
   text-decoration: none;
   margin: 0px 10px;
   width: 200px;
@@ -44,12 +43,16 @@
   font-size: 25px;
 }
 
-.navItens:hover {
-
-  background-color: $background;
-  color: $primary;
-
+.navItens.active {
+  background-color: $background; /* Defina o fundo branco como necessário */
+  color: $primary; /* Defina a cor do texto como necessária */
 }
+
+.navItens:hover {
+  background-color: $background; /* Você pode ajustar isso conforme necessário */
+  color: $primary; /* Você pode ajustar isso conforme necessário */
+}
+
 
 .navMode {
   display: flex;

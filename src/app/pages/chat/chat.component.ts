@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterOutlet } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { Subject, firstValueFrom, takeUntil } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MessagesComponent } from '../../components/messages/messages.component';
@@ -20,6 +19,9 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../../services/auth.service';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import {MatRadioModule} from '@angular/material/radio';
 
 @Component({
   selector: 'app-chat',
@@ -39,7 +41,10 @@ import { AuthService } from '../../services/auth.service';
     MatTooltipModule,
     ConfirmPopupModule,
     ToastModule,
-  ],
+    DialogModule,
+    InputTextareaModule,
+    MatRadioModule
+   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
   providers: [ConfirmationService, MessageService],
@@ -51,13 +56,17 @@ export class ChatComponent implements OnInit, OnDestroy {
   
   protected searchInput: string = '';
   
+  protected visibleModal: boolean = false;
   protected hide: boolean = true;
 
   protected onlineFriends: Friends[] = [];
   protected friendList: Friends[] = [];
   protected filteredFriendList: Friends[] = [];
-
+  protected rescuedUser: Friends| undefined;
   private destroy$ = new Subject<void>();
+  protected happyText: string | undefined;
+
+  protected modalRadioButton: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -82,6 +91,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.setupMessageListeners();
 
     // this.rescueListener();
+  }
+
+
+  protected petRescued(friend: Friends){
+    this.rescuedUser = friend;
+    this.visibleModal = true; // fazer rescued pet!
   }
 
   private subscribeToUserChanges(): void {

@@ -129,7 +129,9 @@ mat-label{
     flex-direction: column;
 
 }
-
+p-skeleton{
+    background-color: chartreuse !important;
+}
 ::ng-deep .mat-horizontal-content-container{
         overflow: hidden;
         padding: 0 24px 24px 24px;

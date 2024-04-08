@@ -25,6 +25,48 @@
         </div>
 
       <div class="friends" [class.hide]="hide">
+        <p-dialog header="Rescuing Pet" [(visible)]="visibleModal" [modal]="true" [style]="{ width: '60vw'}" [draggable]="true" [resizable]="false">
+          <p class="">
+            We are almost there!
+          </p>
+          <p>
+            We are in the last stage of rescuing the pet and I need you to fill out all the fields.
+          </p>
+          <div class="modal">
+
+            <div style="width: 80%;">
+              <p>Pet has rescued by {{ rescuedUser?.name }}?</p>
+              <mat-radio-group [(ngModel)]="modalRadioButton" aria-label="Select an option">
+                <mat-radio-button color="accent" [value]="true">Yes</mat-radio-button>
+                <mat-radio-button color="warn" [value]="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <!-- <mat-form-field class="items" appearance="outline">
+              <input
+                matInput
+                #searchField
+              />
+              <button
+                matSuffix
+                color="primary"
+                mat-icon-button>
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field> -->
+
+            <div class="modaltextarea">
+              <p>Write a happy history</p>
+              <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="happyText"></textarea>
+            </div>
+
+            <div>
+              <button [disabled]="!modalRadioButton" color="primary" style="width: 200px;" mat-stroked-button>RESCUE!!!!</button>
+            </div>
+          </div>
+
+      </p-dialog>
+
         @if (filteredFriendList.length > 0) {
         <span>Rescuing</span>
         } @for (friend of filteredFriendList; track $index) {
@@ -57,15 +99,19 @@
         @if (this.newMessages.has(friend.id) && this.newMessages.get(friend.id) > 0) 
           { 
             @if (this.newMessages.get(friend.id) > 9) {
-        <button
-            matSuffix
-            type="button"
-            color="primary"
-            mat-icon-button
-            matTooltip="Rescue pet? Click here!"
-            matTooltipPosition="after">
-          <mat-icon>pets</mat-icon>
-        </button>
+              @if (friend.senderID != this.user.id) {
+                <button
+                (click)="petRescued(friend)"
+                  matSuffix
+                  type="button"
+                  color="primary"
+                  mat-icon-button
+                  matTooltip="Rescue pet? Click here!"
+                  matTooltipPosition="after">
+                <mat-icon>pets</mat-icon>
+              </button>
+              }
+
           <button
             matSuffix
             color="primary"
@@ -76,17 +122,22 @@
           >
             <mat-icon>mail_outline</mat-icon>
           </button>
+
           } @else {
           <div class="messages">
-            <button
-            matSuffix
-            type="button"
-            color="primary"
-            mat-icon-button
-            matTooltip="Rescue pet? Click here!"
-            matTooltipPosition="after">
-          <mat-icon>pets</mat-icon>
-        </button>
+            @if (friend.senderID != this.user.id) {
+              <button
+              (click)="petRescued(friend)"
+                matSuffix
+                type="button"
+                color="primary"
+                mat-icon-button
+                matTooltip="Rescue pet? Click here!"
+                matTooltipPosition="after">
+              <mat-icon>pets</mat-icon>
+            </button>
+            }
+
             <button
               matSuffix
               color="primary"
@@ -102,24 +153,25 @@
           } 
         
         } @else {
-            
           <div class="message">
-          <button
-              matSuffix
-              type="button"
-              color="primary"
-              mat-icon-button
-              matTooltip="Rescue pet? Click here!"
-              matTooltipPosition="after">
-            <mat-icon>pets</mat-icon>
-          </button>
+            @if (friend.senderID != this.user.id) {
+              <button
+              (click)="petRescued(friend)"
+                matSuffix
+                type="button"
+                color="primary"
+                mat-icon-button
+                matTooltip="Rescue pet? Click here!"
+                matTooltipPosition="after">
+              <mat-icon>pets</mat-icon>
+            </button>
+            }
             <button matSuffix color="primary" mat-icon-button>
               <mat-icon>mail_outline</mat-icon>
             </button>
           </div>
           }
         </div>
-
         } @empty { 
           
         } 

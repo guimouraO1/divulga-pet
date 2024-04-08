@@ -26,6 +26,8 @@ import { UserService } from '../../services/user.service';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { GoogleMap, MapGeocoder } from '@angular/google-maps';
 import { Pet } from '../../models/pet.model';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-profile',
@@ -46,6 +48,8 @@ import { Pet } from '../../models/pet.model';
     ConfirmPopupModule,
     NgxMaskDirective,
     GoogleMap,
+    ClipboardModule,
+    MatTooltipModule
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],

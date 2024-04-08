@@ -129,18 +129,25 @@
           @for (pet of petList; track pet.id) {
           <mat-list class="cards">
             <div class="header-card">
-              <img class="img-icon" src="{{ user.profile_pic }}"/>
-              <p class="userName">{{ user.name }}</p>
-              @if (pet.status == 'Rescued') {
-                <button color="accent" class="btn-header" mat-stroked-button>
-                  {{ pet.status }}
-                </button>
+              
+              @if(!user.profile_pic){
+                <div class="header-img-name">
+                  <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
+                  <p class="userName">{{ user.name }}</p>
+                </div>
               }@else {
-                <button color="warn" class="btn-header" mat-stroked-button>
-                  {{ pet.status }}
-                </button>
+                <div class="header-img-name">
+                  <img class="img-icon" src="{{ user.profile_pic }}"/>
+                  <p class="userName">{{ user.name }}</p>
+                </div>
               }
+              <mat-icon 
+                [cdkCopyToClipboard]="pet.id" 
+                color="primary"
+                matTooltip="Click here to copy publication ID"
+                >file_copy</mat-icon>
             </div>
+    
             <div class="pet_image">
               @if(pet.filename){
                 @defer (on viewport){
@@ -153,9 +160,16 @@
               }
             </div>
     
-            <mat-list-item></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Id: <span>{{ pet.id }}</span></mat-list-item>
+            @if (pet.status == 'Rescued') {
+              <button color="accent" class="btn-header" mat-flat-button>
+                {{ pet.status }}
+              </button>
+            } @else {
+              <button color="warn" class="btn-header" mat-flat-button>
+                {{ pet.status }}
+              </button>
+            }
+    
             <mat-divider></mat-divider>
             <mat-list-item>Pet Name: <span>{{ pet.name }}</span></mat-list-item>
             <mat-divider></mat-divider>

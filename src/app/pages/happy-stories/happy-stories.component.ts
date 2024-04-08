@@ -30,6 +30,8 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
@@ -51,7 +53,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ConfirmPopupModule,
     ToastModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ClipboardModule,
+    MatTooltipModule
   ],
   templateUrl: './happy-stories.component.html',
   styleUrl: './happy-stories.component.scss',

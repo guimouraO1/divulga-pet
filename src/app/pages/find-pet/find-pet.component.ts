@@ -33,6 +33,8 @@ import { ToastModule } from 'primeng/toast';
 import { ChatService } from '../../services/chat.service';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-find-pet',
@@ -53,7 +55,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     ConfirmPopupModule,
     ToastModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ClipboardModule,
+    MatTooltipModule
   ],
   templateUrl: './find-pet.component.html',
   styleUrl: './find-pet.component.scss',

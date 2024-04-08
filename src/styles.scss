@@ -40,7 +40,7 @@ $custom-primary: (
 );
 
 $custom-accent: (
-  50:  #55af00,
+  50:  #90EE90,
   100: '#d2e2c3',
   200: '#b4cf9c',
   300: '#95bc74',
@@ -68,7 +68,7 @@ $custom-accent: (
 // hue. Available color palettes: https://material.io/design/color/
 $PulseChat-primary: mat.define-palette($custom-primary, 50);
 // $PulseChat-accent: mat.define-palette(mat.$blue-palette, A200, A100, A400); BLUE
-$PulseChat-accent: mat.define-palette($custom-accent, 50);
+$PulseChat-accent: mat.define-palette(mat.$green-palette, 500);
 // The warn palette is optional (defaults to red).
 $PulseChat-warn: mat.define-palette(mat.$red-palette);
 // Create the theme object. A theme consists of configurations for individual
@@ -97,7 +97,7 @@ body {
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
-  background-color: colors.$background;
+  background: colors.$background;
   margin: 0;
   font-family: "Delius", cursive;
   font-weight: 400;

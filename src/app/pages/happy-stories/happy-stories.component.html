@@ -60,20 +60,26 @@
       <div class="cards-container">
         @for (pet of updatedListPet$ | async; track pet.id) {
         <mat-list class="cards">
+
           <div class="header-card">
             @if(!pet.user_filename){
-              <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
+              <div class="header-img-name">
+                <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
+                <p class="userName">{{ pet.user_firstName }}</p>
+              </div>
             }@else {
-            <img
-              class="img-icon"
-              src="{{ pet.user_filename }}"
-            />
+              <div class="header-img-name">
+                  <img
+                  class="img-icon"
+                  src="{{ pet.user_filename }}"/>
+                  <p class="userName">{{ pet.user_firstName }}</p>
+              </div>
             }
-            
-            <p class="userName">{{ pet.user_firstName }}</p>
-            <button color="accent" class="btn-header" mat-stroked-button>
-              {{ pet.status }}
-            </button>
+            <mat-icon 
+              [cdkCopyToClipboard]="pet.id" 
+              color="primary"
+              matTooltip="Click here to copy publication ID"
+              >file_copy</mat-icon>
           </div>
   
           <div class="pet_image">
@@ -87,10 +93,11 @@
               <p-skeleton width="400px" height="300px"></p-skeleton>
             }
           </div>
+          
+          <button color="accent" class="btn-header" mat-flat-button>
+            {{ pet.status }}
+          </button>
   
-          <mat-list-item></mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>Id: <span>{{ pet.id }}</span></mat-list-item>
           <mat-divider></mat-divider>
           <mat-list-item>Pet Name: <span>{{ pet.name }}</span></mat-list-item>
           <mat-divider></mat-divider>
@@ -120,7 +127,7 @@
             <h2>No pets found</h2>
           </div>
         } @loading (minimum 3000ms) {
-          <mat-list class="cards2">
+          <div class="cards2">
             <div class="header-card">
                 <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
                 <p-skeleton class="userName"></p-skeleton>
@@ -130,17 +137,16 @@
             <div class="pet_image">
               <p-skeleton width="400px" height="300px"></p-skeleton>
             </div>
-              <mat-list-item></mat-list-item>
-              <mat-divider></mat-divider>
-              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
-              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
-              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
-              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
-              <mat-list-item><p-skeleton width="10rem" styleClass="mb-2"></p-skeleton></mat-list-item>
+  
+              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
+              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
+              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
+              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
+              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
             <div class="btn-div">
               <p-skeleton class="btn"></p-skeleton>
             </div>
-          </mat-list>
+          </div>
         } }
       </div>
       <div class="pagination-container">

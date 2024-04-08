@@ -1,10 +1,11 @@
 <div class="navContainer">
-  <a routerLink="findPet" class="logo">FindPet</a>
+  <a routerLink="findPet" class="logo">Divulga Pet</a>
   <ul class="navSection">
     <!-- <li routerLink="home"><a class="navItens">Home</a></li> -->
-    <li routerLink="postPet"><a class="navItens">Post Pet</a></li>
-    <li routerLink="findPet"><a class="navItens">Find Pet</a></li>
-    <li routerLink="happyStories"><a class="navItens">Happy Stories</a></li>
+    <li routerLink="postPet"><a class="navItens"  [class.active]="this.router.url==='/postPet'">Post Pet</a></li>
+    <li routerLink="findPet" ><a class="navItens" [class.active]="this.router.url==='/findPet'">Find Pet</a></li>
+    <li routerLink="happyStories"><a class="navItens" [class.active]="this.router.url==='/happyStories'">Happy Stories</a></li>
+    
     <li>
       <div class="nav-icon">
       @if(user) {

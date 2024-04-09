@@ -28,6 +28,7 @@ import { GoogleMap, MapGeocoder } from '@angular/google-maps';
 import { Pet } from '../../models/pet.model';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -71,7 +72,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private petService: PetService,
     private userService: UserService,
-    private geocoder: MapGeocoder
+    private geocoder: MapGeocoder,
+    private router: Router
   ) {
     this.userForm = this.fb.group({
       firstName: ['', [Validators.maxLength(40), Validators.minLength(3)]],
@@ -269,5 +271,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  seeHappyStorie(pet: Pet) {
+    this.router.navigate(['/happyStories'], { queryParams: { id: pet.id } });
   }
 }

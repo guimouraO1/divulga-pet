@@ -1,13 +1,12 @@
 @use './../../../assets/colors/colors.scss' as *;
 
-
 .main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 90vh;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 90vh;
+  overflow: hidden;
 }
 
 /* i {
@@ -16,68 +15,67 @@
     font-size: 2.4rem;
 } */
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 60vw;
+  border-radius: 10px;
+  box-shadow: $cardShadowPrimary;
+  background-color: $cardBackground !important;
+  overflow: hidden;
+  .locationForm {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 60vw;
-    border-radius: 10px;
-    box-shadow: $cardShadowPrimary;
-    background-color: $cardBackground !important;
-    overflow: hidden;
-    .locationForm{
-        display: flex;
-    }
+  }
 }
 
 .card h1 {
-    color: $primary;
+  color: $primary;
 }
 
 .parent {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, auto);
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 0px 20px;    
-    
-    .map{
-        grid-column: 1 / span 2;
-        justify-self: center;
-    }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 0px 20px;
 
-    .mapButton{
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        margin-bottom: 20px;
-        gap: 20px;
-    }
+  .map {
+    grid-column: 1 / span 2;
+    justify-self: center;
+  }
+
+  .mapButton {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 20px;
+  }
 }
 
 .custom-file-upload {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: 500;
-    height: 35px;
-    width: 200px;
-    color: $primary;
-    border: 1px solid $primary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+  height: 35px;
+  width: 200px;
+  color: $primary;
+  border: 1px solid $primary;
 }
 
 .custom-file-upload input {
-    display: none;
-
+  display: none;
 }
 
 .btn {
-    width: 200px;
+  width: 200px;
 }
 .lastBtn {
   grid-column: 1 / span 2;
@@ -85,63 +83,61 @@
   width: 200px;
 }
 .form2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .footer {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    grid-column: 1 / span 2;
-    justify-self: center;
-    margin-top: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  grid-column: 1 / span 2;
+  justify-self: center;
+  margin-top: 20px;
 }
 
 span {
-    color: rgba(80, 80, 80, 0.37);
+  color: rgba(80, 80, 80, 0.37);
 }
 
 mat-select {
-    color: $primary !important;
+  color: $text_primary !important;
 }
-mat-label{
-    color: $text_primary;
-  }
-  ::ng-deep .mdc-notched-outline > * {
-    border-color: $borderPrimary !important;
-  }
-  /* Substitue a cor do texto do input */
-  input {
-    color: $text_primary !important;
-  }
-  
-::ng-deep .mat-horizontal-stepper-header-container{
-    margin-top: 20px;
+mat-label {
+  color: $text_primary;
 }
-::ng-deep .mat-horizontal-stepper-wrapper{
-
-    display: flex;
-    flex-direction: column;
-
-}
-p-skeleton{
-    background-color: chartreuse !important;
-}
-::ng-deep .mat-horizontal-content-container{
-        overflow: hidden;
-        padding: 0 24px 24px 24px;
-        height: 400px;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        justify-content: flex-end;
+//   ::ng-deep .mdc-notched-outline > * {
+//     border-color: $borderPrimary !important;
+//   }
+/* Substitue a cor do texto do input */
+input {
+  color: $text_primary !important;
 }
 
-::ng-deep .mat-step-label{
-    color: $text_primary !important;
+::ng-deep .mdc-list-item__primary-text {
+  color: $text_primary !important;
+}
+::ng-deep .mat-horizontal-stepper-header-container {
+  margin-top: 20px;
+}
+::ng-deep .mat-horizontal-stepper-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .mat-horizontal-content-container {
+  overflow: hidden;
+  padding: 0 24px 24px 24px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+::ng-deep .mat-step-label {
+  color: $text_primary !important;
 }

@@ -22,6 +22,7 @@ import { AuthService } from '../../services/auth.service';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {MatRadioModule} from '@angular/material/radio';
+import { PetService } from '../../services/pet.service';
 
 @Component({
   selector: 'app-chat',
@@ -62,9 +63,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   protected onlineFriends: Friends[] = [];
   protected friendList: Friends[] = [];
   protected filteredFriendList: Friends[] = [];
+  protected friendListRescuers: Friends[] = [];
+
   protected rescuedUser: Friends| undefined;
   private destroy$ = new Subject<void>();
-  protected happyText: string | undefined;
+  protected happyText: string = '';
 
   protected modalRadioButton: boolean = false;
 
@@ -74,7 +77,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     private router: Router,
     private chatService: ChatService,
     public dialog: MatDialog,
-    public messageService: MessageService
+    public messageService: MessageService,
+    private petService: PetService
   ) {
     this.subscribeToUserChanges();
     this.subscribeToRecipientChanges();
@@ -90,15 +94,53 @@ export class ChatComponent implements OnInit, OnDestroy {
     // Listens for new messages from newMessageEmmiter and newMessageEmmiterId.
     this.setupMessageListeners();
 
+    this.connectedUsersListener();
     // this.rescueListener();
   }
 
 
   protected petRescued(friend: Friends){
     this.rescuedUser = friend;
-    this.visibleModal = true; // fazer rescued pet!
+    this.visibleModal = true;
   }
 
+  async rescueToUser(userRescue: Friends) {
+    try {
+      if (this.happyText.trim() === '') {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Error',
+          detail: 'Por favor digite uma mensagem para continuar',
+          life: 3000,
+        });
+        return; 
+      }
+      this.modalRadioButton = false;
+      await firstValueFrom(this.petService.rescueToHappyStories(userRescue, this.happyText));
+
+      this.filteredFriendList = this.friendList.filter((friend) => friend.id !== userRescue.id);
+      this.friendListRescuers.push(userRescue);
+      this.visibleModal = false;
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Pet resgatado!',
+        life: 3000,
+      });
+      this.modalRadioButton = true;
+    
+    } catch (error) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Error',
+        detail: 'Ocorreu um erro durante o resgate, tente novamente',
+        life: 3000,
+      });
+      return; 
+    }
+  }
+  
   private subscribeToUserChanges(): void {
     this.authService
       .User$()
@@ -137,6 +179,13 @@ export class ChatComponent implements OnInit, OnDestroy {
             friend.online = false;
           }
         });
+        this.friendListRescuers.map((friend) => {
+          if (connectedUsersArray.includes(friend.id)) {
+            friend.online = true;
+          } else {
+            friend.online = false;
+          }
+        });
         });
   }
 
@@ -144,14 +193,17 @@ export class ChatComponent implements OnInit, OnDestroy {
     try {
       const friends: Friends[] = await firstValueFrom(this.friendsService.getFriends());
       this.friendList = friends.filter((friend) => friend.status === 'Accepted');
+      this.friendListRescuers = friends.filter((friend) => friend.status === 'Rescued');
 
       await Promise.all(this.friendList.map(async (friend) => {
-          // await this.getMessages(friend, 0, 10);
+          await this.getMessages(friend, 0, 10);
         })
       );
 
       this.filteredFriendList = this.friendList;
-      this.friendsService.updateFriendList(this.friendList);
+      const allFriends = [...this.friendList, ...this.friendListRescuers];
+      console.log(allFriends)
+      this.friendsService.updateFriendList(allFriends);
     } catch (error) {
       console.error('Error while fetching friends:', error);
     }

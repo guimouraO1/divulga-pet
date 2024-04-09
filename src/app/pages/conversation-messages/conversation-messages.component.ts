@@ -176,6 +176,11 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   sendMessage() {
     if (!this.inputMessage || this.inputMessage.trim() === '')
       return;
+    
+    if(!this.friendList.some(friend => friend.id === this.recipient.id)){
+      this.showError();
+      return;
+    }
     const type = 'message'
     this.chatService.sendMessage(
       this.inputMessage, // message

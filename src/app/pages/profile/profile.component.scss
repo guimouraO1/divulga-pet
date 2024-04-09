@@ -43,7 +43,7 @@ mat-label{
 }
 /* Substitue a cor do texto do input */
 input {
-  color: $primary !important;
+  color: $text_primary !important;
 }
 
 .cardH1 {
@@ -130,13 +130,13 @@ input {
 mat-icon {
   height: auto !important;
   width: auto !important;
-  opacity: 0.6;
+  opacity: 0.9;
   cursor: pointer;
   transition: opacity 0.5s ease 0s;
 }
 
 .icon:hover {
-  opacity: 0.3;
+  opacity: 0.8;
   color: #ffffff;
 }
 
@@ -149,10 +149,6 @@ mat-icon {
   min-width: 60vw;
   padding: 40px;
   border-radius: 10px;
-}
-
-input::placeholder {
-  color: #85858536;
 }
 
 .file-label {
@@ -193,12 +189,12 @@ input::placeholder {
   height: 60px;
   border-radius: 100%;
   object-fit: cover;
-  box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: $cardShadowPrimary;
 }
 
 .userPerfilImg {
   position: absolute;
-  box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: $cardShadowPrimary;
 }
 
 .form2 {
@@ -335,6 +331,7 @@ mat-paginator {
   border-radius: 20px;
   margin: 4px 8px;
   align-self: flex-end;
+  color: #fff !important;
 }
 
 .img-icon2 {
@@ -386,10 +383,10 @@ mat-list-item{
   .p-button {
     color: #030712;
     background: $cardBackground;
-    border: none;
+    border: 1px solid #03071225;
     padding: 0.4rem 1.25rem;
     font-size: 1rem;
-    box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.1);
+    box-shadow: $cardShadowPrimary;
     border-radius: 6px;
   }
 }

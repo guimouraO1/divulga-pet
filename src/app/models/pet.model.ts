@@ -13,6 +13,7 @@ export interface Pet {
     date: string;
     latLon?: any;
     userFilename?: any,
-    petFilename?: any
+    petFilename?: any,
+    happyText: string
 }
   

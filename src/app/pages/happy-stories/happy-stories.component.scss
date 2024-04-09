@@ -61,6 +61,59 @@ mat-form-field {
   /* flex-direction: column; */
   gap: 30px;
   flex-wrap: wrap;
+
+
+  .main-modal {
+    display: flex;
+    flex-direction: row;
+    height: 70vh;
+    padding: 20px;
+    margin-top: 40px;
+
+    .left {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      padding: 0 !important;
+      .modal-pet-id {
+        width: 400px;
+        p {
+          color: $text_primary;
+        }
+      }
+
+      .modal-image {
+        object-fit: cover;
+        width: 400px;
+        height: 70%;
+        border-radius: 8px;
+      }
+    }
+    .right {
+      width: 50%;
+      .author-modal {
+        border-radius: 8px;
+        padding: 20px;
+        background-color: $cardBackground;
+        box-shadow: $cardShadowPrimary;
+
+        p {
+          padding: 10px;
+          text-wrap: pretty;
+          color: $text_primary;
+        }
+        .header-img-name {
+          
+          display: flex;
+          flex-direction: row;
+          gap: 10px;
+          align-items: center;
+        }
+      }
+    }
+  }
 }
 
 .error {
@@ -94,20 +147,19 @@ mat-form-field {
   justify-content: space-between;
   padding: 0px 20px;
 
-  .header-img-name{
+  .header-img-name {
     display: flex;
     flex-direction: row;
     gap: 10px;
     align-items: center;
   }
 }
-
-mat-list-item{
+mat-list-item {
   font-weight: bold;
-  span{
+  span {
     font-weight: 100;
     color: $text_primary !important;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 
@@ -117,7 +169,6 @@ mat-list-item{
   font-weight: 600;
   color: $text_primary !important;
 }
-
 
 .img-icon {
   width: 60px;
@@ -154,7 +205,8 @@ mat-icon:first-child {
   transform: scale(2.8);
 }
 
-mat-icon:last-child { //Copy ID
+mat-icon:last-child {
+  //Copy ID
   cursor: pointer;
 }
 
@@ -249,15 +301,14 @@ input {
   fill: $primary !important;
 }
 
-
 ::ng-deep .p-confirm-popup {
-  font-family: "Delius", cursive;
+  font-family: 'Delius', cursive;
   font-weight: 400;
   font-style: normal;
   background-color: $cardBackground !important;
   color: $text_primary;
   border: none;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 
   .p-button.p-button-text {
     color: $text_primary !important;
@@ -266,14 +317,25 @@ input {
     color: #030712;
     background: $cardBackground;
     font-weight: 100;
-    border: none;
+    border: 1px solid #03071225;
     padding: 0.4rem 1.25rem;
     font-size: 1rem;
-    box-shadow: 0px 0px 9px 1px rgba(0,0,0,0.1);
+    box-shadow: $cardShadowPrimary;
     border-radius: 6px;
   }
 }
 
-::ng-deep .mdc-list-item__content{
+::ng-deep .mdc-list-item__content {
   color: $text_primary;
+}
+
+::ng-deep .p-dialog {
+  border: none;
+}
+::ng-deep .p-dialog .p-dialog-content {
+  background-color: $background !important;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background-color: $primary;
 }

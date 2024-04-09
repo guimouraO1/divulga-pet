@@ -32,6 +32,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DialogModule } from 'primeng/dialog';
+import { ImageModule } from 'primeng/image';
 
 
 @Component({
@@ -55,7 +57,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatFormFieldModule,
     ClipboardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    DialogModule,
+    ImageModule
   ],
   templateUrl: './happy-stories.component.html',
   styleUrl: './happy-stories.component.scss',
@@ -80,6 +84,8 @@ export class HappyStoriesComponent {
     id: ''
   };
   pageSizeOptions = [3, 6];
+  visibleModal = false;
+
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(

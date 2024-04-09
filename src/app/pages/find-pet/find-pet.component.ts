@@ -134,7 +134,7 @@ export class FindPetComponent {
 
       const petList: Pet[] = res.publications;
       this.totalPet = res.totalItems;
-      console.log(petList);
+
       this.petList.push(...petList);
       this.totalItems = this.petList.length;
       this.updateupdatedListPet$();
@@ -203,7 +203,6 @@ export class FindPetComponent {
   }
   
   async rescuePet(pet: Pet) {
-
     if (this.user.id === pet.user_id){
       this.messageService.add({
         severity: 'warn',
@@ -213,9 +212,10 @@ export class FindPetComponent {
       });
       return;
     } 
+
     try {
       const friendshipId: any = await firstValueFrom(this.petService.rescuePet(pet));
-      // console.log(res)
+      this.sendFirstMessage(pet, friendshipId);
       this.messageService.add({
         severity: 'info',
         summary: 'Confirmed',
@@ -223,14 +223,11 @@ export class FindPetComponent {
         life: 3000,
       });
       
-      await this.router.navigate(['/chat',  friendshipId])
-      
-      this.sendFirstMessage(pet, friendshipId);
-
+      this.router.navigate(['/chat',  friendshipId])
 
     } catch (error: any) {
       this.messageService.add({
-        severity: 'error',
+        severity: 'warn',
         summary: 'Error',
         detail: error.error,
         life: 3000,
@@ -240,7 +237,6 @@ export class FindPetComponent {
 
   // Send message to private recipient in real time, and backend save on db.
   sendFirstMessage(pet: Pet, friendshipId: string) {
-    
     this.chatService.sendMessage(
       pet.filename, // message
       this.user.id, // authorMessageId
@@ -268,7 +264,7 @@ export class FindPetComponent {
       accept: async () => {
         if(!this.user){
           this.messageService.add({
-            severity: 'warn',
+            severity: 'error',
             summary: 'Unauthorized',
             detail: 'You must be logged in to rescue this pet',
             life: 3000,

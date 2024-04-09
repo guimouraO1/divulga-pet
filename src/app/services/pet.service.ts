@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Pet } from '../models/pet.model';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
+import { Friends } from '../models/friends.model';
 
 @Injectable({
   providedIn: 'root',
@@ -69,8 +70,15 @@ export class PetService {
   rescuePet(pet: Pet): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${token}`);
-
+    console.log(pet)
     return this.http.post(`${this.urlApi}/friends`, { friendUserId: pet.user_id, petPostId: pet.id }, { headers });
   }
-  
+
+  rescueToHappyStories(id: Friends, text: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('authorization', `${token}`);
+
+    const body = { rescuedById: id.id, publicationId: id.publicationId, text: text };
+    return this.http.put(`${this.urlApi}/publications`, body, { headers });
+}
 }

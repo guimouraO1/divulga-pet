@@ -60,7 +60,6 @@
     <div class="cards-container">
       @for (pet of updatedListPet$ | async; track pet.id) {
       <mat-list class="cards">
-        
         <div class="header-card">
           @if(!pet.user_filename){
             <div class="header-img-name">
@@ -75,11 +74,18 @@
                 <p class="userName">{{ pet.user_firstName }}</p>
             </div>
           }
-          <mat-icon 
-            [cdkCopyToClipboard]="pet.id" 
+          <button
+          matSuffix
+          matTooltipPosition="after"
+          color="primary"
+          mat-icon-button
+          [cdkCopyToClipboard]="pet.id" 
+          matTooltip="Click here to copy publication ID"
+        > 
+        <mat-icon 
             color="primary"
-            matTooltip="Click here to copy publication ID"
             >file_copy</mat-icon>
+          </button>
         </div>
 
         <div class="pet_image">

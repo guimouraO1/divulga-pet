@@ -23,10 +23,10 @@
   </div>
   <div #bottomMarker></div>
   <mat-form-field class="chat-input" appearance="outline">
+    <mat-label>Envie uma mensagem</mat-label>
     <input
       matInput
       [(ngModel)]="inputMessage"
-      placeholder="Type a message"
       (keyup.enter)="sendMessage()"
     />
     <mat-icon (click)="sendMessage()" matSuffix>send</mat-icon>

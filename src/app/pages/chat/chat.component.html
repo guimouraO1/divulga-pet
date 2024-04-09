@@ -26,155 +26,211 @@
 
       <div class="friends" [class.hide]="hide">
         <p-dialog header="Rescuing Pet" [(visible)]="visibleModal" [modal]="true" [style]="{ width: '60vw'}" [draggable]="true" [resizable]="false">
-          <p class="">
+          <p class="modal-p">
             We are almost there!
           </p>
-          <p>
+          <p class="modal-p">
             We are in the last stage of rescuing the pet and I need you to fill out all the fields.
           </p>
           <div class="modal">
 
             <div style="width: 80%;">
-              <p>Pet has rescued by {{ rescuedUser?.name }}?</p>
-              <mat-radio-group [(ngModel)]="modalRadioButton" aria-label="Select an option">
+              <p class="modal-p">Pet has rescued by {{ rescuedUser?.name }}?</p>
+              <mat-radio-group [(ngModel)]="modalRadioButton">
                 <mat-radio-button color="accent" [value]="true">Yes</mat-radio-button>
                 <mat-radio-button color="warn" [value]="false">No</mat-radio-button>
               </mat-radio-group>
             </div>
-
-            <!-- <mat-form-field class="items" appearance="outline">
-              <input
-                matInput
-                #searchField
-              />
-              <button
-                matSuffix
-                color="primary"
-                mat-icon-button>
-                <mat-icon>search</mat-icon>
-              </button>
-            </mat-form-field> -->
-
             <div class="modaltextarea">
-              <p>Write a happy history</p>
+              <p class="modal-p">Write a happy history</p>
               <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="happyText"></textarea>
+              <span>{{ happyText.length }}</span>
             </div>
 
             <div>
-              <button [disabled]="!modalRadioButton" color="primary" style="width: 200px;" mat-stroked-button>RESCUE!!!!</button>
+              <button [disabled]="!modalRadioButton || happyText.length > 2000" color="primary" (click)="rescueToUser(rescuedUser!)" style="width: 200px;" mat-stroked-button>Resgatado</button>
             </div>
           </div>
 
-      </p-dialog>
+        </p-dialog>
 
         @if (filteredFriendList.length > 0) {
         <span>Rescuing</span>
         } @for (friend of filteredFriendList; track $index) {
-        <div class="friends-card" (click)="goToUser(friend)">
-          <div class="status">
-            @if (friend.userFilename !== '') {
-              <div class="img-nav">
-                @if (friend.online){
-                  <mat-icon color="accent" class="connected">fiber_manual_record</mat-icon>
+            <div class="friends-card" (click)="goToUser(friend)">
+              <div class="status">
+                @if (friend.userFilename !== '') {
+                  <div class="img-nav">
+                    @if (friend.online){
+                      <mat-icon color="accent" class="connected">fiber_manual_record</mat-icon>
+                    } @else {
+                    <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
+                    }
+                    <img src="{{ friend.userFilename }}" alt="">
+                  </div>
                 } @else {
-                <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
+                  <div class="img-nav">
+                    @if (friend.online){
+                      <mat-icon color="accent" class="connected">fiber_manual_record</mat-icon>
+                    } @else {
+                      <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
+                    }
+                    <button color="primary" mat-icon-button>
+                      <mat-icon>person</mat-icon>
+                    </button>
+                </div>
                 }
-                <img src="{{ friend.userFilename }}" alt="">
+                <p class="userName"> {{ friend.name }} </p>
               </div>
-            } @else {
-              <div class="img-nav">
-                @if (friend.online){
-                  <mat-icon color="accent" class="connected">fiber_manual_record</mat-icon>
-                } @else {
-                   <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
-                }
-                <button color="primary" mat-icon-button>
-                  <mat-icon>person</mat-icon>
-                </button>
-            </div>
-            }
-            <p class="userName"> {{ friend.name }} </p>
-          </div>
 
-        @if (this.newMessages.has(friend.id) && this.newMessages.get(friend.id) > 0) 
-          { 
-            @if (this.newMessages.get(friend.id) > 9) {
-              @if (friend.senderID != this.user.id) {
+            @if (this.newMessages.has(friend.id) && this.newMessages.get(friend.id) > 0) 
+              { 
+                @if (this.newMessages.get(friend.id) > 9) {
+                  @if (friend.senderID != this.user.id) {
+                    <button
+                    (click)="petRescued(friend)"
+                      matSuffix
+                      type="button"
+                      color="primary"
+                      mat-icon-button
+                      matTooltip="Rescue pet? Click here!"
+                      matTooltipPosition="after">
+                    <mat-icon>pets</mat-icon>
+                  </button>
+                  }
+
                 <button
-                (click)="petRescued(friend)"
                   matSuffix
-                  type="button"
                   color="primary"
                   mat-icon-button
-                  matTooltip="Rescue pet? Click here!"
-                  matTooltipPosition="after">
-                <mat-icon>pets</mat-icon>
-              </button>
-              }
+                  matBadge="9+"
+                  matBadgeSize="small"
+                  matBadgeColor="warn"
+                >
+                  <mat-icon>mail_outline</mat-icon>
+                </button>
+                } @else {
+                <div class="messages">
+                  @if (friend.senderID != this.user.id) {
+                    <button
+                    (click)="petRescued(friend)"
+                      matSuffix
+                      type="button"
+                      color="primary"
+                      mat-icon-button
+                      matTooltip="Rescue pet? Click here!"
+                      matTooltipPosition="after">
+                    <mat-icon>pets</mat-icon>
+                  </button>
+                  }
 
-          <button
-            matSuffix
-            color="primary"
-            mat-icon-button
-            matBadge="9+"
-            matBadgeSize="small"
-            matBadgeColor="warn"
-          >
-            <mat-icon>mail_outline</mat-icon>
-          </button>
-
-          } @else {
-          <div class="messages">
-            @if (friend.senderID != this.user.id) {
-              <button
-              (click)="petRescued(friend)"
-                matSuffix
-                type="button"
-                color="primary"
-                mat-icon-button
-                matTooltip="Rescue pet? Click here!"
-                matTooltipPosition="after">
-              <mat-icon>pets</mat-icon>
-            </button>
+                <button
+                  matSuffix
+                  color="primary"
+                  mat-icon-button
+                  class="searchIcon"
+                  matBadge="{{ this.newMessages.get(friend.id) }}"
+                  matBadgeSize="small"
+                  matBadgeColor="warn"
+                >
+                  <mat-icon>mail_outline</mat-icon>
+                </button>
+              </div>
+              } 
+            
+            } @else {
+              <div class="messages">
+                @if (friend.senderID != this.user.id) {
+                  <button
+                  (click)="petRescued(friend)"
+                    matSuffix
+                    type="button"
+                    color="primary"
+                    mat-icon-button
+                    matTooltip="Rescue pet? Click here!"
+                    matTooltipPosition="after">
+                  <mat-icon>pets</mat-icon>
+                </button>
+                }
+                <button matSuffix color="primary" mat-icon-button>
+                  <mat-icon>mail_outline</mat-icon>
+                </button>
+              </div>
             }
-
-            <button
-              matSuffix
-              color="primary"
-              mat-icon-button
-              class="searchIcon"
-              matBadge="{{ this.newMessages.get(friend.id) }}"
-              matBadgeSize="small"
-              matBadgeColor="warn"
-            >
-              <mat-icon>mail_outline</mat-icon>
-            </button>
-          </div>
-          } 
-        
-        } @else {
-          <div class="message">
-            @if (friend.senderID != this.user.id) {
-              <button
-              (click)="petRescued(friend)"
-                matSuffix
-                type="button"
-                color="primary"
-                mat-icon-button
-                matTooltip="Rescue pet? Click here!"
-                matTooltipPosition="after">
-              <mat-icon>pets</mat-icon>
-            </button>
-            }
-            <button matSuffix color="primary" mat-icon-button>
-              <mat-icon>mail_outline</mat-icon>
-            </button>
-          </div>
-          }
-        </div>
+            </div>
         } @empty { 
           
         } 
+        
+        @if (friendListRescuers.length > 0) {
+          <span>Já resgatados</span>
+        } @for (friend of friendListRescuers; track $index) {
+          <div class="friends-card" (click)="goToUser(friend)">
+            <div class="status">
+              @if (friend.userFilename !== '') {
+                <div class="img-nav">
+                  @if (friend.online){
+                    <mat-icon color="accent" class="connected">fiber_manual_record</mat-icon>
+                  } @else {
+                  <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
+                  }
+                  <img src="{{ friend.userFilename }}" alt="">
+                </div>
+              } @else {
+                <div class="img-nav">
+                  @if (friend.online){
+                    <mat-icon color="accent" class="connected">fiber_manual_record</mat-icon>
+                  } @else {
+                    <mat-icon color="warn" class="connected">fiber_manual_record</mat-icon>
+                  }
+                  <button color="primary" mat-icon-button>
+                    <mat-icon>person</mat-icon>
+                  </button>
+              </div>
+              }
+              <p class="userName"> {{ friend.name }} </p>
+            </div>
+
+          @if (this.newMessages.has(friend.id) && this.newMessages.get(friend.id) > 0) 
+            { 
+              @if (this.newMessages.get(friend.id) > 9) {
+              <button
+                matSuffix
+                color="primary"
+                mat-icon-button
+                matBadge="9+"
+                matBadgeSize="small"
+                matBadgeColor="warn"
+              >
+                <mat-icon>mail_outline</mat-icon>
+              </button>
+              } @else {
+
+              <div class="messages">
+                <button
+                  matSuffix
+                  color="primary"
+                  mat-icon-button
+                  class="searchIcon"
+                  matBadge="{{ this.newMessages.get(friend.id) }}"
+                  matBadgeSize="small"
+                  matBadgeColor="warn"
+                >
+                <mat-icon>mail_outline</mat-icon>
+              </button>
+            </div>
+            } 
+          
+          } @else {
+            <div class="messages">
+              <button matSuffix color="primary" mat-icon-button>
+                <mat-icon>mail_outline</mat-icon>
+              </button>
+            </div>
+          }
+          </div>
+
+        }
 
       </div>
     </div>

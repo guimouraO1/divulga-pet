@@ -1,6 +1,7 @@
 <div class="main">
     <p-toast></p-toast>
     <p-confirmPopup [ngStyle]="{backgroundColor:'var(--highlight-bg)', color: 'var(--highlight-text-color)'}"></p-confirmPopup>
+
     <div class="search">
       <div class="searchHeader">
   
@@ -59,6 +60,41 @@
     <div class="petList">
       <div class="cards-container">
         @for (pet of updatedListPet$ | async; track pet.id) {
+        <p-dialog header="História feliz" [(visible)]="visibleModal" [modal]="true" [style]="{ width: '60vw'}" [draggable]="true" [resizable]="false">
+          <div class="main-modal">
+
+            <mat-list class="left">
+                <img
+                  class="modal-image"
+                  src="{{ pet.filename }}"/>
+                  <!-- <p-image
+                  width="400px"
+                  height="500px"
+                      class="modal-image"
+                      src="{{ pet.filename }}" [preview]="true">
+                  </p-image> -->
+                <div class="modal-pet-id">
+                  <p>Informações do Reencontro</p>
+                  <mat-divider></mat-divider>
+                </div>
+
+            </mat-list>
+
+            <div class="right">
+              <div class="author-modal">
+                  <div class="header-img-name">
+                    <img
+                    class="img-icon"
+                    src="{{ pet.user_filename }}"/>
+                    <p class="userName">{{ pet.user_firstName }}</p>
+                  </div>
+                  <p>{{ pet.happyText }}</p>
+              </div>
+
+            </div>
+
+          </div>
+        </p-dialog>
         <mat-list class="cards">
 
           <div class="header-card">
@@ -75,11 +111,18 @@
                   <p class="userName">{{ pet.user_firstName }}</p>
               </div>
             }
-            <mat-icon 
-              [cdkCopyToClipboard]="pet.id" 
+            <button
+            matSuffix
+            matTooltipPosition="after"
+            color="primary"
+            mat-icon-button
+            [cdkCopyToClipboard]="pet.id" 
+            matTooltip="Click here to copy publication ID"
+          > 
+          <mat-icon 
               color="primary"
-              matTooltip="Click here to copy publication ID"
               >file_copy</mat-icon>
+            </button>
           </div>
   
           <div class="pet_image">
@@ -107,11 +150,12 @@
           <mat-divider></mat-divider>
           <mat-list-item>Sex: <span>{{ pet.sex }}</span></mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item>Last Location: <span>{{ pet.last_location }}</span></mat-list-item>
+          <mat-list-item style="cursor: pointer;" matTooltip="{{ pet.last_location }}">Last Location: <span>{{ pet.last_location }}</span></mat-list-item>
           <mat-divider></mat-divider>
   
           <div class="btn-div">
             <button
+              (click)="this.visibleModal = true"
               type="submit"
               class="btn"
               color="accent"

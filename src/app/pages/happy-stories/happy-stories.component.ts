@@ -125,7 +125,6 @@ export class HappyStoriesComponent {
         this.paginator.firstPage();
       }
       if (this.petList.length > 0 && this.petList.length === this.totalPet) {
-        console.log('Final da lista');
         return;
       }
 
@@ -135,7 +134,6 @@ export class HappyStoriesComponent {
 
       const petList: Pet[] = res.publications;
       this.totalPet = res.totalItems;
-      console.log(petList);
       this.petList.push(...petList);
       this.totalItems = this.petList.length;
       this.updateupdatedListPet$();

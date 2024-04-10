@@ -124,14 +124,13 @@ export class FindPetComponent {
         this.paginator.firstPage();
       }
       if (this.petList.length > 0 && this.petList.length === this.totalPet) {
-        console.log('Final da lista');
         return;
       }
 
       const res: any = await lastValueFrom(
         this.petService.getPublications(this.pet, this.offset, this.limit, 'find')
       );
-
+      
       const petList: Pet[] = res.publications;
       this.totalPet = res.totalItems;
 

@@ -4,6 +4,7 @@
 
     <mat-step [stepControl]="petForm" label="Fill in pet information" >
       <form class="parent" [formGroup]="petForm">
+        
         <mat-form-field appearance="outline" class="item">
           <mat-label>Pet Name</mat-label>
           <input matInput placeholder="Exemple Rex" formControlName="name" />
@@ -109,7 +110,7 @@
               height="220px"
               [options]="options!"
             >
-              <map-marker [position]="positionLatLng"/>
+              <map-marker [position]="positionLatLng!"/>
             </google-map>
            }@else {
             <google-map

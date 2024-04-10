@@ -202,7 +202,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       this.filteredFriendList = this.friendList;
       const allFriends = [...this.friendList, ...this.friendListRescuers];
-      console.log(allFriends)
       this.friendsService.updateFriendList(allFriends);
     } catch (error) {
       console.error('Error while fetching friends:', error);

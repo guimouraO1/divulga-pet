@@ -16,7 +16,6 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Subject, Subscription, firstValueFrom, takeUntil } from 'rxjs';
 import { ChatService } from '../../services/chat.service';
-import { UserService } from '../../services/user.service';
 import { Friends } from '../../models/friends.model';
 import { FriendsService } from '../../services/friends.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -38,9 +37,9 @@ import { AuthService } from '../../services/auth.service';
     MessagesComponent,
     RouterOutlet,
     MatProgressBarModule,
-    ToastModule
+    ToastModule,
   ],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class ConversationMessagesComponent implements OnInit, OnDestroy {
   // Declares a view query that selects all instances of MessagesComponent within the current component's view.
@@ -115,14 +114,16 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
     limit: number
   ): Promise<void> {
     try {
-      const messages = await firstValueFrom(this.chatService.getMessagesDb(recipient, offset, limit));
+      const messages = await firstValueFrom(
+        this.chatService.getMessagesDb(recipient, offset, limit)
+      );
       const newMessages = messages.map((message: MessagesInterface) => ({
         ...message,
         isMine: message.authorMessageId === this.user.id,
       }));
       this.messages = [...newMessages.reverse(), ...this.messages];
     } catch (error) {
-      console.error('Error while fetching messages:', error);
+      // console.error('Error while fetching messages:', error);
     }
   }
 
@@ -132,10 +133,21 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
       this.activatedRoute.paramMap
         .pipe(takeUntil(this.destroy$))
         .subscribe(async (params) => {
-          if (!this.recipient.id || !this.recipient.name || !this.recipient.idFriendship) {
+          if (
+            !this.recipient.id ||
+            !this.recipient.name ||
+            !this.recipient.idFriendship
+          ) {
             this.recipient.idFriendship = params.get('userId');
-            const friend: any = await firstValueFrom(this.chatService.getFriendById(this.recipient.idFriendship));
-            this.chatService.addNewRecipient(friend.id, friend.name, friend.profile_pic, this.recipient.idFriendship);
+            const friend: any = await firstValueFrom(
+              this.chatService.getFriendById(this.recipient.idFriendship)
+            );
+            this.chatService.addNewRecipient(
+              friend.id,
+              friend.name,
+              friend.profile_pic,
+              this.recipient.idFriendship
+            );
           }
           this.messages = [];
           this.offset = 0;
@@ -143,7 +155,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
           await this.getMessages(this.recipient, this.offset, this.limit);
         });
     } catch (error) {
-      console.error('Error while listen for parameter change:', error);
+      // console.error('Error while listen for parameter change:', error);
     }
   }
 
@@ -167,21 +179,20 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
           isMine: message.authorMessageId === this.user.id,
           message: message.message,
           read: message.read,
-          type: message.type
+          type: message.type,
         });
       });
   }
 
   // Send message to private recipient in real time, and backend save on db.
   sendMessage() {
-    if (!this.inputMessage || this.inputMessage.trim() === '')
-      return;
-    
-    if(!this.friendList.some(friend => friend.id === this.recipient.id)){
+    if (!this.inputMessage || this.inputMessage.trim() === '') return;
+
+    if (!this.friendList.some((friend) => friend.id === this.recipient.id)) {
       this.showError();
       return;
     }
-    const type = 'message'
+    const type = 'message';
     this.chatService.sendMessage(
       this.inputMessage, // message
       this.user.id, // authorMessageId
@@ -190,7 +201,7 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
       type,
       this.recipient.idFriendship
     );
-    
+
     this.inputMessage = '';
     this.messageComps.changes
       .pipe(takeUntil(this.destroy$))
@@ -221,9 +232,13 @@ export class ConversationMessagesComponent implements OnInit, OnDestroy {
   }
 
   showError() {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'This user is not your friend, please add to chat.' });
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erro',
+      detail: 'Este usuário não é seu amigo',
+    });
   }
-  
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

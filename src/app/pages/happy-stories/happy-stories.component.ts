@@ -193,7 +193,5 @@ export class HappyStoriesComponent {
       queryParamsHandling: 'merge',
     });
   }
-
-
 }
 

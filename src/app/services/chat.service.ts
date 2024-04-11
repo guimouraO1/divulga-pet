@@ -50,7 +50,7 @@ export class ChatService {
         query: { user: JSON.stringify(user) },
       });
     } catch (error) {
-      console.log('Cannot connect to websocket');
+      // console.log('Cannot connect to websocket');
     }
   }
 

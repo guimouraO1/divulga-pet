@@ -75,6 +75,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private geocoder: MapGeocoder,
     private router: Router
   ) {
+
     this.userForm = this.fb.group({
       firstName: ['', [Validators.maxLength(40), Validators.minLength(3)]],
       lastName: ['', [Validators.maxLength(40)]],
@@ -114,15 +115,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
       lastValueFrom(this.userService.updateProfile(this.userForm.value));
       this.messageService.add({
         severity: 'success',
-        summary: 'Success',
-        detail: 'You have updated your profile!',
+        summary: 'Sucesso',
+        detail: 'Você atualizou com sucesso o seu perfil',
         life: 3000,
       });
     } else {
       this.messageService.add({
         severity: 'error',
-        summary: 'Canceled',
-        detail: 'Fill in the fields correctly',
+        summary: 'Cancelado',
+        detail: 'Preencha todos os campos',
         life: 3000,
       });
       return;
@@ -140,8 +141,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if(this.petList.length <= 0){
       this.messageService.add({
         severity: 'error',
-        summary: 'Error',
-        detail: 'You have no publications',
+        summary: 'Erro',
+        detail: 'Você não tem publicações',
         life: 3000,
       });
       return;
@@ -155,27 +156,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
   confirm1(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message:
-        'Are you sure you want to add this image as your profile picture?',
+      message: 'Tem certeza de que deseja adicionar esta imagem como sua foto de perfil?',
       icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         if (this.selectedFile) {
           await this.uploadImage();
           this.messageService.add({
-            severity: 'info',
-            summary: 'Confirmed',
-            detail: 'You have accepted',
+            severity: 'success',
+            summary: 'Sucesso',
+            detail: 'Imagem de perfil atualizada',
             life: 3000,
           });
+
         }
         this.selectedFile = null;
       },
+
       reject: () => {
         this.selectedFile = null;
         this.messageService.add({
           severity: 'error',
-          summary: 'Rejected',
-          detail: 'You have rejected',
+          summary: 'Erro',
+          detail: 'Ocorreu um erro, tente novamente',
           life: 3000,
         });
       },
@@ -185,7 +187,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   confirm2(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Are you sure you want to update your profile information?',
+      message: 'Tem certeza de que deseja atualizar as informações do seu perfil?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.onSubmit();
@@ -193,8 +195,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       reject: () => {
         this.messageService.add({
           severity: 'error',
-          summary: 'Canceled',
-          detail: 'You canceled the action',
+          summary: 'Cancelado',
+          detail: 'Você cancelou a ação',
           life: 3000,
         });
       },
@@ -204,7 +206,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   confirm3(event: Event, id: string) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Are you sure you want to delete this post?',
+      message: 'Tem certeza de que deseja excluir esta postagem?',
       icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         await this.deletePublications(id);
@@ -212,8 +214,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       reject: () => {
         this.messageService.add({
           severity: 'error',
-          summary: 'Canceled',
-          detail: 'You canceled the action',
+          summary: 'Cancelado',
+          detail: 'Você cancelou a ação',
           life: 3000,
         });
       },
@@ -225,16 +227,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       await lastValueFrom(this.petService.deletePublications(id));
       this.messageService.add({
         severity: 'success',
-        summary: 'Success',
-        detail: `Publication id ${id} deleted`,
+        summary: 'Sucesso',
+        detail: `A publicação com id ${id} foi deletada`,
         life: 3000,
       });
       this.petList = this.petList.filter((pet: Pet) => pet.id !== id);
     } catch (error) {
       this.messageService.add({
         severity: 'error',
-        summary: 'Error',
-        detail: 'Error, try again',
+        summary: 'Erro',
+        detail: `Ocorreu um erro ao tentar excluír a publicação com id ${id}`,
         life: 3000,
       });
     }
@@ -264,8 +266,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
             if(res.status == 'ZERO_RESULTS'){
               this.messageService.add({
                 severity: 'error',
-                summary: 'Error',
-                detail: 'This location dont exist',
+                summary: 'Erro',
+                detail: 'Essa localização não existe',
               });
               return;
             }
@@ -276,14 +278,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
             }
           },
           error: (err) => {
-            console.log('Erro ao geocodificar:', err);
-            console.log('Local não encontrado.');
+
           },
         });
     }
   }
-
-
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

@@ -16,10 +16,10 @@
             placeholder="Selecione a espécie"
             formControlName="species"
           >
-            <mat-option value="Dog">Cachorro</mat-option>
-            <mat-option value="Cat">Gato</mat-option>
-            <mat-option value="Bird">Pássaro</mat-option>
-            <mat-option value="Other">Outro</mat-option>
+            <mat-option value="Cachorro">Cachorro</mat-option>
+            <mat-option value="Gato">Gato</mat-option>
+            <mat-option value="Pássaro">Pássaro</mat-option>
+            <mat-option value="Outro">Outro</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -35,18 +35,18 @@
         <mat-form-field appearance="outline" class="item">
           <mat-label>Sexo</mat-label>
           <mat-select placeholder="Selecione o sexo" formControlName="sex">
-            <mat-option value="Female">Fêmea</mat-option>
-            <mat-option value="Male">Macho</mat-option>
-            <mat-option value="Unknown">Desconhecido</mat-option>
+            <mat-option value="Fêmea">Fêmea</mat-option>
+            <mat-option value="Macho">Macho</mat-option>
+            <mat-option value="Desconhecido">Desconhecido</mat-option>
           </mat-select>
         </mat-form-field>
         
         <mat-form-field appearance="outline" class="item">
           <mat-label>Situação</mat-label>
           <mat-select placeholder="Selecione a situação" formControlName="status">
-            <mat-option value="Lost">Perdido <span>(Eu perdi o meu pet)</span></mat-option>
-            <mat-option value="Found">Encontrado <span>(Eu encontrei um pet perdido)</span></mat-option>
-            <mat-option value="Seen nearby">Visto nas proximidades</mat-option>
+            <mat-option value="Perdido">Perdido <span>(Eu perdi o meu pet)</span></mat-option>
+            <mat-option value="Encontrado">Encontrado <span>(Eu encontrei um pet perdido)</span></mat-option>
+            <mat-option value="Visto nas proximidades">Visto nas proximidades</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -119,7 +119,7 @@
         <div class="footer">
           <button color="primary" class="btn" mat-stroked-button matStepperPrevious>Voltar</button>
             <button (click)="onSubmit()" [disabled]="disableButton" class="btn" color="primary" mat-stroked-button type="submit">
-              Publicar pet
+            Publicar pet
             </button>
         </div>
 

@@ -70,7 +70,7 @@ export class PetService {
   rescuePet(pet: Pet): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${token}`);
-    console.log(pet)
+
     return this.http.post(`${this.urlApi}/friends`, { friendUserId: pet.user_id, petPostId: pet.id }, { headers });
   }
 

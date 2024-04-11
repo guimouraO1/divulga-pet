@@ -32,7 +32,7 @@ export class FriendsService {
   sendFriendRequest(friendUserId: string, postPetId: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${token}`);
-    // const body = { friendUserId: friendUserId };
+
     return this.http.post(`${this.urlApi}/friends`, {friendUserId, postPetId}, { headers });
   }
 }

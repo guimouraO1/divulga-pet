@@ -205,9 +205,9 @@ export class FindPetComponent {
   async rescuePet(pet: Pet) {
     if (this.user.id === pet.user_id){
       this.messageService.add({
-        severity: 'warn',
-        summary: 'Error',
-        detail: 'You cannot redeem in your own post',
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Você não pode resgatar em sua própria postagem',
         life: 3000,
       });
       return;
@@ -217,9 +217,9 @@ export class FindPetComponent {
       const friendshipId: any = await firstValueFrom(this.petService.rescuePet(pet));
       this.sendFirstMessage(pet, friendshipId);
       this.messageService.add({
-        severity: 'info',
-        summary: 'Confirmed',
-        detail: 'You have accepted',
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Primeiros passos para resgatar',
         life: 3000,
       });
       
@@ -227,8 +227,8 @@ export class FindPetComponent {
 
     } catch (error: any) {
       this.messageService.add({
-        severity: 'warn',
-        summary: 'Error',
+        severity: 'error',
+        summary: 'Erro',
         detail: error.error,
         life: 3000,
       });
@@ -247,7 +247,7 @@ export class FindPetComponent {
     );
 
     this.chatService.sendMessage(
-      `Olá eu me chamo ${ this.user.name } e desejo resgatar o ${ pet.name } com id ${ pet.id }`, // message
+      `Olá eu me chamo ${ this.user.name } e desejo resgatar o ${ pet.name } com ID: ${ pet.id }`, // message
       this.user.id, // authorMessageId
       pet.user_id, // recipientId
       new Date(), // time
@@ -259,14 +259,14 @@ export class FindPetComponent {
   confirm1(event: Event, pet: Pet) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Are you sure you want to rescue this pet?',
+      message: 'Tem certeza que deseja resgatar este pet?',
       icon: 'pi pi-exclamation-triangle',
       accept: async () => {
         if(!this.user){
           this.messageService.add({
             severity: 'error',
-            summary: 'Unauthorized',
-            detail: 'You must be logged in to rescue this pet',
+            summary: 'Não autorizado',
+            detail: 'Você deve estar logado para resgatar este pet',
             life: 3000,
           });
           return;
@@ -276,13 +276,12 @@ export class FindPetComponent {
       },
       reject: () => {
         this.messageService.add({
-          severity: 'warn',
-          summary: 'Cancel',
-          detail: 'You canceled the redemption',
+          severity: 'error',
+          summary: 'Cancelado',
+          detail: 'Você cancelou a ação',
           life: 3000,
         });
       }
     });
   }
-  
 }

@@ -27,10 +27,10 @@
         <mat-label>Filtrar por Espécie</mat-label>
         <mat-select value="{{ pet.species }}"  (selectionChange)="filter($event, 'species')">
           <mat-option value="">Todos</mat-option>
-          <mat-option value="dog">Cachorro</mat-option>
-          <mat-option value="cat">Gato</mat-option>
-          <mat-option value="bird">Pássaro</mat-option>
-          <mat-option value="other">Outros</mat-option>
+          <mat-option value="Cachorro">Cachorro</mat-option>
+          <mat-option value="Gato">Gato</mat-option>
+          <mat-option value="Pássaro">Pássaro</mat-option>
+          <mat-option value="Outros">Outros</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -40,15 +40,13 @@
         <mat-label>Filtrar por situação</mat-label>
         <mat-select value="{{ pet.status }}" (selectionChange)="filter($event, 'status')">
           <mat-option value="">Todos</mat-option>
-          <mat-option value="lost">Perdido</mat-option>
-          <mat-option value="found">Encontrado</mat-option>
-          <mat-option value="seen nearby">Visto nas proximidades</mat-option>
+          <mat-option value="Perdido">Perdido</mat-option>
+          <mat-option value="Encontrado">Encontrado</mat-option>
+          <mat-option value="Visto nas proximidades">Visto nas proximidades</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-
   </div>
-
 
   <div class="petList">
     <div class="cards-container">

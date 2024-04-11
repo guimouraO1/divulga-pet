@@ -21,7 +21,7 @@ import { ToastModule } from 'primeng/toast';
 import { AuthService } from '../../services/auth.service';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { PetService } from '../../services/pet.service';
 
 @Component({
@@ -44,8 +44,8 @@ import { PetService } from '../../services/pet.service';
     ToastModule,
     DialogModule,
     InputTextareaModule,
-    MatRadioModule
-   ],
+    MatRadioModule,
+  ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
   providers: [ConfirmationService, MessageService],
@@ -54,9 +54,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   private recipient: any;
   protected user: any;
   protected newMessages: Map<any, any> = new Map();
-  
+
   protected searchInput: string = '';
-  
+
   protected visibleModal: boolean = false;
   protected hide: boolean = true;
 
@@ -65,7 +65,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   protected filteredFriendList: Friends[] = [];
   protected friendListRescuers: Friends[] = [];
 
-  protected rescuedUser: Friends| undefined;
+  protected rescuedUser: Friends | undefined;
   private destroy$ = new Subject<void>();
   protected happyText: string = '';
 
@@ -98,8 +98,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     // this.rescueListener();
   }
 
-
-  protected petRescued(friend: Friends){
+  protected petRescued(friend: Friends) {
     this.rescuedUser = friend;
     this.visibleModal = true;
   }
@@ -109,16 +108,20 @@ export class ChatComponent implements OnInit, OnDestroy {
       if (this.happyText.trim() === '') {
         this.messageService.add({
           severity: 'warn',
-          summary: 'Error',
+          summary: 'Erro',
           detail: 'Por favor digite uma mensagem para continuar',
           life: 3000,
         });
-        return; 
+        return;
       }
       this.modalRadioButton = false;
-      await firstValueFrom(this.petService.rescueToHappyStories(userRescue, this.happyText));
+      await firstValueFrom(
+        this.petService.rescueToHappyStories(userRescue, this.happyText)
+      );
 
-      this.filteredFriendList = this.friendList.filter((friend) => friend.id !== userRescue.id);
+      this.filteredFriendList = this.friendList.filter(
+        (friend) => friend.id !== userRescue.id
+      );
       this.friendListRescuers.push(userRescue);
       this.visibleModal = false;
 
@@ -129,18 +132,17 @@ export class ChatComponent implements OnInit, OnDestroy {
         life: 3000,
       });
       this.modalRadioButton = true;
-    
     } catch (error) {
       this.messageService.add({
-        severity: 'warn',
-        summary: 'Error',
+        severity: 'error',
+        summary: 'Erro',
         detail: 'Ocorreu um erro durante o resgate, tente novamente',
         life: 3000,
       });
-      return; 
+      return;
     }
   }
-  
+
   private subscribeToUserChanges(): void {
     this.authService
       .User$()
@@ -186,16 +188,23 @@ export class ChatComponent implements OnInit, OnDestroy {
             friend.online = false;
           }
         });
-        });
+      });
   }
 
   async getFriends() {
     try {
-      const friends: Friends[] = await firstValueFrom(this.friendsService.getFriends());
-      this.friendList = friends.filter((friend) => friend.status === 'Accepted');
-      this.friendListRescuers = friends.filter((friend) => friend.status === 'Rescued');
+      const friends: Friends[] = await firstValueFrom(
+        this.friendsService.getFriends()
+      );
+      this.friendList = friends.filter(
+        (friend) => friend.status === 'Accepted'
+      );
+      this.friendListRescuers = friends.filter(
+        (friend) => friend.status === 'Rescued'
+      );
 
-      await Promise.all(this.friendList.map(async (friend) => {
+      await Promise.all(
+        this.friendList.map(async (friend) => {
           await this.getMessages(friend, 0, 10);
         })
       );
@@ -204,7 +213,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       const allFriends = [...this.friendList, ...this.friendListRescuers];
       this.friendsService.updateFriendList(allFriends);
     } catch (error) {
-      console.error('Error while fetching friends:', error);
+      // console.error('Error while fetching friends:', error);
     }
   }
 
@@ -215,15 +224,19 @@ export class ChatComponent implements OnInit, OnDestroy {
     limit: number
   ): Promise<void> {
     try {
-      const messages = await firstValueFrom(this.chatService.getMessagesDb(recipient, offset, limit));
+      const messages = await firstValueFrom(
+        this.chatService.getMessagesDb(recipient, offset, limit)
+      );
       messages.forEach((message: MessagesInterface) => {
         if (message.read === 'false') {
-          this.newMessages.set(message.authorMessageId,
-            (this.newMessages.get(message.authorMessageId) || 0) + 1);
+          this.newMessages.set(
+            message.authorMessageId,
+            (this.newMessages.get(message.authorMessageId) || 0) + 1
+          );
         }
       });
     } catch (error) {
-      console.error('Error while fetching messages:', error);
+      // console.error('Error while fetching messages:', error);
     }
   }
 
@@ -245,7 +258,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.chatService.newMessageEmmiterId
       .pipe(takeUntil(this.destroy$))
       .subscribe((newMessageId: string) => {
-        this.newMessages.set(newMessageId,
+        this.newMessages.set(
+          newMessageId,
           (this.newMessages.get(newMessageId) || 0) + 1
         );
       });
@@ -253,7 +267,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   // After reading a new message read = 'true' on the message that have already been read.
   async updateMessageAsRead(authorMessageId: string, recipientId: string) {
-    await firstValueFrom(this.chatService.updateMessageAsRead(authorMessageId, recipientId));
+    await firstValueFrom(
+      this.chatService.updateMessageAsRead(authorMessageId, recipientId)
+    );
   }
 
   // When click on a friend card it takes you to chat with that user.
@@ -261,7 +277,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     try {
       this.updateMessageAsRead(friend.id, this.user.id);
     } catch (error) {}
-    this.chatService.addNewRecipient(friend.id, friend.name, friend.userFilename, friend.idFriendship);
+    this.chatService.addNewRecipient(
+      friend.id,
+      friend.name,
+      friend.userFilename,
+      friend.idFriendship
+    );
     // Checks if userId is present in newMessagesId.
     if (this.newMessages.has(friend.id)) {
       // Remove userId to newMessagesId.

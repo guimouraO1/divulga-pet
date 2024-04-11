@@ -63,15 +63,15 @@ export class PostPetComponent implements OnInit {
     private geocoder: MapGeocoder
   ) {
     this.petForm = this.fb.group({
-      name: ['Unknown', [Validators.required]],
-      breed: ['Unknown', [Validators.required]],
+      name: ['Desconhecido', [Validators.required]],
+      breed: ['Desconhecido', [Validators.required]],
       species: ['', [Validators.required]],
       sex: ['', [Validators.required]],
       status: ['', [Validators.required]],
     });
 
     this.locationForm = this.fb.group({
-      last_location: ['Unknown', [Validators.required]],
+      last_location: ['Desconhecido', [Validators.required]],
     });
   }
 
@@ -88,16 +88,16 @@ export class PostPetComponent implements OnInit {
     if (!this.positionLatLng) {
       this.messageService.add({
         severity: 'error',
-        summary: 'Error',
-        detail: 'This location dont exist',
+        summary: 'Erro',
+        detail: 'Esta localização não existe',
       });
       return;
     }
     if (!this.selectedFile) {
       this.messageService.add({
         severity: 'error',
-        summary: 'Error',
-        detail: 'Select an image with the upload image button.',
+        summary: 'Erro',
+        detail: 'Selecione uma imagem com o botão de upload de imagem.',
       });
       return;
     }
@@ -136,14 +136,14 @@ export class PostPetComponent implements OnInit {
         await lastValueFrom(this.petService.postPet(petForm));
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
-          detail: 'Pet posted!',
+          summary: 'Sucesso',
+          detail: 'Pet publicado!',
         });
       } catch (error) {
         this.messageService.add({
           severity: 'error',
-          summary: 'Error',
-          detail: 'An error occurred when trying to post pet',
+          summary: 'Erro',
+          detail: 'Ocorreu um erro ao tentar postar o pet',
         });
       } finally {
         this.disableButton = false;
@@ -151,8 +151,8 @@ export class PostPetComponent implements OnInit {
     } else {
       this.messageService.add({
         severity: 'error',
-        summary: 'Error',
-        detail: 'Fill in all the fields, and add an image.',
+        summary: 'Erro',
+        detail: 'Preencha todos os campos e adicione uma imagem',
       });
     }
   }
@@ -167,8 +167,8 @@ export class PostPetComponent implements OnInit {
             if(res.status == 'ZERO_RESULTS'){
               this.messageService.add({
                 severity: 'error',
-                summary: 'Error',
-                detail: 'This location dont exist',
+                summary: 'Erro',
+                detail: 'Esta localização não existe',
               });
               this.positionLatLng = undefined;
               return;
@@ -187,8 +187,6 @@ export class PostPetComponent implements OnInit {
             }
           },
           error: (err) => {
-            console.log('Erro ao geocodificar:', err);
-            console.log('Local não encontrado.');
           },
         });
     }

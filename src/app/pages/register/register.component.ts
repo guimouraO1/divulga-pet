@@ -73,8 +73,8 @@ export class RegisterComponent implements OnInit {
     const res = await this.authService.register(this.registerForm.value);
     if (res.error) {
       this.messageService.add({
-        severity: 'warn',
-        summary: 'Alert',
+        severity: 'error',
+        summary: 'Erro',
         detail: res.error.msg,
         life: 3000,
       });
@@ -82,8 +82,8 @@ export class RegisterComponent implements OnInit {
     if (res.msg) {
       this.messageService.add({
         severity: 'success',
-        summary: 'Success',
-        detail: 'Successfully registered!',
+        summary: 'Sucesso',
+        detail: 'Cadastrado com sucesso!',
         life: 3000,
       });
       this.registerForm.reset();
@@ -95,8 +95,8 @@ export class RegisterComponent implements OnInit {
     if (usernameControl && usernameControl.invalid) {
       this.messageService.add({
         severity: 'warn',
-        summary: 'Alert',
-        detail: `Username is invalid. Please ensure that it contains no spaces or special characters.`,
+        summary: 'Alerta',
+        detail: `Nome de usuário inválido. Certifique-se de que não contém espaços ou caracteres especiais`,
         life: 3000,
       });
       return;
@@ -105,8 +105,8 @@ export class RegisterComponent implements OnInit {
     if (!this.registerForm.valid) {
       this.messageService.add({
         severity: 'warn',
-        summary: 'Alert',
-        detail: `Please fill in all the required fields.`,
+        summary: 'Alerta',
+        detail: `Por favor preencha todos os campos obrigatórios`,
         life: 3000,
       });
       return;

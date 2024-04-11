@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit {
     const res: any = await this.authService.login(this.loginForm.value);
     if(res.error){
       this.messageService.add({
-        severity: 'warn',
-        summary: 'Alert',
+        severity: 'error',
+        summary: 'Erro',
         detail: res.error.msg,
         life: 3000,
       });
@@ -74,9 +74,9 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (!this.loginForm.valid) {
       this.messageService.add({
-        severity: 'warn',
-        summary: 'Alert',
-        detail: `Please fill in all the required fields.`,
+        severity: 'error',
+        summary: 'Erro',
+        detail: `Por favor preencha todos os campos obrigatórios`,
         life: 3000,
       });
       return;

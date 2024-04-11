@@ -4,20 +4,12 @@
 
     <div class="search">
       <div class="searchHeader">
-  
-        <h2>Search</h2>
-        <button
-        matSuffix
-        color="primary"
-        mat-icon-button
-      >
-        <mat-icon>search</mat-icon>
-      </button>    
+        <h2>Pesquisar</h2>   
       </div>
   
       
       <mat-form-field appearance="outline">
-        <mat-label>Search by ID</mat-label>
+        <mat-label>Pesquisar por ID</mat-label>
           <input matInput  [(ngModel)]="searchId">
           <button
           (click)="filter(searchId, 'id')"
@@ -31,48 +23,41 @@
   
       <div class="item">
         <mat-form-field appearance="outline" class="forms">
-          <mat-label>Filter by species</mat-label>
+          <mat-label>Filtrar por Espécie</mat-label>
           <mat-select value="{{ pet.species }}"  (selectionChange)="filter($event, 'species')">
-            <mat-option value="">All</mat-option>
-            <mat-option value="dog">Dog</mat-option>
-            <mat-option value="cat">Cat</mat-option>
-            <mat-option value="bird">Bird</mat-option>
-            <mat-option value="other">Other</mat-option>
+            <mat-option value="">Todos</mat-option>
+            <mat-option value="dog">Cachorro</mat-option>
+            <mat-option value="cat">Gato</mat-option>
+            <mat-option value="bird">Pássaro</mat-option>
+            <mat-option value="other">Outros</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
   
       <div class="item">
         <mat-form-field appearance="outline" class="forms">
-          <mat-label>Filter by status</mat-label>
+          <mat-label>Filtrar por situação</mat-label>
           <mat-select value="{{ pet.status }}" (selectionChange)="filter($event, 'status')">
-            <mat-option value="">All</mat-option>
-            <mat-option value="lost">Lost</mat-option>
-            <mat-option value="found">Found</mat-option>
-            <mat-option value="seen nearby">Seen nearby</mat-option>
+            <mat-option value="">Todos</mat-option>
+            <mat-option value="lost">Perdido</mat-option>
+            <mat-option value="found">Encontrado</mat-option>
+            <mat-option value="seen nearby">Visto nas proximidades</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-  
     </div>
   
   
     <div class="petList">
       <div class="cards-container">
         @for (pet of updatedListPet$ | async; track pet.id) {
-        <p-dialog header="História feliz" [(visible)]="visibleModal" [modal]="true" [style]="{ width: '60vw'}" [draggable]="true" [resizable]="false">
+        
+          <p-dialog header="História feliz" [(visible)]="visibleModal" [modal]="true" [style]="{ width: '60vw'}" [draggable]="true" [resizable]="false">
           <div class="main-modal">
-
             <mat-list class="left">
                 <img
                   class="modal-image"
                   src="{{ pet.filename }}"/>
-                  <!-- <p-image
-                  width="400px"
-                  height="500px"
-                      class="modal-image"
-                      src="{{ pet.filename }}" [preview]="true">
-                  </p-image> -->
                 <div class="modal-pet-id">
                   <p>Informações do Reencontro</p>
                   <mat-divider></mat-divider>
@@ -95,8 +80,8 @@
 
           </div>
         </p-dialog>
+        
         <mat-list class="cards">
-
           <div class="header-card">
             @if(!pet.user_filename){
               <div class="header-img-name">
@@ -117,7 +102,7 @@
             color="primary"
             mat-icon-button
             [cdkCopyToClipboard]="pet.id" 
-            matTooltip="Click here to copy publication ID"
+            matTooltip="Clique para copiar o ID"
           > 
           <mat-icon 
               color="primary"
@@ -142,15 +127,18 @@
           </button>
   
           <mat-divider></mat-divider>
-          <mat-list-item>Pet Name: <span>{{ pet.name }}</span></mat-list-item>
+          <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item>Breed: <span>{{ pet.breed }}</span></mat-list-item>
+          <mat-list-item>Raça: <span>{{ pet.breed }}</span></mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item>Specie: <span>{{ pet.species }}</span></mat-list-item>
+          <mat-list-item>Espécie: <span>{{ pet.species }}</span></mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item>Sex: <span>{{ pet.sex }}</span></mat-list-item>
+          <mat-list-item>Sexo: <span>{{ pet.sex }}</span></mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item style="cursor: pointer;" matTooltip="{{ pet.last_location }}">Last Location: <span>{{ pet.last_location }}</span></mat-list-item>
+          <mat-list-item 
+            style="cursor: pointer;"
+            matTooltip="{{ pet.last_location }}"
+            >Última localização: <span>{{ pet.last_location }}</span></mat-list-item>
           <mat-divider></mat-divider>
   
           <div class="btn-div">
@@ -161,14 +149,14 @@
               color="accent"
               mat-stroked-button
             >
-            See rescue
+            Ver história
             </button>
           </div>
         </mat-list>
         } @empty {
           @defer () {
           <div class="error">
-            <h2>No pets found</h2>
+            <h2>Nenhum pet encontrado</h2>
           </div>
         } @loading (minimum 3000ms) {
           <div class="cards2">

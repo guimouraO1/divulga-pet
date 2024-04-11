@@ -1,11 +1,5 @@
 <main class="main-container">
   <div class="card">
-    <!-- <form
-        class="content"
-        [formGroup]="loginForm"
-        (ngSubmit)="onSubmit()"
-      > -->
-
     <div class="content">
       <p-toast></p-toast>
 
@@ -27,7 +21,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
+            <mat-label>Apelido de usuário exclusivo</mat-label>
             <input
               type="text"
               [type]="'text'"
@@ -42,7 +36,7 @@
           </mat-form-field>
 
         <mat-form-field appearance="outline">
-        <mat-label>First Name</mat-label>
+        <mat-label>Primeiro nome</mat-label>
         <input
             [type]="'text'"
             matInput
@@ -56,7 +50,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-label>Last Name</mat-label>
+            <mat-label>Último nome</mat-label>
             <input
               [type]="'text'"
               matInput
@@ -70,7 +64,7 @@
           </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
+          <mat-label>Senha</mat-label>
           <input
             matInput
             [type]="hide ? 'password' : 'text'"
@@ -90,7 +84,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Confirm Password</mat-label>
+          <mat-label>Confirmação da senha</mat-label>
           <input
             matInput
             [type]="hide ? 'password' : 'text'"
@@ -108,7 +102,6 @@
             }}</mat-icon>
           </button>
         </mat-form-field>
-
           
         <button
           class="button"
@@ -117,10 +110,10 @@
           color="primary"
           mat-stroked-button
         >
-          Register
+        Cadastrar
         </button>
       </form>
-      <p class="p">Return to login? <span (click)="goToLogin()">Click here!</span></p>
+      <p class="p">Voltar para pagina de Login? <span (click)="goToLogin()">Clique aqui!</span></p>
 
     </div>
   </div>

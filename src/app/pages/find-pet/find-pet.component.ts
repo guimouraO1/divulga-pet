@@ -95,6 +95,7 @@ export class FindPetComponent {
   ) {}
 
   async ngOnInit() {
+    this.paginator._intl.itemsPerPageLabel="Publicações por página";
     this.subscribeToUserChanges();
     this.route.queryParamMap.subscribe(async (params) => {
       this.pet.status = params.get('status');

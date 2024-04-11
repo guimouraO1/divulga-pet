@@ -2,14 +2,14 @@
   <div class="container-info">
     <div class="card">
       <div class="cardH1">
-        <h2>Hello {{ user?.name }}</h2>
+        <h2>Olá, {{ user?.name }}</h2>
         <button
           (click)="scrollToContainer()"
           class="btn"
           color="primary"
           mat-stroked-button
         >
-          See your posts
+        Publicações
         </button>
       </div>
       <div class="userPanel">
@@ -56,7 +56,7 @@
         <form class="form2" [formGroup]="userForm">
           <div class="parent">
             <mat-form-field appearance="outline">
-              <mat-label>First Name</mat-label>
+              <mat-label>Primeiro nome</mat-label>
               <input
                 formControlName="firstName"
                 type="text"
@@ -65,7 +65,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Last Name</mat-label>
+              <mat-label>Último nome</mat-label>
               <input
                 formControlName="lastName"
                 type="text"
@@ -74,7 +74,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Telephone</mat-label>
+              <mat-label>Telefone</mat-label>
               <input
                 formControlName="telephone"
                 type="tel"
@@ -85,7 +85,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Address</mat-label>
+              <mat-label>Endereço</mat-label>
               <input
                 formControlName="address"
                 type="text"
@@ -114,7 +114,7 @@
             [disabled]="disableButton"
             (click)="confirm2($event)"
           >
-            Update Profile
+            Atualizar perfil
           </button>
         </form>
       </div>
@@ -124,12 +124,11 @@
   @if (this.petList.length > 0) {
     <div class="container-posts" id="container-posts">
       <div class="petList">
-        <h3>Your posts</h3>
+        <h3>Suas publicações</h3>
         <div class="cards-container">
           @for (pet of petList; track pet.id) {
           <mat-list class="cards">
             <div class="header-card">
-              
               @if(!user.profile_pic){
                 <div class="header-img-name">
                   <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
@@ -147,7 +146,7 @@
               color="primary"
               mat-icon-button
               [cdkCopyToClipboard]="pet.id" 
-              matTooltip="Click here to copy publication ID"
+              matTooltip="Clique para copiar o ID"
             > 
             <mat-icon 
                 color="primary"
@@ -178,15 +177,18 @@
             }
     
             <mat-divider></mat-divider>
-            <mat-list-item>Pet Name: <span>{{ pet.name }}</span></mat-list-item>
+            <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item>Breed: <span>{{ pet.breed }}</span></mat-list-item>
+            <mat-list-item>Raça: <span>{{ pet.breed }}</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item>Specie: <span>{{ pet.species }}</span></mat-list-item>
+            <mat-list-item>Espécie: <span>{{ pet.species }}</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item>Sex: <span>{{ pet.sex }}</span></mat-list-item>
+            <mat-list-item>Sexo: <span>{{ pet.sex }}</span></mat-list-item>
             <mat-divider></mat-divider>
-            <mat-list-item style="cursor: pointer;" matTooltip="{{ pet.last_location }}" >Last Location: <span>{{ pet.last_location }}</span></mat-list-item>
+            <mat-list-item 
+              style="cursor: pointer;"
+              matTooltip="{{ pet.last_location }}"
+              >Última localização: <span>{{ pet.last_location }}</span></mat-list-item>
             <mat-divider></mat-divider>
     
             <div class="btn-div">
@@ -198,7 +200,7 @@
                 color="accent"
                 mat-stroked-button
               >
-                See happy storie
+                Ver história
               </button>
               } @else {
                 <button
@@ -208,7 +210,7 @@
                 color="warn"
                 mat-stroked-button
               >
-                Delete post
+              Deletar
               </button>
               }
             </div>

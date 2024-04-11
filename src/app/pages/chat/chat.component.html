@@ -27,35 +27,31 @@
       <div class="friends" [class.hide]="hide">
         <p-dialog header="Rescuing Pet" [(visible)]="visibleModal" [modal]="true" [style]="{ width: '60vw'}" [draggable]="true" [resizable]="false">
           <p class="modal-p">
-            We are almost there!
-          </p>
-          <p class="modal-p">
-            We are in the last stage of rescuing the pet and I need you to fill out all the fields.
+            Estamos quase lá!
           </p>
           <div class="modal">
-
             <div style="width: 80%;">
-              <p class="modal-p">Pet has rescued by {{ rescuedUser?.name }}?</p>
+              <p class="modal-p">Pet resgatado por {{ rescuedUser?.name }}?</p>
               <mat-radio-group [(ngModel)]="modalRadioButton">
                 <mat-radio-button color="accent" [value]="true">Yes</mat-radio-button>
                 <mat-radio-button color="warn" [value]="false">No</mat-radio-button>
               </mat-radio-group>
             </div>
             <div class="modaltextarea">
-              <p class="modal-p">Write a happy history</p>
+              <p class="modal-p">Escreva um história feliz</p>
               <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="happyText"></textarea>
               <span>{{ happyText.length }}</span>
             </div>
 
             <div>
-              <button [disabled]="!modalRadioButton || happyText.length > 2000" color="primary" (click)="rescueToUser(rescuedUser!)" style="width: 200px;" mat-stroked-button>Resgatado</button>
+              <button [disabled]="!modalRadioButton || happyText.length > 2000" color="primary" (click)="rescueToUser(rescuedUser!)" style="width: 200px;" mat-stroked-button>Resgatar</button>
             </div>
           </div>
 
         </p-dialog>
 
         @if (filteredFriendList.length > 0) {
-        <span>Rescuing</span>
+        <span>Resgates</span>
         } @for (friend of filteredFriendList; track $index) {
             <div class="friends-card" (click)="goToUser(friend)">
               <div class="status">
@@ -81,7 +77,7 @@
                 </div>
                 }
                 <p class="userName"> {{ friend.name }} </p>
-              </div>
+            </div>
 
             @if (this.newMessages.has(friend.id) && this.newMessages.get(friend.id) > 0) 
               { 

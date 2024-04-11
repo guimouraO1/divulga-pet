@@ -2,11 +2,11 @@
   <a routerLink="findPet" class="logo">Divulga Pet</a>
   <ul class="navSection">
     <!-- <li routerLink="home"><a class="navItens">Home</a></li> -->
-    <li routerLink="postPet"><a class="navItens"  [class.active]="this.router.url==='/postPet'">Post Pet</a></li>
-    <li routerLink="findPet" ><a class="navItens" [class.active]="this.router.url==='/findPet'">Find Pet</a></li>
-    <li routerLink="happyStories"><a class="navItens" [class.active]="this.router.url==='/happyStories'">Happy Stories</a></li>
-    
+    <li routerLink="postPet"><a class="navItens"  [class.active]="this.router.url==='/postPet'">Publicar Pet</a></li>
+    <li routerLink="findPet" ><a class="navItens" [class.active]="this.router.url==='/findPet'">Encontrar Pet</a></li>
+    <li routerLink="happyStories"><a class="navItens" [class.active]="this.router.url==='/happyStories'">Histórias</a></li>
     <li>
+
       <div class="nav-icon">
       @if(user) {
         @if (user.profile_pic !== '') {
@@ -25,26 +25,28 @@
       }
 
         <mat-menu #menu="matMenu">
+
           <button routerLink="profile" mat-menu-item>
-            <span>Profile</span>
+            <span>Perfil</span>
           </button>
+
           <button
             routerLink="chat"
             class="item"
             mat-menu-item
           >
-            <span>Messages</span>
+            <span>Mensagens</span>
           </button>
 
           <button (click)="logout()" mat-menu-item>
-            <span>Sign out</span>
+            <span>Sair</span>
           </button>
           
         </mat-menu>
 
         <mat-menu #menu2="matMenu">
           <button routerLink="login" mat-menu-item>
-            <span>Go to Login Page</span>
+            <span>voltar a tela de login</span>
           </button>
         </mat-menu>
         

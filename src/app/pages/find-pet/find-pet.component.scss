@@ -30,18 +30,20 @@
 }
 
 .searchHeader {
+
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
   width: 14vw;
-  justify-content: space-between;
+  justify-content: center;
   margin: 30px;
   margin-top: 60px;
   border-bottom: 1px solid rgba(56, 56, 56, 0.288);
   color: rgba(56, 56, 56, 0.288);
   cursor: pointer;
   padding: 8px;
+
   h2 {
     margin: 0;
     padding: 0 !important;

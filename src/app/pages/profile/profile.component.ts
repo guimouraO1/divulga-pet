@@ -259,14 +259,30 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.geocoder
         .geocode({ address: query, language: 'pt-BR' })
         .pipe(take(1))
-        .subscribe(({ results }) => {
-          this.userForm.patchValue({
-            address: results[0].formatted_address,
-          });
+        .subscribe({
+          next: (res: any) => {
+            if(res.status == 'ZERO_RESULTS'){
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'This location dont exist',
+              });
+              return;
+            }
+            if (res.status == 'OK') {
+              this.userForm.patchValue({
+                address: res.results[0].formatted_address,
+              });
+            }
+          },
+          error: (err) => {
+            console.log('Erro ao geocodificar:', err);
+            console.log('Local não encontrado.');
+          },
         });
-    } else {
     }
   }
+
 
   ngOnDestroy() {
     this.destroy$.next();

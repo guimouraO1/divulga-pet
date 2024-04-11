@@ -2,55 +2,51 @@
   <p-toast></p-toast>
   <mat-stepper [linear]="true" #stepper class="card">
 
-    <mat-step [stepControl]="petForm" label="Fill in pet information" >
+    <mat-step [stepControl]="petForm" label="Informações do Pet" >
       <form class="parent" [formGroup]="petForm">
-        
+      
         <mat-form-field appearance="outline" class="item">
-          <mat-label>Pet Name</mat-label>
-          <input matInput placeholder="Exemple Rex" formControlName="name" />
+          <mat-label>Nome do pet</mat-label>
+          <input matInput placeholder="Exemplo Rex" formControlName="name" />
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="item">
-          <mat-label>Specie</mat-label>
+          <mat-label>Espécie</mat-label>
           <mat-select
-            placeholder="Select the species"
+            placeholder="Selecione a espécie"
             formControlName="species"
           >
-            <mat-option value="Dog">Dog</mat-option>
-            <mat-option value="Cat">Cat</mat-option>
-            <mat-option value="Bird">Bird</mat-option>
-            <mat-option value="Other">Other</mat-option>
+            <mat-option value="Dog">Cachorro</mat-option>
+            <mat-option value="Cat">Gato</mat-option>
+            <mat-option value="Bird">Pássaro</mat-option>
+            <mat-option value="Other">Outro</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="item">
-          <mat-label>Breed</mat-label>
+          <mat-label>Raça</mat-label>
           <input
             matInput
-            placeholder="Exemple Border collie"
+            placeholder="Exemplo Border collie"
             formControlName="breed"
           />
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="item">
-          <mat-label>Sex</mat-label>
-          <mat-select placeholder="Select the sex" formControlName="sex">
-            <mat-option value="Female">Female</mat-option>
-            <mat-option value="Male">Male</mat-option>
-            <mat-option value="Unknown">Unknown</mat-option>
+          <mat-label>Sexo</mat-label>
+          <mat-select placeholder="Selecione o sexo" formControlName="sex">
+            <mat-option value="Female">Fêmea</mat-option>
+            <mat-option value="Male">Macho</mat-option>
+            <mat-option value="Unknown">Desconhecido</mat-option>
           </mat-select>
         </mat-form-field>
         
         <mat-form-field appearance="outline" class="item">
-          <mat-label>Status</mat-label>
-          <mat-select placeholder="Select Status" formControlName="status">
-            <mat-option value="Lost"
-              >Lost <span>(I lost my pet)</span></mat-option
-            >
-            <mat-option value="Found"
-              >Found <span>(I found a lost pet)</span></mat-option
-            >
-            <mat-option value="Seen nearby">Seen nearby</mat-option>
+          <mat-label>Situação</mat-label>
+          <mat-select placeholder="Selecione a situação" formControlName="status">
+            <mat-option value="Lost">Perdido <span>(Eu perdi o meu pet)</span></mat-option>
+            <mat-option value="Found">Encontrado <span>(Eu encontrei um pet perdido)</span></mat-option>
+            <mat-option value="Seen nearby">Visto nas proximidades</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -66,24 +62,23 @@
                 class="form-control"
                 (change)="handleFileInput($event)"
               />
-              Upload Pet Image
+            Carregar imagem do pet
             </label>
           </form>
-          <button color="primary" class="btn" mat-stroked-button matStepperNext>Next</button>
+          <button color="primary" class="btn" mat-stroked-button matStepperNext>Próximo</button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="locationForm" label="Fill out your address">
+    <mat-step [stepControl]="locationForm" label="Última localização">
       <form class="parent"  [formGroup]="locationForm">
-
         <mat-form-field appearance="outline" class="item">
-          <mat-label>Last pet location</mat-label>
+          <mat-label>Última localização</mat-label>
           <input
             (keyup.enter)="autocomplete(locationInput)"
             [(ngModel)]="locationInput"
             matInput
-            placeholder="Tóquio 423, Parque São Quirino"
+            placeholder="Exemplo Tóquio 3323, Parque São Quirino"
             formControlName="last_location"
           />
           <button (click)="autocomplete(locationInput)" color="primary" mat-icon-button matSuffix style="cursor: pointer;">
@@ -99,7 +94,7 @@
             mat-stroked-button
             (click)="getUserLocation()"
           >
-            Get your location
+          Obtenha sua localização
           </button>
         </div> 
 
@@ -122,10 +117,10 @@
             </google-map>
           }        
         <div class="footer">
-          <button color="primary" class="btn" mat-stroked-button matStepperPrevious>Back</button>
-          <button (click)="onSubmit()" [disabled]="disableButton" class="btn" color="primary" mat-stroked-button type="submit">
-            Post pet
-          </button>
+          <button color="primary" class="btn" mat-stroked-button matStepperPrevious>Voltar</button>
+            <button (click)="onSubmit()" [disabled]="disableButton" class="btn" color="primary" mat-stroked-button type="submit">
+              Publicar pet
+            </button>
         </div>
 
       </form>

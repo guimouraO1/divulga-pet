@@ -95,7 +95,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.setupMessageListeners();
 
     this.connectedUsersListener();
-    // this.rescueListener();
   }
 
   protected petRescued(friend: Friends) {
@@ -200,7 +199,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         (friend) => friend.status === 'Accepted'
       );
       this.friendListRescuers = friends.filter(
-        (friend) => friend.status === 'Rescued'
+        (friend) => friend.status === 'Resgatado'
       );
 
       await Promise.all(

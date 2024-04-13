@@ -166,7 +166,7 @@
               }
             </div>
     
-            @if (pet.status == 'Rescued') {
+            @if (pet.status == 'Resgatado') {
               <button color="accent" class="btn-header" mat-flat-button>
                 {{ pet.status }}
               </button>
@@ -192,7 +192,7 @@
             <mat-divider></mat-divider>
     
             <div class="btn-div">
-              @if (pet.status == 'Rescued') {
+              @if (pet.status == 'Resgatado') {
                 <button
                 (click)="seeHappyStorie(pet)"
                 type="text"

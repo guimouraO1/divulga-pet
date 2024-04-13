@@ -9,13 +9,7 @@
   justify-content: center;
 }
 
-.cardBackground{
-  color: black;
-  position: absolute;
-  transform: scale(14) rotate(60deg);
-  margin-bottom: 10%;
-  opacity: 0.1;
-}
+
 // #1f2937
 .card {
   min-width: 500px;
@@ -31,7 +25,7 @@
   p {
     color: colors.$text-primary;
     span {
-      color: colors.$primary;
+      color: colors.$warn;
       cursor: pointer;
     }
   }

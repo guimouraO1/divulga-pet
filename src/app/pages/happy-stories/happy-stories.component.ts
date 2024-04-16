@@ -26,7 +26,6 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { User } from '../../models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -52,7 +51,6 @@ import { ImageModule } from 'primeng/image';
     CommonModule,
     AsyncPipe,
     SkeletonModule,
-    ConfirmPopupModule,
     ToastModule,
     MatInputModule,
     MatFormFieldModule,
@@ -132,6 +130,7 @@ export class HappyStoriesComponent {
       const res: any = await lastValueFrom(
         this.petService.getPublications(this.pet, this.offset, this.limit, 'happy')
       );
+      console.log(res)
 
       const petList: Pet[] = res.publications;
       this.totalPet = res.totalItems;

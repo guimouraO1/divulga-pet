@@ -13,7 +13,7 @@ export interface Pet {
     date: string,
     latlon: any,
     userFilename?: any,
-    petFilename?: any,
-    happyText: string
+    happyText?: string,
+    rescuedById?: string
 }
   

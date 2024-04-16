@@ -5,7 +5,7 @@
         <h2>Olá, {{ user?.name }}</h2>
         <button
           (click)="scrollToContainer()"
-          class="btn"
+          class="btn-first-card"
           color="primary"
           mat-stroked-button
         >
@@ -55,7 +55,7 @@
 
         <form class="form2" [formGroup]="userForm">
           <div class="parent">
-            <mat-form-field appearance="outline">
+            <mat-form-field color="primary" appearance="outline">
               <mat-label>Primeiro nome</mat-label>
               <input
                 formControlName="firstName"
@@ -176,20 +176,16 @@
               </button>
             }
     
-            <mat-divider></mat-divider>
-            <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Raça: <span>{{ pet.breed }}</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Espécie: <span>{{ pet.species }}</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item>Sexo: <span>{{ pet.sex }}</span></mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item 
-              style="cursor: pointer;"
-              matTooltip="{{ pet.last_location }}"
-              >Última localização: <span>{{ pet.last_location }}</span></mat-list-item>
-            <mat-divider></mat-divider>
+            <mat-list class="pet-infos">
+              <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>
+              <mat-list-item>Raça: <span>{{ pet.breed }}</span></mat-list-item>
+              <mat-list-item>Espécie: <span>{{ pet.species }}</span></mat-list-item>
+              <mat-list-item>Sexo: <span>{{ pet.sex }}</span></mat-list-item>
+              <mat-list-item 
+                style="cursor: pointer;"
+                matTooltip="{{ pet.last_location }}"
+                >Última localização: <span>{{ pet.last_location }}</span></mat-list-item>
+            </mat-list>
     
             <div class="btn-div">
               @if (pet.status == 'Resgatado') {

@@ -131,6 +131,7 @@ export class FindPetComponent {
       const res: any = await lastValueFrom(
         this.petService.getPublications(this.pet, this.offset, this.limit, 'find')
       );
+      console.log(res)
       
       const petList: Pet[] = res.publications;
       this.totalPet = res.totalItems;
@@ -261,6 +262,8 @@ export class FindPetComponent {
       target: event.target as EventTarget,
       message: 'Tem certeza que deseja resgatar este pet?',
       icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
       accept: async () => {
         if(!this.user){
           this.messageService.add({

@@ -157,6 +157,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       target: event.target as EventTarget,
       message: 'Tem certeza de que deseja adicionar esta imagem como sua foto de perfil?',
       icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
       accept: async () => {
         if (this.selectedFile) {
           await this.uploadImage();
@@ -188,6 +190,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       target: event.target as EventTarget,
       message: 'Tem certeza de que deseja atualizar as informações do seu perfil?',
       icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
       accept: () => {
         this.onSubmit();
       },
@@ -207,6 +211,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       target: event.target as EventTarget,
       message: 'Tem certeza de que deseja excluir esta postagem?',
       icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
       accept: async () => {
         await this.deletePublications(id);
       },

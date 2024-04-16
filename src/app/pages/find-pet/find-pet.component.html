@@ -1,7 +1,7 @@
 <div class="main">
   
   <p-toast></p-toast>
-  <p-confirmPopup [ngStyle]="{backgroundColor:'var(--highlight-bg)', color: 'var(--highlight-text-color)'}"></p-confirmPopup>
+  <p-confirmPopup></p-confirmPopup>
   
   
   <div class="search">
@@ -96,23 +96,18 @@
         <button color="warn" class="btn-header" mat-flat-button>
           {{ pet.status }}
         </button>
-      
-
-        <mat-divider></mat-divider>
-        <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>Raça: <span>{{ pet.breed }}</span></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>Espécie: <span>{{ pet.species }}</span></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>Sexo: <span>{{ pet.sex }}</span></mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item 
-          style="cursor: pointer;"
-          matTooltip="{{ pet.last_location }}"
-          >Última localização: <span>{{ pet.last_location }}</span></mat-list-item>
-        <mat-divider></mat-divider>
-
+        
+        <mat-list class="pet-infos">
+          <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>
+          <mat-list-item>Raça: <span>{{ pet.breed }}</span></mat-list-item>
+          <mat-list-item>Espécie: <span>{{ pet.species }}</span></mat-list-item>
+          <mat-list-item>Sexo: <span>{{ pet.sex }}</span></mat-list-item>
+          <mat-list-item 
+            style="cursor: pointer;"
+            matTooltip="{{ pet.last_location }}"
+            >Última localização: <span>{{ pet.last_location }}</span></mat-list-item>
+        </mat-list>
+        
         <div class="btn-div">
           <button
             (click)="confirm1($event, pet)"

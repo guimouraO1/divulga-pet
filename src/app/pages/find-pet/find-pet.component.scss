@@ -56,13 +56,11 @@ mat-form-field {
 }
 
 .cards-container {
-  /* margin: 50px; */
   margin-top: 30px;
   display: flex;
   justify-content: center;
-  /* flex-direction: column; */
-  gap: 30px;
   flex-wrap: wrap;
+  gap: 0px;
 }
 
 .error {
@@ -86,6 +84,12 @@ mat-form-field {
   border-radius: 8px;
   background-color: $cardBackground !important;  
 
+
+  .pet-infos{
+    display: flex;
+    flex-direction: column;
+    max-height: 140px;
+  }
   .tag{
     height: 10px;
     display: flex;
@@ -102,12 +106,12 @@ mat-form-field {
 
 .header-card {
   height: 100px;
-  margin: 10px;
+  margin: 0px 10px;
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: space-between;
-  padding: 0px 20px;
+  padding: 0px 10px;
 
   .header-img-name{
     display: flex;
@@ -148,7 +152,7 @@ mat-list-item{
 }
 
 .btn {
-  margin: 20px;
+  margin: 10px 0px 10px 0px;  
   width: 200px;
 }
 
@@ -201,25 +205,24 @@ mat-paginator {
 }
 
 .pet_image {
-  width: 400px;
-  height: 300px;
   margin: 10px;
   object-fit: cover;
   border-radius: 20px;
-}
-
-.img-pet {
-  width: 400px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
+  .img-pet {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
 }
 
 .btn-header {
-  border-radius: 20px;
-  margin: 4px 8px;
-  align-self: flex-end;
+  align-self: center;
+  width: 95%;
+  padding: 12px 0px;
+  font-size: 20px;
   color: #fff !important;
+
 }
 
 .cards2 {
@@ -271,21 +274,22 @@ input {
   font-style: normal;
   background-color: $cardBackground !important;
   color: $text_primary;
-  border: none;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  border: none !important;
 
   .p-button.p-button-text {
-    color: $text_primary !important;
+    color: #fff !important;
+  }
+
+  .p-button:first-child{
+    background-color: $warn;
+    border: none !important;
   }
   .p-button {
-    color: #030712;
-    background: $cardBackground;
-    font-weight: 100;
-    border: 1px solid #03071225;
+    color: #ffffff !important;
+    border: none;
     padding: 0.4rem 1.25rem;
-    font-size: 1rem;
-    box-shadow: $cardShadowPrimary;
-    border-radius: 6px;
+    font-size: medium;
+    border-radius: 4px;
   }
 }
 

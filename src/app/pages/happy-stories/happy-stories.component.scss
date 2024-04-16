@@ -58,10 +58,7 @@ mat-form-field {
   margin-top: 30px;
   display: flex;
   justify-content: center;
-  /* flex-direction: column; */
-  gap: 30px;
   flex-wrap: wrap;
-
 
   .main-modal {
     display: flex;
@@ -93,6 +90,9 @@ mat-form-field {
     }
     .right {
       width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
       .author-modal {
         border-radius: 8px;
         padding: 20px;
@@ -105,13 +105,14 @@ mat-form-field {
           color: $text_primary;
         }
         .header-img-name {
-          
           display: flex;
           flex-direction: row;
           gap: 10px;
           align-items: center;
         }
       }
+
+      
     }
   }
 }
@@ -134,18 +135,35 @@ mat-form-field {
   width: 420px;
   height: 650px;
   box-shadow: $cardShadowPrimary;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: $cardBackground !important;
+
+  .pet-infos {
+    display: flex;
+    flex-direction: column;
+    max-height: 140px;
+  }
+  .tag {
+    height: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+
+    span {
+      color: $primary;
+    }
+  }
 }
 
 .header-card {
   height: 100px;
-  margin: 10px;
+  margin: 0px 10px;
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: space-between;
-  padding: 0px 20px;
+  padding: 0px 10px;
 
   .header-img-name {
     display: flex;
@@ -154,6 +172,7 @@ mat-form-field {
     align-items: center;
   }
 }
+
 mat-list-item {
   font-weight: bold;
   span {
@@ -184,7 +203,7 @@ mat-list-item {
 }
 
 .btn {
-  margin: 20px;
+  margin: 10px 0px 10px 0px;
   width: 200px;
 }
 
@@ -238,24 +257,24 @@ mat-paginator {
 }
 
 .pet_image {
-  width: 400px;
-  height: 300px;
+  min-width: 400px;
+  min-height: 300px;
   margin: 10px;
   object-fit: cover;
   border-radius: 20px;
-}
-
-.img-pet {
-  width: 400px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
+  .img-pet {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
 }
 
 .btn-header {
-  border-radius: 20px;
-  margin: 4px 8px;
-  align-self: flex-end;
+  align-self: center;
+  width: 95%;
+  padding: 12px 0px;
+  font-size: 20px;
   color: #fff !important;
 }
 
@@ -299,30 +318,6 @@ input {
 
 ::ng-deep .mat-mdc-icon-button:enabled .mat-mdc-paginator-icon {
   fill: $primary !important;
-}
-
-::ng-deep .p-confirm-popup {
-  font-family: 'Delius', cursive;
-  font-weight: 400;
-  font-style: normal;
-  background-color: $cardBackground !important;
-  color: $text_primary;
-  border: none;
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-
-  .p-button.p-button-text {
-    color: $text_primary !important;
-  }
-  .p-button {
-    color: #030712;
-    background: $cardBackground;
-    font-weight: 100;
-    border: 1px solid #03071225;
-    padding: 0.4rem 1.25rem;
-    font-size: 1rem;
-    box-shadow: $cardShadowPrimary;
-    border-radius: 6px;
-  }
 }
 
 ::ng-deep .mdc-list-item__content {

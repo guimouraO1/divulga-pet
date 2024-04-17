@@ -114,9 +114,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         return;
       }
       this.modalRadioButton = false;
-      await firstValueFrom(
-        this.petService.rescueToHappyStories(userRescue, this.happyText)
-      );
+      await firstValueFrom(this.petService.rescueToHappyStories(userRescue, this.happyText));
 
       this.filteredFriendList = this.friendList.filter(
         (friend) => friend.id !== userRescue.id

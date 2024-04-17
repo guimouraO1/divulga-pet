@@ -157,7 +157,7 @@ mat-list-item{
 }
 
 .btn-lost {
-  color: red !important;
+  color: $warn !important;
 }
 
 .icon {
@@ -276,23 +276,19 @@ input {
   color: $text_primary;
   border: none !important;
 
-  .p-button.p-button-text {
-    color: #fff !important;
-  }
-
   .p-button:first-child{
     background-color: $warn;
     border: none !important;
   }
   .p-button {
+    background-color: $primary;
     color: #ffffff !important;
-    border: none;
+    border: none !important;
     padding: 0.4rem 1.25rem;
     font-size: medium;
     border-radius: 4px;
   }
 }
-
 ::ng-deep .mdc-list-item__content{
   color: $text_primary;
 }

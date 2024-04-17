@@ -22,6 +22,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
+import { SkeletonModule } from 'primeng/skeleton';
+import { AvatarModule } from 'primeng/avatar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-conversation-messages',
@@ -38,6 +41,9 @@ import { AuthService } from '../../services/auth.service';
     RouterOutlet,
     MatProgressBarModule,
     ToastModule,
+    SkeletonModule,
+    AvatarModule,
+    MatButtonModule
   ],
   providers: [MessageService],
 })

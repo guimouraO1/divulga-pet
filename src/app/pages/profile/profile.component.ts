@@ -27,7 +27,7 @@ import { GoogleMap, MapGeocoder } from '@angular/google-maps';
 import { Pet } from '../../models/pet.model';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -288,6 +288,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         });
     }
   }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

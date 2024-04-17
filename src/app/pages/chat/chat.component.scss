@@ -166,9 +166,9 @@
                 height: 48px;
                 image-rendering: crisp-edges;
               }
-              button{
-                box-shadow: colors.$cardShadowPrimary;
-              }
+              // button{
+              //   box-shadow: colors.$cardShadowPrimary;
+              // }
             }
 
             .userName {
@@ -219,9 +219,6 @@ span {
 .modal-p{
   color: colors.$text_primary;
 }
-// .modal-dialog {
-//   background-color: colors.$background !important;
-// }
 
 ::ng-deep .mdc-form-field {
   color: colors.$text_primary !important;

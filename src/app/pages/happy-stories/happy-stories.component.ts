@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {
   Observable,
   Subject,
+  firstValueFrom,
   lastValueFrom,
   of,
   takeUntil,
@@ -33,6 +34,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { ImageModule } from 'primeng/image';
+import { ChatService } from '../../services/chat.service';
+import { AvatarModule } from 'primeng/avatar';
 
 
 @Component({
@@ -57,7 +60,8 @@ import { ImageModule } from 'primeng/image';
     ClipboardModule,
     MatTooltipModule,
     DialogModule,
-    ImageModule
+    ImageModule,
+    AvatarModule
   ],
   templateUrl: './happy-stories.component.html',
   styleUrl: './happy-stories.component.scss',
@@ -83,6 +87,7 @@ export class HappyStoriesComponent {
   };
   pageSizeOptions = [3, 6];
   visibleModal = false;
+  protected userRescuedPet: User | undefined;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
@@ -91,7 +96,8 @@ export class HappyStoriesComponent {
     private petService: PetService,
     private route: ActivatedRoute,
     private router: Router,
-    public messageService: MessageService
+    public messageService: MessageService,
+    public chatService: ChatService
   ) {}
 
   async ngOnInit() {
@@ -130,7 +136,6 @@ export class HappyStoriesComponent {
       const res: any = await lastValueFrom(
         this.petService.getPublications(this.pet, this.offset, this.limit, 'happy')
       );
-      console.log(res)
 
       const petList: Pet[] = res.publications;
       this.totalPet = res.totalItems;
@@ -191,6 +196,14 @@ export class HappyStoriesComponent {
       queryParams: queryParams,
       queryParamsHandling: 'merge',
     });
+  }
+
+
+  async viewModal(pet: Pet){
+    this.visibleModal = true;
+    const res: any = await firstValueFrom(this.chatService.getFriendById(pet.rescuedById));
+    console.log(res)
+    this.userRescuedPet = res;
   }
 }
 

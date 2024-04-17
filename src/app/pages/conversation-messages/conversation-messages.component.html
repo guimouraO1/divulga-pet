@@ -3,11 +3,15 @@
   <div class="userInfo">
     @if (this.recipient.profilePic) {
       <img src="{{ this.recipient.profilePic }}" alt="">
+    } @else {
+      <button type="text" color="primary" mat-icon-button>
+        <mat-icon>person</mat-icon>
+      </button>    
     }
     @if (this.recipient.name) {
       <span>Conversando com <span class="username">{{ recipient.name }}</span></span>  
     } @else {
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <mat-progress-bar style="width: 40%;" mode="indeterminate"></mat-progress-bar>
     }
   </div>
   <div class="chat-messages" #scrollPanel (scroll)="scrollOnTop()">

@@ -303,7 +303,7 @@ mat-form-field {
 
 }
 .btn-lost {
-  color: red !important;
+  color: $warn !important;
 }
 
 mat-paginator {
@@ -396,17 +396,14 @@ mat-list-item{
   color: $text_primary;
   border: none !important;
 
-  .p-button.p-button-text {
-    color: #fff !important;
-  }
-
   .p-button:first-child{
     background-color: $warn;
     border: none !important;
   }
   .p-button {
+    background-color: $primary;
     color: #ffffff !important;
-    border: none;
+    border: none !important;
     padding: 0.4rem 1.25rem;
     font-size: medium;
     border-radius: 4px;

@@ -54,12 +54,11 @@ mat-form-field {
 }
 
 .cards-container {
-  /* margin: 50px; */
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0px;
   .main-modal {
     display: flex;
     flex-direction: row;
@@ -111,7 +110,25 @@ mat-form-field {
           align-items: center;
         }
       }
+      .recue-modal{
+        border-radius: 8px;
+        padding: 20px;
+        background-color: $cardBackground;
+        box-shadow: $cardShadowPrimary;
 
+        p {
+          padding: 10px;
+          text-wrap: pretty;
+          color: $text_primary;
+        }
+        .header-img-name {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          gap: 10px;
+          align-items: center;
+        }
+      }
       
     }
   }
@@ -208,7 +225,7 @@ mat-list-item {
 }
 
 .btn-lost {
-  color: red !important;
+  color: $warn !important;
 }
 
 .icon {

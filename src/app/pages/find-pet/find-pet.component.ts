@@ -264,6 +264,7 @@ export class FindPetComponent {
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sim',
       rejectLabel: 'Não',
+      acceptButtonStyleClass: 'sss',
       accept: async () => {
         if(!this.user){
           this.messageService.add({

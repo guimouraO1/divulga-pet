@@ -60,7 +60,6 @@
                   <p>Informações do Reencontro</p>
                   <mat-divider></mat-divider>
                 </div>
-
             </mat-list>
 
             <div class="right">
@@ -75,15 +74,20 @@
                   <p>{{ pet.happyText }}</p>
               </div>
 
-              <div class="author-modal">
+              <div class="recue-modal">
                 <div class="header-img-name">
-                  <img
-                  class="img-icon"
-                  src="{{ pet.userFilename }}"/>
-                  <p class="userName">{{ pet.rescuedById }}</p>
+                  <p class="userName">{{ userRescuedPet?.name }}</p>
+                  @if (userRescuedPet?.profile_pic) {
+                    <img
+                    class="img-icon"
+                    src="{{ userRescuedPet?.profile_pic }}"/>
+                  } @else {
+                    <button type="text" color="primary" mat-icon-button>
+                      <mat-icon>person</mat-icon>
+                    </button>                   
+                  }
                 </div>
-                <p>Esse pet foi resgatado por {{ pet.rescuedById }}</p>
-
+                <p>Esse pet foi resgatado por {{ userRescuedPet?.name }}</p>
             </div>
 
             </div>
@@ -147,7 +151,7 @@
           </mat-list>
           <div class="btn-div">
             <button
-              (click)="this.visibleModal = true"
+              (click)="viewModal(pet)"
               type="submit"
               class="btn"
               color="accent"

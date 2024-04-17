@@ -78,7 +78,7 @@ export class PetService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${token}`);
 
-    const body = { rescuedById: id.id, publicationId: id.publicationId, text: text };
+    const body = { rescuedById: id.idFriendship, publicationId: id.publicationId, text: text };
     return this.http.put(`${this.urlApi}/publications`, body, { headers });
 }
 }

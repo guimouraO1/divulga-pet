@@ -192,11 +192,11 @@ mat-form-field {
 }
 
 mat-list-item {
-  font-weight: bold;
+  font-weight: 600;
   span {
-    font-weight: 100;
+    font-weight: 600;
     color: $text_primary !important;
-    opacity: 0.8;
+    opacity: 0.5;
   }
 }
 

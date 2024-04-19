@@ -6,6 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Madimi+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 // @import "primeng/resources/themes/lara-dark-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
@@ -99,8 +100,8 @@ body {
   overflow-x: hidden;
   background: colors.$background;
   margin: 0;
-  font-family: "Delius", cursive;
-  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   font-style: normal;
 }
 

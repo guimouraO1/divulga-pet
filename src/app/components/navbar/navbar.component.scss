@@ -9,7 +9,7 @@
   align-items: center;
 }
 span{
-  font-family: "Delius", cursive !important;
+  font-family: "Montserrat", sans-serif;
 }
 .logo {
   display: flex;
@@ -41,13 +41,13 @@ span{
   align-items: center;
   text-decoration: none;
   margin: 0px 10px;
-  width: 220px;
+  width: 200px;
   transition: 0.8s;
   height: 45px;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 100;
-  font-size: 25px;
+  font-weight: 600;
+  font-size: 20px;
 }
 
 .navItens.active {

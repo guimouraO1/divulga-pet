@@ -35,4 +35,9 @@ export class UserService {
 
     return this.http.put(`${this.urlApi}/user`, userForm, { headers });
   }
+
+  getUserByID(user: any) {
+    console.log(user);
+    return this.http.get(`${this.urlApi}/userH/${ user }`);
+  }
 }

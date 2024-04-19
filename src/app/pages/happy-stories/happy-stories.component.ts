@@ -36,6 +36,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ImageModule } from 'primeng/image';
 import { ChatService } from '../../services/chat.service';
 import { AvatarModule } from 'primeng/avatar';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -97,7 +98,8 @@ export class HappyStoriesComponent {
     private route: ActivatedRoute,
     private router: Router,
     public messageService: MessageService,
-    public chatService: ChatService
+    public chatService: ChatService,
+    private userService: UserService
   ) {}
 
   async ngOnInit() {
@@ -201,8 +203,7 @@ export class HappyStoriesComponent {
 
   async viewModal(pet: Pet){
     this.visibleModal = true;
-    const res: any = await firstValueFrom(this.chatService.getFriendById(pet.rescuedById));
-    console.log(res)
+    const res: any = await firstValueFrom(this.userService.getUserByID(pet.rescuedById));
     this.userRescuedPet = res;
   }
 }

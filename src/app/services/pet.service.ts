@@ -74,11 +74,11 @@ export class PetService {
     return this.http.post(`${this.urlApi}/friends`, { friendUserId: pet.user_id, petPostId: pet.id }, { headers });
   }
 
-  rescueToHappyStories(id: Friends, text: string): Observable<any> {
+  rescueToHappyStories(friend: Friends, text: string): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${token}`);
 
-    const body = { rescuedById: id.idFriendship, publicationId: id.publicationId, text: text };
+    const body = { rescuedById: friend.id, publicationId: friend.publicationId, text: text };
     return this.http.put(`${this.urlApi}/publications`, body, { headers });
 }
 }

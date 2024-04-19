@@ -40,8 +40,8 @@
         <mat-label>Filtrar por situação</mat-label>
         <mat-select value="{{ pet.status }}" (selectionChange)="filter($event, 'status')">
           <mat-option value="">Todos</mat-option>
-          <mat-option value="Perdido">Perdido</mat-option>
-          <mat-option value="Encontrado">Encontrado</mat-option>
+          <mat-option value="Perdido">Perdido <span> (Procurando Pet)</span></mat-option>
+          <mat-option value="Encontrado">Encontrado <span>(Procurando tutor)</span></mat-option>
           <mat-option value="Visto nas proximidades">Visto nas proximidades</mat-option>
         </mat-select>
       </mat-form-field>
@@ -66,19 +66,36 @@
                 <p class="userName">{{ pet.user_firstName }}</p>
             </div>
           }
+
+          <div>
           <button
           matSuffix
           matTooltipPosition="after"
           color="primary"
           mat-icon-button
-          [cdkCopyToClipboard]="pet.id" 
-          matTooltip="Clique para copiar o ID"
-        > 
-        <mat-icon 
+          [cdkCopyToClipboard]="'http://localhost:4200/findPet?id=' + pet.id" 
+          matTooltip="Clique para compatilhar essa publicação"
+          > 
+          <mat-icon 
             color="primary"
-            >file_copy</mat-icon>
+            >share</mat-icon>
           </button>
+
+          <button
+            matSuffix
+            matTooltipPosition="after"
+            color="primary"
+            mat-icon-button
+            [cdkCopyToClipboard]="pet.id" 
+            matTooltip="Clique para copiar o ID"
+          > 
+            <mat-icon 
+              color="primary"
+              >file_copy</mat-icon>
+            </button>        
+          </div>
         </div>
+        
 
         <div class="pet_image">
           @if(pet.filename){

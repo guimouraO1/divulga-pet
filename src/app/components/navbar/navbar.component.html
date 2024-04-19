@@ -1,9 +1,12 @@
 <div class="navContainer">
-  <a routerLink="findPet" class="logo">Divulga PET</a>
+  <div class="logo">
+    <a routerLink="findPet" class="logoColor">Divulga PET</a>
+    <img src="../../../favicon.ico" alt="">
+  </div>
   <ul class="navSection">
-    <!-- <li routerLink="home"><a class="navItens">Home</a></li> -->
+    <li routerLink="home"><a class="navItens"  [class.active]="this.router.url==='/home'">Início</a></li>
     <li routerLink="postPet"><a class="navItens"  [class.active]="this.router.url==='/postPet'">Publicar Pet</a></li>
-    <li routerLink="findPet" ><a class="navItens" [class.active]="this.router.url==='/findPet'">Encontrar Pet</a></li>
+    <li routerLink="findPet" ><a class="navItens" [class.active]="this.router.url==='/findPet'">Achados/Perdidos</a></li>
     <li routerLink="happyStories"><a class="navItens" [class.active]="this.router.url==='/happyStories'">Histórias Felizes</a></li>
     <li>
 

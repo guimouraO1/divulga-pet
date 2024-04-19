@@ -1,0 +1,49 @@
+<div class="main">
+  <div class="container">
+    <div class="left">
+      <div class="how-to-find-pet">
+        <h1>Reencontre o seu Pet Perdido</h1>
+        <h2 class="welcome-text">
+            Aproveite a nossa ferramenta de localização de pets, uma solução eficaz
+            que tem auxiliado incontáveis tutores em todo o Brasil. Realize uma
+            publicação totalmente gratuita e ganhe acesso imediato ao nosso
+            abrangente Painel de Publicações.
+        </h2>
+        
+        <div class="left-btns">
+                <button mat-fab extended color="primary">
+                  <mat-icon>edit</mat-icon>
+                  Publicar meu pet Perdido
+                </button>
+
+                <button mat-fab extended color="primary">
+                    <mat-icon>search</mat-icon>
+                   Achados e Perdidos
+                </button>
+            </div>
+        </div>
+      <div class="total-recueds">
+        <div>
+            <h2>Total de Pets Resgatados  <span>{{ this.totalPets }}</span> e subindo! 🚀</h2>
+        </div>
+        <p>Últimas histórias felizes</p>
+        @for (pet of petList; track $index) {
+            <p-avatarGroup styleClass="mb-3">
+                <p-avatar image="{{ pet.filename }}" size="large" shape="circle"></p-avatar>
+            </p-avatarGroup>
+        } @empty {
+            <button color="warn" mat-icon-button>
+                <mat-icon color="warn">error</mat-icon>
+            </button>       
+            <p>Nenhum pet resgatado ainda :(</p>
+        }
+      </div>
+
+    </div>
+    <div class="right">
+        <img width="600px" height="600px" style="object-fit: cover; border-radius: 20px;" src="../../../assets/pets.png" alt="No Image">
+    </div>
+  </div>
+  <div class="container"></div>
+  <div class="container"></div>
+</div>

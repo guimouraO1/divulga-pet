@@ -1,0 +1,72 @@
+@use '../../../assets/colors/colors.scss' as *;
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10vh;
+  .container {
+    width: 70vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    .left {
+      color: $text_primary;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      padding: 10vh 40px;
+
+      .how-to-find-pet{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-shadow: $cardShadowPrimary;
+        background-color: $cardBackground;
+        padding: 20px;
+        border-radius: 8px;
+        
+        .left-btns {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+          }
+          .welcome-text {
+            opacity: 0.7;
+          }
+      }
+
+      .total-recueds {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        box-shadow: $cardShadowPrimary;
+        background-color: $cardBackground;
+        padding: 20px;
+        border-radius: 8px;
+        span{
+            color: $primary;
+        }
+
+    }
+    }
+
+    .right {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding: 10vh 40px;
+    }
+  }
+}
+::ng-deep .p-avatar-group .p-avatar{
+    border: none !important;
+}

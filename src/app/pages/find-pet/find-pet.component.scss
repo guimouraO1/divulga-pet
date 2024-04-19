@@ -267,6 +267,12 @@ input {
   fill: $primary !important;
 }
 
+mat-option{
+  span{
+    opacity: 0.4;
+  }
+}
+
 
 ::ng-deep .p-confirm-popup {
   font-family: "Delius", cursive;

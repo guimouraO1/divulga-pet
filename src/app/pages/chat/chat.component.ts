@@ -102,7 +102,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.visibleModal = true;
   }
 
-  async rescueToUser(userRescue: Friends) {
+  async rescueToUser(friend: Friends) {
     try {
       if (this.happyText.trim() === '') {
         this.messageService.add({
@@ -114,12 +114,10 @@ export class ChatComponent implements OnInit, OnDestroy {
         return;
       }
       this.modalRadioButton = false;
-      await firstValueFrom(this.petService.rescueToHappyStories(userRescue, this.happyText));
+      await firstValueFrom(this.petService.rescueToHappyStories(friend, this.happyText));
 
-      this.filteredFriendList = this.friendList.filter(
-        (friend) => friend.id !== userRescue.id
-      );
-      this.friendListRescuers.push(userRescue);
+      this.filteredFriendList = this.friendList.filter((friend) => friend.id !== friend.id);
+      this.friendListRescuers.push(friend);
       this.visibleModal = false;
 
       this.messageService.add({

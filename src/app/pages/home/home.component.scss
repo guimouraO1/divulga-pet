@@ -136,6 +136,18 @@
     }
   }
 }
+.img-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.pet-infos {
+  display: flex;
+  flex-direction: column;
+  max-height: 140px;
+}
 
 .cards2 {
   display: flex;
@@ -179,13 +191,24 @@
   background-color: rgb(163, 163, 163);  
 }
 
-.btn-div{
+.btn-div {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
 }
+
+.btn {
+  margin: 10px 0px 10px 0px;  
+  width: 200px;
+}
+.btn-header {
+  align-self: center;
+  width: 95%;
+  padding: 12px 0px;
+  font-size: 20px;
+  color: #fff !important;
+}
+
 .pet_image {
   min-width: 400px;
   min-height: 300px;

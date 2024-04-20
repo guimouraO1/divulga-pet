@@ -10,6 +10,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatListModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

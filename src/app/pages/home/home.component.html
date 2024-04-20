@@ -4,46 +4,249 @@
       <div class="how-to-find-pet">
         <span class="text-h1">Reencontre o seu Pet Perdido</span>
         <p class="welcome-text">
-            Aproveite a nossa ferramenta de localização de pets, uma solução eficaz
-            que tem auxiliado incontáveis tutores em todo o Brasil. Realize uma
-            publicação totalmente gratuita e ganhe acesso imediato ao nosso
-            abrangente Painel de Publicações.
+          Aproveite a nossa ferramenta de localização de pets, uma solução
+          eficaz que tem auxiliado incontáveis tutores em todo o Brasil. Realize
+          uma publicação totalmente gratuita e ganhe acesso imediato ao nosso
+          abrangente Painel de Publicações.
         </p>
-        
-        <div class="left-btns">
-                <button mat-fab extended color="primary">
-                  <mat-icon>edit</mat-icon>
-                  Publicar meu pet Perdido
-                </button>
 
-                <button mat-fab extended color="primary">
-                    <mat-icon>search</mat-icon>
-                   Achados e Perdidos
-                </button>
-            </div>
+        <div class="left-btns">
+          <button
+            mat-fab
+            extended
+            color="primary"
+          >
+            <mat-icon>edit</mat-icon>
+            Perdi meu Pet
+          </button>
+
+          <button
+            mat-fab
+            extended
+            color="primary"
+          >
+            <mat-icon>search</mat-icon>
+            Achados e Perdidos
+          </button>
         </div>
+      </div>
       <div class="total-recueds">
         <div>
-            <h2>Total de Pets Resgatados  <span>{{ this.totalPets }}</span> e subindo! 🚀</h2>
+          <h2>
+            Total de Pets Resgatados <span>{{ this.totalPets }}</span> e
+            subindo! 🚀
+          </h2>
         </div>
         <p>Últimas histórias felizes</p>
         @for (pet of petList; track $index) {
-            <p-avatarGroup styleClass="mb-3">
-                <p-avatar image="{{ pet.filename }}" size="large" shape="circle"></p-avatar>
-            </p-avatarGroup>
+        <p-avatarGroup styleClass="mb-3">
+          <p-avatar
+            image="{{ pet.filename }}"
+            size="large"
+            shape="circle"
+          ></p-avatar>
+        </p-avatarGroup>
         } @empty {
-            <button color="warn" mat-icon-button>
-                <mat-icon color="warn">error</mat-icon>
-            </button>       
-            <p>Nenhum pet resgatado ainda :(</p>
+        <button
+          color="warn"
+          mat-icon-button
+        >
+          <mat-icon color="warn">error</mat-icon>
+        </button>
+        <p>Nenhum pet resgatado ainda :(</p>
         }
       </div>
-
     </div>
     <div class="right">
-        <img width="600px" height="600px" style="object-fit: cover; border-radius: 20px;" src="../../../assets/pets.png" alt="No Image">
+      <img
+        width="600px"
+        height="600px"
+        style="object-fit: cover; border-radius: 20px"
+        src="../../../assets/pets.png"
+        alt="No Image"
+      />
     </div>
   </div>
-  <div class="container"></div>
-  <div class="container"></div>
+
+  <div class="c2-h1">
+    <h1>Como Divulga Pet Funciona?</h1>
+  </div>
+
+  <div class="container">
+    <div class="left">
+      <div class="how-to-post-pet">
+        <div class="cards2">
+          <div class="header-card">
+            <div class="header-img-name">
+              <p-skeleton
+                shape="circle"
+                size="4rem"
+                styleClass="mr-2"
+              ></p-skeleton>
+              <p-skeleton
+                class="itemSke"
+                width="10rem"
+                styleClass="mb-2"
+              ></p-skeleton>
+            </div>
+
+            <div class="btns">
+              <p-skeleton
+                shape="circle"
+                size="2rem"
+                styleClass="mr-2"
+              ></p-skeleton>
+              <p-skeleton
+                shape="circle"
+                size="2rem"
+                styleClass="mr-2"
+              ></p-skeleton>
+            </div>
+          </div>
+
+          <div class="pet_image">
+            <p-skeleton
+              class="img-pet"
+              width="400px"
+              height="300px"
+              styleClass="mr-2"
+            ></p-skeleton>
+          </div>
+
+          <div class="items">
+            <p-skeleton
+              class="itemSke"
+              width="10rem"
+              styleClass="mb-2"
+            ></p-skeleton>
+            <p-skeleton
+              class="itemSke"
+              width="10rem"
+              styleClass="mb-2"
+            ></p-skeleton>
+            <p-skeleton
+              class="itemSke"
+              width="10rem"
+              styleClass="mb-2"
+            ></p-skeleton>
+            <p-skeleton
+              class="itemSke"
+              width="10rem"
+              styleClass="mb-2"
+            ></p-skeleton>
+            <p-skeleton
+              class="itemSke"
+              width="10rem"
+              styleClass="mb-2"
+            ></p-skeleton>
+          </div>
+
+          <div class="btn-div">
+            <p-skeleton
+              width="10rem"
+              styleClass="mb-2"
+              class="btn"
+            ></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="how-to">
+        <span class="text-h1">Crie uma publicação</span>
+        <p class="welcome-text">
+          Para criar uma publicação, efetue o login. Em seguida, clique em
+          Publicar PET, adicione uma foto do animal desaparecido, especifique a
+          situação (Perdido ou Procurando Tutor), inclua observações e a última
+          localização onde o PET foi visto.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="left">
+      <div class="how-to-find-pet">
+        <span class="text-h1">Procure o seu Pet Perdido</span>
+        <p class="welcome-text">
+          Ao clicar em Achados/Perdidos informações sobre o pet serão exibidas
+          na página. Nessa página, você terá a opção de filtrar as publicações
+          por situação do pet, espécie ou localização. Isso facilita a busca por
+          informações específicas.
+        </p>
+      </div>
+    </div>
+    <div class="right">
+      <div class="search">
+        <div class="searchHeader">
+          <h2>Pesquisar</h2>
+        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Pesquisar por ID</mat-label>
+          <input matInput />
+          <button
+            matSuffix
+            color="primary"
+            mat-icon-button
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <div class="item">
+          <mat-form-field
+            appearance="outline"
+            class="forms"
+          >
+            <mat-label>Filtrar por Espécie</mat-label>
+            <mat-select>
+              <mat-option value="">Todos</mat-option>
+              <mat-option value="Cachorro">Cachorro</mat-option>
+              <mat-option value="Gato">Gato</mat-option>
+              <mat-option value="Pássaro">Pássaro</mat-option>
+              <mat-option value="Outros">Outros</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="item">
+          <mat-form-field
+            appearance="outline"
+            class="forms"
+          >
+            <mat-label>Filtrar por situação</mat-label>
+            <mat-select>
+              <mat-option value="">Todos</mat-option>
+              <mat-option value="Perdido"
+                >Perdido <span> (Procurando Pet)</span></mat-option
+              >
+              <mat-option value="Encontrado"
+                >Encontrado <span>(Procurando tutor)</span></mat-option
+              >
+              <mat-option value="Visto nas proximidades"
+                >Visto nas proximidades</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="left">
+        <img src="../../../assets/chat.png" alt="">
+    </div>
+
+    <div class="right">
+      <div class="how-to">
+        <span class="text-h1">CHAT para o Resgate</span>
+        <p class="welcome-text">
+          Ao localizar o pet perdido na página de Achados/Perdidos, o tutor pode
+          clicar no botão Resgatar meu PET para ser direcionado ao CHAT. Lá, ele
+          pode conversar com quem publicou o pet e obter mais detalhes para
+          resgatar o pet.
+        </p>
+      </div>
+    </div>
+  </div>
 </div>

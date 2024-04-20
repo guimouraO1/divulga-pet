@@ -65,8 +65,13 @@
   border-radius: 4px;
   font-weight: 500;
   height: 35px;
-  width: 200px;
+  width: 260px;
   color: $primary;
+  border: 1px solid $borderPrimary;
+  gap: 10px;
+}
+
+.custom-file-upload:hover{
   border: 1px solid $primary;
 }
 
@@ -141,3 +146,5 @@ input {
 ::ng-deep .mat-step-label {
   color: $text_primary !important;
 }
+
+

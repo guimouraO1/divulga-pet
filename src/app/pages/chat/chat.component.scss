@@ -233,3 +233,7 @@ span {
 ::ng-deep .p-dialog .p-dialog-header{
   background-color: colors.$primary;
 }
+
+::ng-deep .p-skeleton {    
+  background-color: rgb(163, 163, 163) !important;  
+}

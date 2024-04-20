@@ -231,7 +231,8 @@ mat-paginator {
   width: 420px;
   height: 650px;
   border-radius: 10px;
-  background-color: #272727 !important;
+  background-color: $cardBackground;
+  box-shadow: $cardShadowPrimary;
   gap: 10px;
 }
 .itemSke {
@@ -299,3 +300,6 @@ mat-option{
   color: $text_primary;
 }
 
+::ng-deep .p-skeleton {    
+  background-color: rgb(163, 163, 163) !important;  
+}

@@ -7,26 +7,37 @@ import { Pet } from '../../models/pet.model';
 import { lastValueFrom } from 'rxjs';
 import { PetService } from '../../services/pet.service';
 import { SkeletonModule } from 'primeng/skeleton';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, AvatarGroupModule, AvatarModule, SkeletonModule, MatIconButton, MatIconModule],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    AvatarGroupModule,
+    AvatarModule,
+    SkeletonModule,
+    MatIconButton,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit{
-
-  constructor(private petService: PetService){
-
-  }
+export class HomeComponent implements OnInit {
+  constructor(private petService: PetService) {}
   protected totalPets: number = 0;
   protected petList: Pet[] = [];
   protected offset = 0;
   protected limit = 9;
 
   async ngOnInit() {
-    await this.getPublications()
+    await this.getPublications();
   }
 
   async getPublications() {
@@ -34,13 +45,11 @@ export class HomeComponent implements OnInit{
       if (this.petList.length > 0 && this.petList.length === this.totalPets) {
         return;
       }
-      const res: any = await lastValueFrom(this.petService.getPublications('', this.offset, this.limit, 'happy'));
+      const res: any = await lastValueFrom(
+        this.petService.getPublications('', this.offset, this.limit, 'happy')
+      );
       this.totalPets = res.totalItems;
       this.petList = res.publications;
-    } catch (error) {
-
-
-    }
+    } catch (error) {}
   }
-
 }

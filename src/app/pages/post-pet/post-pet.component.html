@@ -56,13 +56,15 @@
             enctype="multipart/form-data"
           >
             <label for="inputGroupFile02" class="custom-file-upload">
-              <input
+              <mat-icon color="primary">add_photo_alternate</mat-icon>
+
+            <input
                 type="file"
                 id="inputGroupFile02"
                 class="form-control"
                 (change)="handleFileInput($event)"
-              />
-            Carregar imagem do pet
+                />
+              Carregar imagem do pet
             </label>
           </form>
           <button color="primary" class="btn" mat-stroked-button matStepperNext>Próximo</button>

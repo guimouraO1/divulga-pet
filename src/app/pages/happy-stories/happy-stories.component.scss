@@ -45,7 +45,7 @@
   h2 {
     margin: 0;
     padding: 0 !important;
-    color: $text_primary;
+    color: $text_primary !important;
   }
 }
 
@@ -302,7 +302,8 @@ mat-paginator {
   width: 420px;
   height: 650px;
   border-radius: 10px;
-  background-color: #272727 !important;
+  background-color: $cardBackground;
+  box-shadow: $cardShadowPrimary;
   gap: 10px;
 }
 .itemSke {
@@ -351,4 +352,7 @@ input {
 
 ::ng-deep .p-dialog .p-dialog-header {
   background-color: $primary;
+}
+::ng-deep .p-skeleton {    
+  background-color: rgb(163, 163, 163) !important;  
 }

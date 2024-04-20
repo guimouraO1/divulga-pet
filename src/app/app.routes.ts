@@ -14,31 +14,31 @@ export const routes: Routes = [
       },
       {
         path: 'login',
-        title: 'Divilga Pet | Login',
+        title: 'Divulga Pet | Login',
         loadComponent: () =>
           import('./pages/login/login.component').then((p) => p.LoginComponent),
       },
       {
         path: 'register',
-        title: 'Divilga Pet | Cadastro',
+        title: 'Divulga Pet | Cadastro',
         loadComponent: () =>
           import('./pages/register/register.component').then((p) => p.RegisterComponent),
       },
       {
         path: 'findPet',
-        title: 'Divilga Pet | Achados/Perdidos',
+        title: 'Divulga Pet | Achados/Perdidos',
         loadComponent: () =>
           import('./pages/find-pet/find-pet.component').then((p) => p.FindPetComponent),
       },
       {
         path: 'happyStories',
-        title: 'Divilga Pet | Histórias Felizes',
+        title: 'Divulga Pet | Histórias Felizes',
         loadComponent: () =>
           import('./pages/happy-stories/happy-stories.component').then((p) => p.HappyStoriesComponent),
       },
       {
         path: 'home',
-        title: 'Divilga Pet | Início',
+        title: 'Divulga Pet | Início',
         loadComponent: () =>
           import('./pages/home/home.component').then(
             (p) => p.HomeComponent
@@ -52,7 +52,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'chat',
-        title: 'Divilga Pet | Chat',
+        title: 'Divulga Pet | Chat',
         loadComponent: () => import('./pages/chat/chat.component').then((p) => p.ChatComponent),
           children: [{
             path: ':userId',
@@ -61,7 +61,7 @@ export const routes: Routes = [
       },
       {
         path: 'postPet',
-        title: 'Divilga Pet | Publicar Pet',
+        title: 'Divulga Pet | Publicar Pet',
         loadComponent: () =>
           import('./pages/post-pet/post-pet.component').then(
             (p) => p.PostPetComponent
@@ -69,7 +69,7 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
-        title: 'Divilga Pet  | Perfil',
+        title: 'Divulga Pet  | Perfil',
         loadComponent: () =>
           import('./pages/profile/profile.component').then(
             (p) => p.ProfileComponent
@@ -79,7 +79,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    title: 'Divilga Pet | 404',
+    title: 'Divulga Pet | 404',
     canActivate: [alwaysAllowAuthGuard],
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then(

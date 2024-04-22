@@ -81,6 +81,11 @@ export class PostPetComponent implements OnInit {
     const files: FileList = event.target.files;
     if (files && files.length > 0) {
       this.selectedFile = files[0];
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Sucesso',
+        detail: 'Imagem seleciona com sucesso!',
+      });
     }
   }
 

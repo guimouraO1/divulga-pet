@@ -55,8 +55,12 @@
             class="form2"
             enctype="multipart/form-data"
           >
-            <label for="inputGroupFile02" class="custom-file-upload">
-              <mat-icon color="primary">add_photo_alternate</mat-icon>
+            <label for="inputGroupFile02" class="custom-file-upload" [class.active]="this.selectedFile">
+              @if (this.selectedFile) {
+                <mat-icon color="primary">add_photo_alternate</mat-icon>
+              }@else {
+                <mat-icon color="warn">add_photo_alternate</mat-icon>
+              }
 
             <input
                 type="file"

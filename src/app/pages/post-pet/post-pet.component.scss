@@ -66,16 +66,18 @@
   font-weight: 500;
   height: 45px;
   width: 220px;
-  color: #aeb8fe;
-  /* border: 1px solid rgb(0 0 0 / 0%); */
+  color: $warn;
   gap: 10px;
   box-shadow: $cardShadowPrimary;
   background-color: $cardBackground;
+  border: 1px solid $warn;
+}
+.active{
+  color: $primary;
+  border: 1px solid $primary;
+
 }
 
-.custom-file-upload:hover{
-  border: 1px solid $primary;
-}
 
 .custom-file-upload input {
   display: none;

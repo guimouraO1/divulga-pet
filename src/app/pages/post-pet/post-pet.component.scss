@@ -62,13 +62,15 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 20px;
   font-weight: 500;
-  height: 35px;
-  width: 260px;
-  color: $primary;
-  border: 1px solid $borderPrimary;
+  height: 45px;
+  width: 220px;
+  color: #aeb8fe;
+  /* border: 1px solid rgb(0 0 0 / 0%); */
   gap: 10px;
+  box-shadow: $cardShadowPrimary;
+  background-color: $cardBackground;
 }
 
 .custom-file-upload:hover{

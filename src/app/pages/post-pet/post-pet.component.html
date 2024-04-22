@@ -67,7 +67,7 @@
               Carregar imagem
             </label>
           </form>
-          <button color="primary" class="btn" mat-stroked-button matStepperNext>Próximo</button>
+          <button color="primary" class="btn" mat-fab extended matStepperNext>Próximo</button>
         </div>
       </form>
     </mat-step>
@@ -93,7 +93,7 @@
           <button
             type="button"
             color="primary"
-            mat-stroked-button
+            mat-fab extended
             (click)="getUserLocation()"
           >
           Obtenha sua localização
@@ -119,8 +119,8 @@
             </google-map>
           }        
         <div class="footer">
-          <button color="primary" class="btn" mat-stroked-button matStepperPrevious>Voltar</button>
-            <button (click)="onSubmit()" [disabled]="disableButton" class="btn" color="primary" mat-stroked-button type="submit">
+          <button color="primary" class="btn" mat-fab extended matStepperPrevious>Voltar</button>
+            <button (click)="onSubmit()" [disabled]="disableButton" class="btn" color="primary" mat-fab extended type="submit">
             Publicar pet
             </button>
         </div>

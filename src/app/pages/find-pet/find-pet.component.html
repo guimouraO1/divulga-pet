@@ -99,11 +99,7 @@
 
         <div class="pet_image">
           @if(pet.filename){
-            @defer (on viewport){
               <img class="img-pet" src="{{ pet.filename }}"/>
-            } @placeholder (minimum 300ms) {
-              <p-skeleton width="400px" height="300px"></p-skeleton>
-            }
           } @else {
             <p-skeleton width="400px" height="300px"></p-skeleton>
           }
@@ -130,7 +126,7 @@
             (click)="confirm1($event, pet)"
             type="submit"
             class="btn"
-            color="primary"
+            color="accent"
             mat-fab
             extended
           >
@@ -143,7 +139,7 @@
         <div class="error">
           <h2>Nenhum pet encontrado</h2>
         </div>
-      } @loading (minimum 3000ms) {
+      } @loading (minimum 2000ms) {
         <div class="cards2">
           <div class="header-card">
               <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>

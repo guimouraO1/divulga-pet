@@ -137,11 +137,7 @@
   
           <div class="pet_image">
             @if(pet.filename){
-              @defer (on viewport){
                 <img class="img-pet" src="{{ pet.filename }}"/>
-              } @placeholder (minimum 300ms) {
-                <p-skeleton width="400px" height="300px"></p-skeleton>
-              }
             } @else {
               <p-skeleton width="400px" height="300px"></p-skeleton>
             }

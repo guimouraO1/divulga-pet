@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -26,13 +27,14 @@ import { MatListModule } from '@angular/material/list';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MatListModule,
+    MatListModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  constructor(private petService: PetService) {}
+  constructor(private petService: PetService, private router: Router) {}
+  
   protected totalPets: number = 0;
   protected petList: Pet[] = [];
   protected offset = 0;
@@ -53,5 +55,14 @@ export class HomeComponent implements OnInit {
       this.totalPets = res.totalItems;
       this.petList = res.publications;
     } catch (error) {}
+  }
+
+
+  goToPublication(){
+    this.router.navigate(['postPet'])
+  }
+
+  goToFindPet(){
+    this.router.navigate(['findPet'])
   }
 }

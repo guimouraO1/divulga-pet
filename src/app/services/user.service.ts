@@ -37,7 +37,6 @@ export class UserService {
   }
 
   getUserByID(user: any) {
-    console.log(user);
     return this.http.get(`${this.urlApi}/userH/${ user }`);
   }
 }

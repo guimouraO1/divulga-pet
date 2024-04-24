@@ -32,7 +32,8 @@
             "styles": [
               "src/styles.scss",
               "node_modules/primeng/resources/themes/lara-dark-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/primeng.min.css",
+              "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": []
           },
@@ -100,7 +101,8 @@
             "styles": [
               "src/styles.scss",
               "node_modules/primeng/resources/themes/lara-dark-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/primeng.min.css",
+              "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": []
           }

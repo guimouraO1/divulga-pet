@@ -16,6 +16,7 @@
             mat-fab
             extended
             color="primary"
+            (click)="goToPublication()"
           >
             <mat-icon>edit</mat-icon>
             Publicar Pet
@@ -25,7 +26,8 @@
             mat-fab
             extended
             color="primary"
-          >
+            (click)="goToFindPet()"
+            >
             <mat-icon>search</mat-icon>
             Achados e Perdidos
           </button>
@@ -40,23 +42,26 @@
           </h2>
         </div>
         <p>Últimas histórias felizes</p>
+      <p-avatarGroup>
         @for (pet of petList; track $index) {
-        <p-avatarGroup styleClass="mb-3">
+
           <p-avatar
+            [style]="{ 'object-fit': 'cover' }"
             image="{{ pet.filename }}"
             size="large"
             shape="circle"
           ></p-avatar>
-        </p-avatarGroup>
+
         } @empty {
         <button
-          color="warn"
-          mat-icon-button
-        >
-          <mat-icon color="warn">error</mat-icon>
-        </button>
+            color="warn"
+            mat-icon-button
+          >
+            <mat-icon color="warn">error</mat-icon>
+          </button>
         <p>Nenhum pet resgatado ainda :(</p>
         }
+      </p-avatarGroup>
       </div>
     </div>
     <div class="right">

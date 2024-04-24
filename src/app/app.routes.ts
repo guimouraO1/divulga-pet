@@ -44,6 +44,14 @@ export const routes: Routes = [
             (p) => p.HomeComponent
           ),
       },
+      {
+        path: 'map',
+        title: 'Divulga Pet | Mapa',
+        loadComponent: () =>
+          import('./pages/map/map.component').then(
+            (p) => p.MapComponent
+          ),
+      },
     ],
   },
   {

@@ -33,60 +33,62 @@
       </div>
     </div>
   
-  
+            
+    <p-dialog header="História feliz" [(visible)]="visibleModal" [modal]="true" [style]="{ width: '60vw'}" [draggable]="true" [resizable]="false">
+      <div class="main-modal">
+        <mat-list class="left">
+            <img
+              class="modal-image"
+              src="{{ this.petModal?.filename }}"/>
+            <div class="modal-pet-id">
+              <p>Informações do Reencontro</p>
+              <mat-divider></mat-divider>
+            </div>
+        </mat-list>
+
+        <div class="right">
+
+          <div class="author-modal">
+              <div class="header-img-name">
+                @if ( this.petModal?.user_filename ) {                    <img
+                  class="img-icon"
+                  src="{{ this.petModal?.user_filename }}"/>
+                } @else {
+                  <button type="text" color="primary" mat-icon-button>
+                    <mat-icon>person</mat-icon>
+                  </button>     
+                }
+                <p class="userName">{{ pet.user_firstName }}</p>
+              </div>
+              <p>{{  this.petModal?.happyText }}</p>
+          </div>
+
+          <div class="recue-modal">
+            <div class="header-img-name">
+              <p class="userName">{{ userRescuedPet?.name }}</p>
+              @if (userRescuedPet?.profile_pic) {
+                <img
+                class="img-icon"
+                src="{{ userRescuedPet?.profile_pic }}"/>
+              } @else {
+                <button type="text" color="primary" mat-icon-button>
+                  <mat-icon>person</mat-icon>
+                </button>                   
+              }
+            </div>
+            <p>Esse pet foi resgatado por {{ userRescuedPet?.name }}</p>
+        </div>
+
+        </div>
+
+      </div>
+  </p-dialog>
+
+
     <div class="petList">
       <div class="cards-container">
         @for (pet of updatedListPet$ | async; track pet.id) {
-          
-          <p-dialog header="História feliz" [(visible)]="visibleModal" [modal]="true" [style]="{ width: '60vw'}" [draggable]="true" [resizable]="false">
-            <div class="main-modal">
-              <mat-list class="left">
-                  <img
-                    class="modal-image"
-                    src="{{ pet.filename }}"/>
-                  <div class="modal-pet-id">
-                    <p>Informações do Reencontro</p>
-                    <mat-divider></mat-divider>
-                  </div>
-              </mat-list>
-  
-              <div class="right">
-  
-                <div class="author-modal">
-                    <div class="header-img-name">
-                      @if ( pet.user_filename ) {                    <img
-                        class="img-icon"
-                        src="{{ pet.user_filename }}"/>
-                      } @else {
-                        <button type="text" color="primary" mat-icon-button>
-                          <mat-icon>person</mat-icon>
-                        </button>     
-                      }
-                      <p class="userName">{{ pet.user_firstName }}</p>
-                    </div>
-                    <p>{{ pet.happyText }}</p>
-                </div>
-  
-                <div class="recue-modal">
-                  <div class="header-img-name">
-                    <p class="userName">{{ userRescuedPet?.name }}</p>
-                    @if (userRescuedPet?.profile_pic) {
-                      <img
-                      class="img-icon"
-                      src="{{ userRescuedPet?.profile_pic }}"/>
-                    } @else {
-                      <button type="text" color="primary" mat-icon-button>
-                        <mat-icon>person</mat-icon>
-                      </button>                   
-                    }
-                  </div>
-                  <p>Esse pet foi resgatado por {{ userRescuedPet?.name }}</p>
-              </div>
-  
-              </div>
-  
-            </div>
-          </p-dialog>
+
 
         
         <mat-list class="cards">

@@ -89,6 +89,7 @@ export class HappyStoriesComponent {
   pageSizeOptions = [3, 6];
   visibleModal = false;
   protected userRescuedPet: User | undefined;
+  protected petModal: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
@@ -203,7 +204,10 @@ export class HappyStoriesComponent {
 
   async viewModal(pet: Pet){
     this.visibleModal = true;
+    this.petModal = pet;
+    console.log(this.petModal)
     const res: any = await firstValueFrom(this.userService.getUserByID(pet.rescuedById));
+
     this.userRescuedPet = res;
   }
 }

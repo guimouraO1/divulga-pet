@@ -1,16 +1,34 @@
 <div class="main">
   <p-toast></p-toast>
-  <mat-stepper [linear]="true" #stepper class="card">
-
-    <mat-step [stepControl]="petForm" label="Informações do Pet" >
-      <form class="parent" [formGroup]="petForm">
-      
-        <mat-form-field appearance="outline" class="item">
+  <mat-stepper
+    [linear]="true"
+    #stepper
+    class="card"
+  >
+    <mat-step
+      [stepControl]="petForm"
+      label="Informações do Pet"
+    >
+      <form
+        class="parent"
+        [formGroup]="petForm"
+      >
+        <mat-form-field
+          appearance="outline"
+          class="item"
+        >
           <mat-label>Nome do pet</mat-label>
-          <input matInput placeholder="Exemplo Rex" formControlName="name" />
+          <input
+            matInput
+            placeholder="Exemplo Rex"
+            formControlName="name"
+          />
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="item">
+        <mat-form-field
+          appearance="outline"
+          class="item"
+        >
           <mat-label>Espécie</mat-label>
           <mat-select
             placeholder="Selecione a espécie"
@@ -23,7 +41,10 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="item">
+        <mat-form-field
+          appearance="outline"
+          class="item"
+        >
           <mat-label>Raça</mat-label>
           <input
             matInput
@@ -32,52 +53,113 @@
           />
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="item">
+        <mat-form-field
+          appearance="outline"
+          class="item"
+        >
           <mat-label>Sexo</mat-label>
-          <mat-select placeholder="Selecione o sexo" formControlName="sex">
+          <mat-select
+            placeholder="Selecione o sexo"
+            formControlName="sex"
+          >
             <mat-option value="Fêmea">Fêmea</mat-option>
             <mat-option value="Macho">Macho</mat-option>
             <mat-option value="Desconhecido">Desconhecido</mat-option>
           </mat-select>
         </mat-form-field>
-        
-        <mat-form-field appearance="outline" class="item">
+
+        <mat-form-field
+          appearance="outline"
+          class="item"
+        >
           <mat-label>Situação</mat-label>
-          <mat-select placeholder="Selecione a situação" formControlName="status">
-            <mat-option value="Perdido">Perdido <span>(Eu perdi o meu pet)</span></mat-option>
-            <mat-option value="Encontrado">Procurando Tutor<span> (Eu encontrei um pet perdido)</span></mat-option>
-            <mat-option value="Visto nas proximidades">Visto nas proximidades</mat-option>
+          <mat-select
+            placeholder="Selecione a situação"
+            formControlName="status"
+          >
+            <mat-option value="Perdido"
+              >Perdido <span>(Eu perdi o meu pet)</span></mat-option
+            >
+            <mat-option value="Encontrado"
+              >Procurando Tutor<span>
+                (Eu encontrei um pet perdido)</span
+              ></mat-option
+            >
+            <mat-option value="Visto nas proximidades"
+              >Visto nas proximidades</mat-option
+            >
           </mat-select>
         </mat-form-field>
 
         <div class="footer">
+          @if (!this.selectedFile) {
           <form
             class="form2"
-            enctype="multipart/form-data"
-          >
-            <label for="inputGroupFile02" class="custom-file-upload" [class.active]="this.selectedFile">
+            enctype="multipart/form-data">
+            <label
+              for="inputGroupFile02"
+              class="custom-file-upload"
+              [class.active]="this.selectedFile"
+            >
               @if (this.selectedFile) {
-                <mat-icon color="primary">add_photo_alternate</mat-icon>
+              <mat-icon color="primary">add_photo_alternate</mat-icon>
               }@else {
-                <mat-icon color="warn">add_photo_alternate</mat-icon>
+              <mat-icon color="warn">add_photo_alternate</mat-icon>
               }
-            <input
+              <input
                 type="file"
                 id="inputGroupFile02"
                 class="form-control"
                 (change)="handleFileInput($event)"
-                />
+              />
               Carregar imagem
             </label>
           </form>
-          <button color="primary" class="btn" mat-fab extended matStepperNext>Próximo</button>
+          }@else {
+          <button
+            matTooltipPosition="right"
+            mat-mini-fab
+            matTooltip="Selecionado {{ selectedFile!.name }}"
+            color="primary"
+          >
+            <mat-icon>done</mat-icon>
+          </button>
+
+          <button
+            matTooltipPosition="right"
+            mat-mini-fab
+            matTooltip="Excluír {{ this.selectedFile.name }}"
+            color="warn"
+            (click)="deleteImage()"
+          >
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+          }
+          <button
+            [disabled]="!this.selectedFile"
+            color="primary"
+            class="btn"
+            mat-flat-button
+            matStepperNext
+          >
+            Próximo
+          </button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="locationForm" label="Última localização">
-      <form class="parent"  [formGroup]="locationForm">
-        <mat-form-field appearance="outline" class="item">
+    <mat-step
+      [stepControl]="locationForm"
+      label="Última localização"
+    >
+      <form
+        class="parent"
+        [formGroup]="locationForm"
+      >
+        <mat-form-field
+          appearance="outline"
+          class="item"
+        >
           <mat-label>Última localização</mat-label>
           <input
             (keyup.enter)="autocomplete(locationInput)"
@@ -86,50 +168,69 @@
             placeholder="Exemplo Tóquio 3323, Parque São Quirino"
             formControlName="last_location"
           />
-          <button (click)="autocomplete(locationInput)" color="primary" mat-icon-button matSuffix style="cursor: pointer;">
+          <button
+            (click)="autocomplete(locationInput)"
+            color="primary"
+            mat-icon-button
+            matSuffix
+            style="cursor: pointer"
+          >
             <mat-icon color="primary">search</mat-icon>
           </button>
-
         </mat-form-field>
 
-        <div class="mapButton" >
+        <div class="mapButton">
           <button
+            class="btn2"
             type="button"
-            color="primary"
-            mat-fab extended
+            color="accent"
+            mat-flat-button
             (click)="getUserLocation()"
           >
-          Obtenha sua localização
+            <mat-icon>location_on</mat-icon>
+            Obtenha sua localização
           </button>
-        </div> 
-
-          @if(location !== '' || this.options){
-            <google-map
-              class="map"
-              width="50vw"
-              height="220px"
-              [options]="options!"
-            >
-              <map-marker [position]="positionLatLng!"/>
-            </google-map>
-           }@else {
-            <google-map
-              class="map"
-              width="50vw"
-              height="220px"
-              [options]="options2"
-              >
-            </google-map>
-          }        
-        <div class="footer">
-          <button color="primary" class="btn" mat-fab extended matStepperPrevious>Voltar</button>
-            <button (click)="onSubmit()" [disabled]="disableButton" class="btn" color="primary" mat-fab extended type="submit">
-            Publicar pet
-            </button>
         </div>
 
+        @if(location !== '' || this.options){
+        <google-map
+          class="map"
+          width="50vw"
+          height="220px"
+          [options]="options!"
+        >
+          <map-marker [position]="positionLatLng!" />
+        </google-map>
+        }@else {
+        <google-map
+          class="map"
+          width="50vw"
+          height="220px"
+          [options]="options2"
+        >
+        </google-map>
+        }
+        <div class="footer">
+          <button
+            color="warn"
+            class="btn"
+            mat-flat-button
+            matStepperPrevious
+          >
+            Voltar
+          </button>
+          <button
+            (click)="onSubmit()"
+            [disabled]="disableButton"
+            class="btn"
+            color="primary"
+            mat-flat-button
+            type="submit"
+          >
+            Publicar pet
+          </button>
+        </div>
       </form>
     </mat-step>
-
   </mat-stepper>
 </div>

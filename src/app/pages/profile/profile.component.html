@@ -7,55 +7,73 @@
           (click)="scrollToContainer()"
           class="btn-first-card"
           color="primary"
-          mat-fab extended
+          mat-flat-button
         >
-        Publicações
+          Publicações
         </button>
       </div>
       <div class="userPanel">
         <div class="card-user-header">
           <p-toast></p-toast>
           <p-confirmPopup></p-confirmPopup>
-          <form class="form" enctype="multipart/form-data">
+          <form
+            class="form"
+            enctype="multipart/form-data"
+          >
             <div class="card-img">
               @if(user.profile_pic){
               <img
                 class="userPerfilImg"
                 src="{{ user.profile_pic }}"
                 alt=""
-              />            
+              />
               }@else{
-                <p-skeleton height="100%" class="img-icon" shape="circle"></p-skeleton>
-              } 
-              @if (!this.selectedFile) {
-                <form class="icon" enctype="multipart/form-data">
-                  <label class="file-label">
-                    <mat-icon #fileIcon>add_a_photo</mat-icon>
-                    <input
-                      #fileInput
-                      type="file"
-                      class="form-control"
-                      (change)="handleFileInput($event)"
-                    />
-                  </label>
-                </form>
+              <p-skeleton
+                height="100%"
+                class="img-icon"
+                shape="circle"
+              ></p-skeleton>
+              } @if (!this.selectedFile) {
+              <form
+                class="icon"
+                enctype="multipart/form-data"
+              >
+                <label class="file-label">
+                  <mat-icon #fileIcon>add_a_photo</mat-icon>
+                  <input
+                    #fileInput
+                    type="file"
+                    class="form-control"
+                    (change)="handleFileInput($event)"
+                  />
+                </label>
+              </form>
               } @else {
 
-                <div class="icon">
-                  <button (click)="confirm1($event)" class="upload" color="primary" mat-icon-button>
-                    <mat-icon>cloud_upload</mat-icon>
-                  </button>
-                </div>
+              <div class="icon">
+                <button
+                  (click)="confirm1($event)"
+                  class="upload"
+                  color="primary"
+                  mat-icon-button
+                >
+                  <mat-icon>cloud_upload</mat-icon>
+                </button>
+              </div>
               }
-
             </div>
-
           </form>
         </div>
 
-        <form class="form2" [formGroup]="userForm">
+        <form
+          class="form2"
+          [formGroup]="userForm"
+        >
           <div class="parent">
-            <mat-form-field color="primary" appearance="outline">
+            <mat-form-field
+              color="primary"
+              appearance="outline"
+            >
               <mat-label>Primeiro nome</mat-label>
               <input
                 formControlName="firstName"
@@ -91,7 +109,13 @@
                 type="text"
                 matInput
               />
-              <button (click)="autocomplete(this.userForm.value.address)" color="primary" mat-icon-button matSuffix style="cursor: pointer;">
+              <button
+                (click)="autocomplete(this.userForm.value.address)"
+                color="primary"
+                mat-icon-button
+                matSuffix
+                style="cursor: pointer"
+              >
                 <mat-icon color="primary">search</mat-icon>
               </button>
             </mat-form-field>
@@ -110,7 +134,7 @@
             class="btn"
             type="submit"
             color="primary"
-            mat-fab extended
+            mat-flat-button
             [disabled]="disableButton"
             (click)="confirm2($event)"
           >
@@ -122,99 +146,133 @@
   </div>
 
   @if (this.petList.length > 0) {
-    <div class="container-posts" id="container-posts">
-      <div class="petList">
-        <h3>Suas publicações</h3>
-        <div class="cards-container">
-          @for (pet of petList; track pet.id) {
-          <mat-list class="cards">
-            <div class="header-card">
-              @if(!user.profile_pic){
-                <div class="header-img-name">
-                  <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
-                  <p class="userName">{{ user.name }}</p>
-                </div>
-              }@else {
-                <div class="header-img-name">
-                  <img class="img-icon" src="{{ user.profile_pic }}"/>
-                  <p class="userName">{{ user.name }}</p>
-                </div>
-              }
-              <button
+  <div
+    class="container-posts"
+    id="container-posts"
+  >
+    <div class="petList">
+      <h3>Suas publicações</h3>
+      <div class="cards-container">
+        @for (pet of petList; track pet.id) {
+        <mat-list class="cards">
+          <div class="header-card">
+            @if(!user.profile_pic){
+            <div class="header-img-name">
+              <p-skeleton
+                class="img-icon"
+                shape="circle"
+                width="60px"
+                height="60px"
+              ></p-skeleton>
+              <p class="userName">{{ user.name }}</p>
+            </div>
+            }@else {
+            <div class="header-img-name">
+              <img
+                class="img-icon"
+                src="{{ user.profile_pic }}"
+              />
+              <p class="userName">{{ user.name }}</p>
+            </div>
+            }
+            <button
               matSuffix
               matTooltipPosition="after"
               color="primary"
               mat-icon-button
-              [cdkCopyToClipboard]="pet.id" 
+              [cdkCopyToClipboard]="pet.id"
               matTooltip="Clique para copiar o ID"
-            > 
-            <mat-icon 
-                color="primary"
-                >file_copy</mat-icon>
-              </button>
-            </div>
-    
-            <div class="pet_image">
-              @if(pet.filename){
-                @defer (on viewport){
-                  <img class="img-pet" src="{{ pet.filename }}"/>
-                } @placeholder (minimum 300ms) {
-                  <p-skeleton width="400px" height="300px"></p-skeleton>
-                }
-              } @else {
-                <p-skeleton width="400px" height="300px"></p-skeleton>
-              }
-            </div>
-    
-            @if (pet.status == 'Resgatado') {
-              <button color="accent" class="btn-header" mat-flat-button>
-                {{ pet.status }}
-              </button>
-            } @else {
-              <button color="warn" class="btn-header" mat-flat-button>
-                {{ pet.status }}
-              </button>
+            >
+              <mat-icon color="primary">file_copy</mat-icon>
+            </button>
+          </div>
+
+          <div class="pet_image">
+            @if(pet.filename){ @defer (on viewport){
+            <img
+              class="img-pet"
+              src="{{ pet.filename }}"
+            />
+            } @placeholder (minimum 300ms) {
+            <p-skeleton
+              width="400px"
+              height="300px"
+            ></p-skeleton>
+            } } @else {
+            <p-skeleton
+              width="400px"
+              height="300px"
+            ></p-skeleton>
             }
-    
-            <mat-list class="pet-infos">
-              <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>
-              <mat-list-item>Raça: <span>{{ pet.breed }}</span></mat-list-item>
-              <mat-list-item>Espécie: <span>{{ pet.species }}</span></mat-list-item>
-              <mat-list-item>Sexo: <span>{{ pet.sex }}</span></mat-list-item>
-              <mat-list-item 
-                style="cursor: pointer;"
-                matTooltip="{{ pet.last_location }}"
-                >Última localização: <span>{{ pet.last_location }}</span></mat-list-item>
-            </mat-list>
-    
-            <div class="btn-div">
-              @if (pet.status == 'Resgatado') {
-                <button
-                (click)="seeHappyStorie(pet)"
-                type="text"
-                class="btn"
-                color="accent"
-                mat-fab extended
-              >
-                Ver história
-              </button>
-              } @else {
-                <button
-                (click)="confirm3($event, pet.id)"
-                type="text"
-                class="btn"
-                color="warn"
-                mat-fab extended
-              >
-              Deletar
-              </button>
-              }
-            </div>
-          </mat-list>
+          </div>
+
+          @if (pet.status == 'Resgatado') {
+          <button
+            color="accent"
+            class="btn-header"
+            mat-flat-button
+          >
+            {{ pet.status }}
+          </button>
+          } @else {
+          <button
+            color="warn"
+            class="btn-header"
+            mat-flat-button
+          >
+            {{ pet.status }}
+          </button>
           }
-        </div>
-        </div>
+
+          <mat-list class="pet-infos">
+            <mat-list-item
+              >Nome: <span>{{ pet.name }}</span></mat-list-item
+            >
+            <mat-list-item
+              >Raça: <span>{{ pet.breed }}</span></mat-list-item
+            >
+            <mat-list-item
+              >Espécie: <span>{{ pet.species }}</span></mat-list-item
+            >
+            <mat-list-item
+              >Sexo: <span>{{ pet.sex }}</span></mat-list-item
+            >
+            <mat-list-item
+              style="cursor: pointer"
+              matTooltip="{{ pet.last_location }}"
+              >Última localização:
+              <span>{{ pet.last_location }}</span></mat-list-item
+            >
+          </mat-list>
+
+          <div class="btn-div">
+            @if (pet.status == 'Resgatado') {
+            <button
+              (click)="seeHappyStorie(pet)"
+              type="text"
+              class="btn"
+              color="accent"
+              mat-flat-button
+            >
+              Ver história
+            </button>
+            } @else {
+            <button
+              (click)="confirm3($event, pet.id)"
+              type="text"
+              class="btn"
+              color="warn"
+              mat-flat-button
+            >
+              Deletar
+            </button>
+            }
+          </div>
+        </mat-list>
+        }
       </div>
+    </div>
+  </div>
 
   }
-  </div>
+</div>

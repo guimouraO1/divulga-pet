@@ -20,6 +20,7 @@ import { MessageService } from 'primeng/api';
 import { GoogleMap, MapMarker, MapGeocoder } from '@angular/google-maps';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-post-pet',
@@ -37,6 +38,7 @@ import { Router } from '@angular/router';
     GoogleMap,
     MapMarker,
     MatStepperModule,
+    MatTooltipModule
   ],
   templateUrl: './post-pet.component.html',
   styleUrl: './post-pet.component.scss',
@@ -89,6 +91,10 @@ export class PostPetComponent implements OnInit {
         detail: 'Imagem seleciona com sucesso!',
       });
     }
+  }
+
+  deleteImage(){
+    this.selectedFile = null;
   }
 
   async onSubmit() {

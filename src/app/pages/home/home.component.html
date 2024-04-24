@@ -1,7 +1,6 @@
 <div class="main">
   <div class="container">
     <div class="left">
-
       <div class="how-to-find-pet">
         <span class="text-h1">Reencontre o seu Pet Perdido</span>
         <p class="welcome-text">
@@ -13,21 +12,22 @@
 
         <div class="left-btns">
           <button
-            mat-fab
+            mat-flat-button
+            class="btn2"
             extended
             color="primary"
             (click)="goToPublication()"
           >
-            <mat-icon>edit</mat-icon>
-            Publicar Pet
+            <mat-icon>edit</mat-icon>Publicar Pet
           </button>
 
           <button
-            mat-fab
+            mat-flat-button
             extended
+            class="btn2"
             color="primary"
             (click)="goToFindPet()"
-            >
+          >
             <mat-icon>search</mat-icon>
             Achados e Perdidos
           </button>
@@ -42,8 +42,8 @@
           </h2>
         </div>
         <p>Últimas histórias felizes</p>
-      <p-avatarGroup>
-        @for (pet of petList; track $index) {
+        <p-avatarGroup>
+          @for (pet of petList; track $index) {
 
           <p-avatar
             [style]="{ 'object-fit': 'cover' }"
@@ -52,16 +52,16 @@
             shape="circle"
           ></p-avatar>
 
-        } @empty {
-        <button
+          } @empty {
+          <button
             color="warn"
             mat-icon-button
           >
             <mat-icon color="warn">error</mat-icon>
           </button>
-        <p>Nenhum pet resgatado ainda :(</p>
-        }
-      </p-avatarGroup>
+          <p>Nenhum pet resgatado ainda :(</p>
+          }
+        </p-avatarGroup>
       </div>
     </div>
     <div class="right">
@@ -85,40 +85,48 @@
         <div class="cards2">
           <div class="header-card">
             <div class="header-img-name">
-              <img class="img-icon" src="../../../assets/karina.jpg" alt="">
+              <img
+                class="img-icon"
+                src="../../../assets/karina.jpg"
+                alt=""
+              />
               <p>Karina</p>
             </div>
 
             <div class="btns">
               <button
-              matSuffix
-              matTooltipPosition="after"
-              color="primary"
-              mat-icon-button
-              > 
-              <mat-icon 
+                matSuffix
+                matTooltipPosition="after"
                 color="primary"
-                >share</mat-icon>
+                mat-icon-button
+              >
+                <mat-icon color="primary">share</mat-icon>
               </button>
-    
+
               <button
                 matSuffix
                 matTooltipPosition="after"
                 color="primary"
                 mat-icon-button
-              > 
-                <mat-icon 
-                  color="primary"
-                  >file_copy</mat-icon>
-                </button>        
+              >
+                <mat-icon color="primary">file_copy</mat-icon>
+              </button>
             </div>
           </div>
 
           <div class="pet_image">
-            <img class="img-pet" src="../../../assets/boris.jpeg" alt="">
+            <img
+              class="img-pet"
+              src="../../../assets/boris.jpeg"
+              alt=""
+            />
           </div>
-          
-          <button color="warn" class="btn-header" mat-flat-button>
+
+          <button
+            color="warn"
+            class="btn-header"
+            mat-flat-button
+          >
             Procurando tutor
           </button>
 
@@ -127,22 +135,24 @@
             <mat-list-item>Raça: <span>Desconhecido</span></mat-list-item>
             <mat-list-item>Espécie: <span>Cachorro</span></mat-list-item>
             <mat-list-item>Sexo: <span>Macho</span></mat-list-item>
-            <mat-list-item 
-              style="cursor: pointer;"
-              >Última localização: <span>R. dos Caningás, 5A - Vila Costa e Silva, Campinas - SP, 13081-290, Brazil</span></mat-list-item>
+            <mat-list-item style="cursor: pointer"
+              >Última localização:
+              <span
+                >R. dos Caningás, 5A - Vila Costa e Silva, Campinas - SP,
+                13081-290, Brazil</span
+              ></mat-list-item
+            >
           </mat-list>
-
 
           <div class="btn-div">
             <button
-            type="submit"
-            class="btn"
-            color="accent"
-            mat-fab
-            extended
-          >
-            Resgatar
-          </button>
+              type="submit"
+              class="btn"
+              color="accent"
+              mat-flat-button
+            >
+              Resgatar
+            </button>
           </div>
         </div>
       </div>
@@ -230,7 +240,10 @@
 
   <div class="container">
     <div class="left">
-        <img src="../../../assets/chat.png" alt="">
+      <img
+        src="../../../assets/chat.png"
+        alt=""
+      />
     </div>
 
     <div class="right">

@@ -62,13 +62,13 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 4px;
   font-weight: 500;
-  height: 45px;
+  height: 36px;
   width: 220px;
   color: $warn;
   gap: 10px;
-  box-shadow: $cardShadowPrimary;
+  // box-shadow: $cardShadowPrimary;
   background-color: $cardBackground;
   border: 1px solid $warn;
 }
@@ -78,14 +78,24 @@
 
 }
 
+::ng-deep .mat-mdc-mini-fab{
+  color: #fff !important;
+}
 
 .custom-file-upload input {
   display: none;
 }
 
 .btn {
+  color: #fff !important;
   width: 200px;
 }
+
+.btn2 {
+  color: #fff !important;
+  width: 260px;
+}
+
 .lastBtn {
   grid-column: 1 / span 2;
   justify-self: center;

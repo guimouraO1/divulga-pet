@@ -19,6 +19,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { GoogleMap, MapMarker, MapGeocoder } from '@angular/google-maps';
 import { MatStepperModule } from '@angular/material/stepper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-pet',
@@ -60,7 +61,8 @@ export class PostPetComponent implements OnInit {
     private fb: FormBuilder,
     private petService: PetService,
     private messageService: MessageService,
-    private geocoder: MapGeocoder
+    private geocoder: MapGeocoder,
+    private router: Router
   ) {
     this.petForm = this.fb.group({
       name: ['Desconhecido', [Validators.required]],
@@ -144,6 +146,11 @@ export class PostPetComponent implements OnInit {
           summary: 'Sucesso',
           detail: 'Pet publicado!',
         });
+
+        setTimeout(() => {
+          this.router.navigate(['findPet']);
+        }, 3000);
+
       } catch (error) {
         this.messageService.add({
           severity: 'error',

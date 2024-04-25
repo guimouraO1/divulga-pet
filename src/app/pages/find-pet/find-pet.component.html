@@ -105,10 +105,17 @@
           }
         </div>
 
+        @if (pet.status == 'Encontrado') {
+          <button color="warn" class="btn-header" mat-flat-button>
+            Procurando Tutor
+          </button>
 
-        <button color="warn" class="btn-header" mat-flat-button>
-          {{ pet.status }}
-        </button>
+        }@else {
+          <button color="warn" class="btn-header" mat-flat-button>
+            {{ pet.status }}
+          </button>
+        }
+
         
         <mat-list class="pet-infos">
           <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>

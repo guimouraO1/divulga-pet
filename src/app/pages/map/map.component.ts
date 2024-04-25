@@ -30,6 +30,9 @@ export class MapComponent implements OnInit {
       latLng(-34.8, -74.2),
       latLng(5.2, -34.7)     
     ),
-
   };
+  onMapReady(map: any) {
+    console.log(map)
+    this.map = map;
+  }
 }

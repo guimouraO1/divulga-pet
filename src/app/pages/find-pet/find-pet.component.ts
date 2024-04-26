@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import {
   MatPaginator,
@@ -63,7 +63,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   styleUrl: './find-pet.component.scss',
   providers: [ConfirmationService, MessageService],
 })
-export class FindPetComponent {
+export class FindPetComponent implements OnDestroy {
   protected petList: Pet[] = [];
   protected updatedListPet$: Observable<Pet[]> | undefined;
   private destroy$ = new Subject<void>();
@@ -287,5 +287,11 @@ export class FindPetComponent {
         });
       }
     });
+  }
+
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import L, { icon, latLng, LatLngBounds, LayerGroup, Marker, tileLayer } from 'leaflet';
+import L, { icon, latLng, LatLngBounds,  marker, Marker, tileLayer } from 'leaflet';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { PetService } from '../../services/pet.service';
+import { Pet } from '../../models/pet.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -9,30 +13,85 @@ import L, { icon, latLng, LatLngBounds, LayerGroup, Marker, tileLayer } from 'le
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss'
 })
-export class MapComponent implements OnInit {
-  map: any; // Adicione isso para referenciar o mapa
 
-  ngOnInit(): void {
-  }
-  pets: any = [
-    { name: 'Max', imageUrl: 'https://cdn.mindminers.com/blog/uploads/2022/11/pets.png', latLng: { lat: -20, lng: -65 }},
-    { name: 'Bella', imageUrl: 'https://cdn.mindminers.com/blog/uploads/2022/11/pets.png', latLng: { lat: -22, lng: -63 }},
-  ];
+export class MapComponent implements OnInit, OnDestroy {
+  map: any;
+  layers: any[] = [];
+  private destroy$ = new Subject<void>();
 
   options = {
     layers: [
-      tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 18, attribution: '...' })
+      tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 18 })
     ],
     zoom: 4,
     center: latLng(-20, -65),
     minZoom: 4,
     maxBounds: new LatLngBounds(
-      latLng(-34.8, -74.2),
-      latLng(5.2, -34.7)     
+      latLng(-20, -80),
+      latLng(5, -35)     
     ),
   };
+
+  constructor(private petService: PetService, private route: ActivatedRoute){
+    
+  }
+  
+  async ngOnInit() {
+    this.route.queryParamMap
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(async (params) => {
+      const lat: any = params.get('lat');
+      const lon: any = params.get('lon');
+      const zoom: any = params.get('zoom');
+      if(zoom){
+        this.options.zoom = parseInt(zoom);
+      }
+      if(lat && lon){
+        this.options.center = latLng(parseFloat(lat), parseFloat(lon));
+      }
+    });
+
+    await this.getPublications();
+  }
+
+
+  // this.router.navigate([], {
+  //   relativeTo: this.route,
+  //   queryParams: queryParams,
+  //   queryParamsHandling: 'merge',
+  // });
+
+
+  async getPublications() {
+    try {
+      const res: any = await lastValueFrom(this.petService.getPublications('', 0, 100, 'find'));
+      console.log(res.publications)
+
+      res.publications.forEach((pet: Pet) => {
+        const marker = L.marker(JSON.parse(pet.latlon), { icon: this.createIcon(pet.filename) });
+        this.layers.push(marker); 
+      });
+    } catch (error) {
+
+    }
+  }
+
+
+  createIcon(filename: string) {
+    return icon({
+      iconSize: [ 48, 48 ],
+      className: 'map-image',
+      iconUrl: filename,
+    });
+  }
+
   onMapReady(map: any) {
     console.log(map)
     this.map = map;
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

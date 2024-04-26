@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
-import { BehaviorSubject, Subject, lastValueFrom, take } from 'rxjs';
+import { BehaviorSubject, Subject, firstValueFrom, lastValueFrom, take } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class AuthService {
   async login(loginForm: {}) {
     this.disableButton.next(true);
     try {
-      const res: any = await lastValueFrom(this.http.post(`${this.urlApi}/login`, loginForm).pipe(take(1)));
+      const res: any = await firstValueFrom(this.http.post(`${this.urlApi}/login`, loginForm).pipe(take(1)));
       this._isAuthenticated = true;
       localStorage.setItem('token', res.authToken);
       this.router.navigate(['findPet']);
@@ -45,7 +45,7 @@ export class AuthService {
   async register(registerForm: {}) {
     this.disableButton.next(true);
     try {
-      const res: any = await lastValueFrom(this.http.post(`${this.urlApi}/register`, registerForm).pipe(take(1)));
+      const res: any = await firstValueFrom(this.http.post(`${this.urlApi}/register`, registerForm).pipe(take(1)));
 	  return res;
     } catch (error: any) {
 		return error;
@@ -58,7 +58,7 @@ export class AuthService {
     const authToken = localStorage.getItem('token');
     const headers = new HttpHeaders().set('authorization', `${authToken}`);
     try {
-      const user = await lastValueFrom(this.http.get(`${this.urlApi}/user/auth`, { headers }).pipe(take(1)));
+      const user = await firstValueFrom(this.http.get(`${this.urlApi}/user/auth`, { headers }).pipe(take(1)));
       this.user = user;
       this.changeUser(this.user);
       this._isAuthenticated = true;

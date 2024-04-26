@@ -1,0 +1,12 @@
+@use '../../../assets/colors/colors.scss' as *;
+
+.map{
+    height: 90vh;
+}
+
+
+::ng-deep .map-image{
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid $primary;
+}

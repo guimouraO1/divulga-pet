@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import {
   MatPaginator,
@@ -68,7 +68,7 @@ import { UserService } from '../../services/user.service';
   styleUrl: './happy-stories.component.scss',
   providers: [ConfirmationService, MessageService],
 })
-export class HappyStoriesComponent {
+export class HappyStoriesComponent implements OnDestroy {
   protected petList: Pet[] = [];
   protected updatedListPet$: Observable<Pet[]> | undefined;
   private destroy$ = new Subject<void>();
@@ -209,6 +209,11 @@ export class HappyStoriesComponent {
     const res: any = await firstValueFrom(this.userService.getUserByID(pet.rescuedById));
 
     this.userRescuedPet = res;
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
 

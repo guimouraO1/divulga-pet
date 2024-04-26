@@ -303,3 +303,40 @@ mat-option{
 ::ng-deep .p-skeleton {    
   background-color: rgb(163, 163, 163) !important;  
 }
+
+
+// message toast
+::ng-deep .p-toast .p-toast-message.p-toast-message-error{
+  color: #cc0000 !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close{
+  color: #cc0000 !important;
+
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-info{
+  color: #3b82f6 !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-info .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-info .p-toast-icon-close{
+  color: #3b82f6 !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success{
+  background-color: #06a8006b;
+  color: $green !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close{
+  color: $green !important;
+}
+
+
+// ::ng-deep .p-toast .p-toast-message.p-toast-message-warn{
+
+// }
+
+// ::ng-deep .p-toast .p-toast-message.p-toast-message-warn .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-warn .p-toast-icon-close{
+
+// }

@@ -1,6 +1,5 @@
-@use '../../../assets/colors/colors.scss' as colors;
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Protest+Riot&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+@use '../../../assets/colors/colors.scss' as *;
+
 
 .main-container {
   display: flex;
@@ -18,8 +17,8 @@
     width: 20vw;
     height: 85vh;
     gap: 10px;
-    box-shadow: colors.$cardShadowPrimary;
-    background-color: colors.$cardBackground;
+    box-shadow: $cardShadowPrimary;
+    background-color: $cardBackground;
 
     .side-nav-content {
       display: flex;
@@ -39,12 +38,11 @@
         .expandFalse {
           display: none;
           .expandBtn:hover {
-            background-color: colors.$cardBackground;
+            background-color: $cardBackground;
           }
         }
         .span {
-          color: colors.$text-primary !important;
-          font-family: 'Fredoka', sans-serif !important;
+          color: $text-primary !important;
         }
         
         .exit-button {
@@ -69,7 +67,7 @@
           width: 90%;
         }
         input {
-          color: colors.$text-primary;
+          color: $text-primary;
         }
       }
 
@@ -100,12 +98,12 @@
             span{
               margin-right: 10%;
               align-self: flex-end;
-              color: colors.$text_primary;
+              color: $text_primary;
               font-size: x-small;
             }
             textarea{
-              background-color: colors.$background;
-              color: colors.$text_primary;
+              background-color: $background;
+              color: $text_primary;
               max-width: 80%;
               min-width: 80%;
               max-height: 300px;
@@ -126,7 +124,7 @@
           justify-content: space-between;
           cursor: pointer;
           width: 100%;
-          background-color: colors.$cardBackground;
+          background-color: $cardBackground;
           box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
           border-radius: 4px;
           padding: 6px 10px;
@@ -167,14 +165,13 @@
                 image-rendering: crisp-edges;
               }
               // button{
-              //   box-shadow: colors.$cardShadowPrimary;
+              //   box-shadow: $cardShadowPrimary;
               // }
             }
 
             .userName {
               text-wrap: pretty-block;
-              color: colors.$text-primary;
-              font-family: 'Fredoka', sans-serif;
+              color: $text-primary;
               word-wrap: break-word;
             }
 
@@ -191,49 +188,91 @@
   align-items: center;
   justify-content: center;
   font-size: 10px !important;
-  font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* Substitue a cor da borda do input em search */
 // ::ng-deep .mdc-button--outlined .mdc-button__ripple {
-//   border-color: colors.$cardBackground;
+//   border-color: $cardBackground;
 // }
 
 /* Substitue a cor da borda do input em search */
 ::ng-deep .mdc-notched-outline > * {
-  border-color: colors.$primary !important;
+  border-color: $primary !important;
 }
 
 /* Substitue a cor da borda do input quando selecionado em search  */
 ::ng-deep .mdc-text-field--focused .mdc-notched-outline > * {
-  border-color: colors.$primary !important;
+  border-color: $primary !important;
 }
 
 /* Substitue a cor do texto do placeholder em search  */
 ::ng-deep input::placeholder {
-  color: colors.$cardBackground !important;
+  color: $cardBackground !important;
 }
 span {
-  color: colors.$text-primary !important;
+  color: $text-primary !important;
 }
 .modal-p{
-  color: colors.$text_primary;
+  color: $text_primary;
 }
 
 ::ng-deep .mdc-form-field {
-  color: colors.$text_primary !important;
+  color: $text_primary !important;
 }
 ::ng-deep .p-dialog{
   border: none;
 }
 ::ng-deep .p-dialog .p-dialog-content{
-  background-color: colors.$background !important;
+  background-color: $background !important;
 }
 
 ::ng-deep .p-dialog .p-dialog-header{
-  background-color: colors.$primary;
+  background-color: $primary;
 }
 
 ::ng-deep .p-skeleton {    
   background-color: rgb(163, 163, 163) !important;  
 }
+
+
+.btn{
+  width: 200px;
+  color: #fff !important;
+}
+
+
+// message toast
+::ng-deep .p-toast .p-toast-message.p-toast-message-error{
+  color: #cc0000 !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close{
+  color: #cc0000 !important;
+
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-info{
+  color: #3b82f6 !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-info .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-info .p-toast-icon-close{
+  color: #3b82f6 !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success{
+  background-color: #06a8006b;
+  color: $green !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close{
+  color: $green !important;
+}
+
+
+// ::ng-deep .p-toast .p-toast-message.p-toast-message-warn{
+
+// }
+
+// ::ng-deep .p-toast .p-toast-message.p-toast-message-warn .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-warn .p-toast-icon-close{
+
+// }

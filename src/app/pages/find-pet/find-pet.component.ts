@@ -229,7 +229,7 @@ export class FindPetComponent implements OnDestroy {
       this.messageService.add({
         severity: 'error',
         summary: 'Erro',
-        detail: 'Você não pode resgatar em sua própria postagem',
+        detail: 'Você não pode resgatar a sua própria postagem',
         life: 3000,
       });
       return;

@@ -68,7 +68,6 @@ export class LoginComponent implements OnInit {
         life: 3000,
       });
     }
-
   }
 
   onSubmit(): void {

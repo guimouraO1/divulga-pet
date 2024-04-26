@@ -7,12 +7,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'Comfortaa', sans-serif;
 
 }
 h2, h1{
   color: $text_primary;
 }
 .btn{
+  color: #fff !important;
   width: 200px;
 }

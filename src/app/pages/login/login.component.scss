@@ -1,4 +1,4 @@
-@use '../../../assets/colors/colors.scss' as colors;
+@use '../../../assets/colors/colors.scss' as *;
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
 
 .main-container {
@@ -9,8 +9,6 @@
   justify-content: center;
 }
 
-
-// #1f2937
 .card {
   min-width: 500px;
   height: 550px;
@@ -19,13 +17,13 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: colors.$cardBackground;
+  background-color: $cardBackground;
   border-radius: 10px;
-  box-shadow: colors.$cardShadowPrimary;
+  box-shadow: $cardShadowPrimary;
   p {
-    color: colors.$text-primary;
+    color: $text-primary;
     span {
-      color: colors.$warn;
+      color: $warn;
       cursor: pointer;
     }
   }
@@ -50,15 +48,15 @@
     }
     /* Substitue a cor da borda do input */
     ::ng-deep .mdc-button--outlined .mdc-button__ripple {
-      border-color: colors.$borderPrimary;
+      border-color: $borderPrimary;
     }
     /* Substitue a cor da borda do input */
     ::ng-deep .mdc-notched-outline > * {
-      border-color: colors.$borderPrimary !important;
+      border-color: $borderPrimary !important;
     }
     /* Substitue a cor da borda do input quando selecionado */
     ::ng-deep .mdc-text-field--focused .mdc-notched-outline > * {
-      border-color: colors.$primary !important;
+      border-color: $primary !important;
     }
 
     .button {
@@ -70,12 +68,12 @@
 
     /* Substitue a cor do texto mat-label*/
     mat-label {
-      color: colors.$text-primary;
+      color: $text-primary;
     }
     /* Substitue a cor do texto do input */
     input {
       font-family: "Montserrat", sans-serif;
-      color: colors.$text_primary
+      color: $text_primary
     }
   }
   .icon {
@@ -93,3 +91,40 @@ input:-webkit-autofill:focus {
 ::ng-deep .p-skeleton {    
   background-color: rgb(163, 163, 163) !important;  
 }
+
+
+// message toast
+::ng-deep .p-toast .p-toast-message.p-toast-message-error{
+  color: #cc0000 !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close{
+  color: #cc0000 !important;
+
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-info{
+  color: #3b82f6 !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-info .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-info .p-toast-icon-close{
+  color: #3b82f6 !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success{
+  background-color: #06a8006b;
+  color: $green !important;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close{
+  color: $green !important;
+}
+
+
+// ::ng-deep .p-toast .p-toast-message.p-toast-message-warn{
+
+// }
+
+// ::ng-deep .p-toast .p-toast-message.p-toast-message-warn .p-toast-message-icon, .p-toast .p-toast-message.p-toast-message-warn .p-toast-icon-close{
+
+// }

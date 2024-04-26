@@ -88,9 +88,6 @@
     <div class="petList">
       <div class="cards-container">
         @for (pet of updatedListPet$ | async; track pet.id) {
-
-
-        
         <mat-list class="cards">
           <div class="header-card">
             @if(!pet.user_filename){
@@ -110,7 +107,6 @@
               <button
               matSuffix
               matTooltipPosition="after"
-              color="primary"
               mat-icon-button
               [cdkCopyToClipboard]="'http://localhost:4200/findPet?id=' + pet.id" 
               matTooltip="Clique para compatilhar essa publicação"
@@ -123,7 +119,6 @@
               <button
                 matSuffix
                 matTooltipPosition="after"
-                color="primary"
                 mat-icon-button
                 [cdkCopyToClipboard]="pet.id" 
                 matTooltip="Clique para copiar o ID"

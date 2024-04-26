@@ -195,6 +195,27 @@ export class FindPetComponent implements OnDestroy {
     });
   }
 
+
+  map(pet: Pet) {
+    if(!pet.latlon){
+      return;
+    }
+    const latlng = JSON.parse(pet.latlon);
+    const lat = latlng.lat;
+    const lon = latlng.lng;
+
+    const queryParams = {
+      lat: lat,
+      lon: lon,
+      zoom: 14
+    };
+    this.router.navigate(['map'], {
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
+    });
+  }
+
+
   async connectUser() {
     try {
       this.chatService.connect(this.user);

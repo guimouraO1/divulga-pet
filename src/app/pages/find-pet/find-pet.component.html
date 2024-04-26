@@ -1,9 +1,7 @@
 <div class="main">
-  
   <p-toast></p-toast>
   <p-confirmPopup></p-confirmPopup>
-  
-  
+
   <div class="search">
     <div class="searchHeader">
       <h2>Pesquisar</h2>
@@ -11,21 +9,30 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Pesquisar por ID</mat-label>
-        <input matInput  [(ngModel)]="searchId">
-          <button
-          (click)="filter(searchId, 'id')"
-          matSuffix
-          color="primary"
-          mat-icon-button
-          >
-          <mat-icon>search</mat-icon>
-        </button>
+      <input
+        matInput
+        [(ngModel)]="searchId"
+      />
+      <button
+        (click)="filter(searchId, 'id')"
+        matSuffix
+        color="primary"
+        mat-icon-button
+      >
+        <mat-icon>search</mat-icon>
+      </button>
     </mat-form-field>
 
     <div class="item">
-      <mat-form-field appearance="outline" class="forms">
+      <mat-form-field
+        appearance="outline"
+        class="forms"
+      >
         <mat-label>Filtrar por Espécie</mat-label>
-        <mat-select value="{{ pet.species }}"  (selectionChange)="filter($event, 'species')">
+        <mat-select
+          value="{{ pet.species }}"
+          (selectionChange)="filter($event, 'species')"
+        >
           <mat-option value="">Todos</mat-option>
           <mat-option value="Cachorro">Cachorro</mat-option>
           <mat-option value="Gato">Gato</mat-option>
@@ -36,13 +43,25 @@
     </div>
 
     <div class="item">
-      <mat-form-field appearance="outline" class="forms">
+      <mat-form-field
+        appearance="outline"
+        class="forms"
+      >
         <mat-label>Filtrar por situação</mat-label>
-        <mat-select value="{{ pet.status }}" (selectionChange)="filter($event, 'status')">
+        <mat-select
+          value="{{ pet.status }}"
+          (selectionChange)="filter($event, 'status')"
+        >
           <mat-option value="">Todos</mat-option>
-          <mat-option value="Perdido">Perdido <span> (Procurando Pet)</span></mat-option>
-          <mat-option value="Encontrado">Encontrado <span>(Procurando tutor)</span></mat-option>
-          <mat-option value="Visto nas proximidades">Visto nas proximidades</mat-option>
+          <mat-option value="Perdido"
+            >Perdido <span> (Procurando Pet)</span></mat-option
+          >
+          <mat-option value="Encontrado"
+            >Encontrado <span>(Procurando tutor)</span></mat-option
+          >
+          <mat-option value="Visto nas proximidades"
+            >Visto nas proximidades</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </div>
@@ -54,80 +73,115 @@
       <mat-list class="cards">
         <div class="header-card">
           @if(!pet.user_filename){
-            <div class="header-img-name">
-              <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
-              <p class="userName">{{ pet.user_firstName }}</p>
-            </div>
+          <div class="header-img-name">
+            <p-skeleton
+              class="img-icon"
+              shape="circle"
+              width="60px"
+              height="60px"
+            ></p-skeleton>
+            <p class="userName">{{ pet.user_firstName }}</p>
+          </div>
           }@else {
-            <div class="header-img-name">
-                <img
-                class="img-icon"
-                src="{{ pet.user_filename }}"/>
-                <p class="userName">{{ pet.user_firstName }}</p>
-            </div>
+          <div class="header-img-name">
+            <img
+              class="img-icon"
+              src="{{ pet.user_filename }}"
+            />
+            <p class="userName">{{ pet.user_firstName }}</p>
+          </div>
           }
 
           <div>
-          <button
-            matSuffix
-            matTooltipPosition="after"
-            color="primary"
-            mat-icon-button
-            [cdkCopyToClipboard]="'http://localhost:4200/findPet?id=' + pet.id" 
-            matTooltip="Clique para compatilhar essa publicação"
-            > 
-            <mat-icon 
-              color="primary"
-              >share</mat-icon>
+             
+            <button
+             (click)="map(pet)"
+              matSuffix
+              matTooltipPosition="after"
+              mat-icon-button
+              matTooltip="Clique para visualizar no mapa"
+            >
+              <mat-icon color="primary">map</mat-icon>
           </button>
 
-          <button
-            matSuffix
-            matTooltipPosition="after"
-            color="primary"
-            mat-icon-button
-            [cdkCopyToClipboard]="pet.id" 
-            matTooltip="Clique para copiar o ID"
-          > 
-            <mat-icon 
-              color="primary"
-              >file_copy</mat-icon>
-            </button>        
+            <button
+              matSuffix
+              matTooltipPosition="after"
+              mat-icon-button
+              [cdkCopyToClipboard]="
+                'http://localhost:4200/findPet?id=' + pet.id
+              "
+              matTooltip="Clique para compatilhar essa publicação"
+            >
+              <mat-icon color="primary">share</mat-icon>
+            </button>
+
+            <button
+              matSuffix
+              matTooltipPosition="after"
+              mat-icon-button
+              [cdkCopyToClipboard]="pet.id"
+              matTooltip="Clique para copiar o ID"
+            >
+              <mat-icon color="primary">file_copy</mat-icon>
+            </button>
           </div>
         </div>
-        
 
         <div class="pet_image">
           @if(pet.filename){
-              <img class="img-pet" src="{{ pet.filename }}"/>
+          <img
+            class="img-pet"
+            src="{{ pet.filename }}"
+          />
           } @else {
-            <p-skeleton width="400px" height="300px"></p-skeleton>
+          <p-skeleton
+            width="400px"
+            height="300px"
+          ></p-skeleton>
           }
         </div>
 
         @if (pet.status == 'Encontrado') {
-          <button color="warn" class="btn-header" mat-flat-button>
-            Procurando Tutor
-          </button>
+        <button
+          color="warn"
+          class="btn-header"
+          mat-flat-button
+        >
+          Procurando Tutor
+        </button>
 
         }@else {
-          <button color="warn" class="btn-header" mat-flat-button>
-            {{ pet.status }}
-          </button>
+        <button
+          color="warn"
+          class="btn-header"
+          mat-flat-button
+        >
+          {{ pet.status }}
+        </button>
         }
 
-        
         <mat-list class="pet-infos">
-          <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>
-          <mat-list-item>Raça: <span>{{ pet.breed }}</span></mat-list-item>
-          <mat-list-item>Espécie: <span>{{ pet.species }}</span></mat-list-item>
-          <mat-list-item>Sexo: <span>{{ pet.sex }}</span></mat-list-item>
-          <mat-list-item 
-            style="cursor: pointer;"
+          <mat-list-item
+            >Nome: <span>{{ pet.name }}</span></mat-list-item
+          >
+          <mat-list-item
+            >Raça: <span>{{ pet.breed }}</span></mat-list-item
+          >
+          <mat-list-item
+            >Espécie: <span>{{ pet.species }}</span></mat-list-item
+          >
+          <mat-list-item
+            >Sexo: <span>{{ pet.sex }}</span></mat-list-item
+          >
+          <mat-list-item
+            style="cursor: pointer"
             matTooltip="{{ pet.last_location }}"
-            >Última localização: <span>{{ pet.last_location }}</span></mat-list-item>
+            >Última localização:
+            <span>{{ pet.last_location }}</span></mat-list-item
+          >
         </mat-list>
-        
+
         <div class="btn-div">
           <button
             (click)="confirm1($event, pet)"
@@ -135,41 +189,66 @@
             class="btn"
             color="accent"
             mat-flat-button
-
           >
             Resgatar
           </button>
         </div>
       </mat-list>
-      } @empty {
-        @defer () {
-        <div class="error">
-          <h2>Nenhum pet encontrado</h2>
-        </div>
+      } @empty { @defer () {
+      <div class="error">
+        <h2>Nenhum pet encontrado</h2>
+      </div>
       } @loading (minimum 2000ms) {
-        <div class="cards2">
-          <div class="header-card">
-              <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
-              <p-skeleton class="userName"></p-skeleton>
-              <p-skeleton class="btn-header" ></p-skeleton>
-          </div>
-
-          <div class="pet_image">
-            <p-skeleton width="400px" height="300px"></p-skeleton>
-          </div>
-
-            <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-            <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-          <div class="btn-div">
-            <p-skeleton class="btn"></p-skeleton>
-          </div>
+      <div class="cards2">
+        <div class="header-card">
+          <p-skeleton
+            class="img-icon"
+            shape="circle"
+            width="60px"
+            height="60px"
+          ></p-skeleton>
+          <p-skeleton class="userName"></p-skeleton>
+          <p-skeleton class="btn-header"></p-skeleton>
         </div>
+
+        <div class="pet_image">
+          <p-skeleton
+            width="400px"
+            height="300px"
+          ></p-skeleton>
+        </div>
+
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <div class="btn-div">
+          <p-skeleton class="btn"></p-skeleton>
+        </div>
+      </div>
       } }
     </div>
-
 
     <div class="pagination-container">
       <mat-paginator

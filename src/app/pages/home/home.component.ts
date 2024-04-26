@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
 
 
   goToPublication(){
-    this.router.navigate(['postPet'])
+    this.router.navigate(['map'])
   }
 
   goToFindPet(){

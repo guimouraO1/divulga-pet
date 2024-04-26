@@ -27,9 +27,9 @@ export class MapComponent implements OnInit, OnDestroy {
     center: latLng(-20, -65),
     minZoom: 4,
     maxBounds: new LatLngBounds(
-      latLng(-20, -80),
-      latLng(5, -35)     
-    ),
+      latLng(-40.0, -110.0), // Latitude mínima e longitude mínima (Sul e Oeste)
+      latLng(10.0, -10.0)    // Latitude máxima e longitude máxima (Norte e Leste)
+    )    
   };
 
   constructor(private petService: PetService, private route: ActivatedRoute){
@@ -55,17 +55,9 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
 
-  // this.router.navigate([], {
-  //   relativeTo: this.route,
-  //   queryParams: queryParams,
-  //   queryParamsHandling: 'merge',
-  // });
-
-
   async getPublications() {
     try {
       const res: any = await lastValueFrom(this.petService.getPublications('', 0, 100, 'find'));
-      console.log(res.publications)
 
       res.publications.forEach((pet: Pet) => {
         const marker = L.marker(JSON.parse(pet.latlon), { icon: this.createIcon(pet.filename) });
@@ -76,17 +68,15 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
-
   createIcon(filename: string) {
     return icon({
-      iconSize: [ 48, 48 ],
+      iconSize: [48, 48],
       className: 'map-image',
       iconUrl: filename,
     });
   }
 
   onMapReady(map: any) {
-    console.log(map)
     this.map = map;
   }
 

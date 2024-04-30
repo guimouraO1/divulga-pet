@@ -1,12 +1,74 @@
 @use '../../../assets/colors/colors.scss' as *;
 
-.map{
-    height: 90vh;
+.map {
+  height: 90vh;
 }
 
-
-::ng-deep .map-image{
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid $primary;
+::ng-deep .map-image {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid $primary;
 }
+
+.modal-body {
+  display: flex;
+  height: 340px;
+  flex-direction: row;
+  padding: 20px;
+  .left {
+    width: 20vw;
+    overflow: hidden;
+    img {
+        border-radius: 4px;
+        object-fit: cover;
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+      }
+  }
+
+  .btn-div {
+    width: 40vw;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 300px;
+
+    .info{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      align-self: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      .item{
+        border-radius: 4px;
+        padding: 14px;
+        background-color: #fff;
+        box-shadow: $cardShadowPrimary;
+      }
+    }
+    .btn {
+      margin: 20px;
+      align-self: flex-end;
+      color: #fff !important;
+    }
+  }
+}
+
+::ng-deep .p-dialog {
+  border: none;
+  color: $text_primary;
+}
+::ng-deep .p-dialog .p-dialog-content {
+  background-color: #ffffff !important;
+  color: $text_primary !important;
+    color: rgba(255, 255, 255, 0.87);
+    padding: 0;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background-color: $warn;
+}
+

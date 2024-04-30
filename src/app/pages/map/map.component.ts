@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import L, {
   icon,
@@ -12,19 +12,22 @@ import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { PetService } from '../../services/pet.service';
 import { Pet } from '../../models/pet.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [LeafletModule],
+  imports: [LeafletModule, DialogModule, MatButtonModule],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss',
 })
 export class MapComponent implements OnInit, OnDestroy {
   map: any;
   layers: any[] = [];
+  visible: boolean = false;
+  pet?: Pet;
   private destroy$ = new Subject<void>();
-
   options = {
     layers: [
       tileLayer(
@@ -41,7 +44,13 @@ export class MapComponent implements OnInit, OnDestroy {
     ),
   };
 
-  constructor(private petService: PetService, private route: ActivatedRoute) {}
+  constructor(
+    private petService: PetService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private ngZone: NgZone
+
+  ) {}
 
   async ngOnInit() {
     this.route.queryParamMap
@@ -57,8 +66,15 @@ export class MapComponent implements OnInit, OnDestroy {
           this.options.center = latLng(parseFloat(lat), parseFloat(lon));
         }
       });
+  }
 
-    // await this.getPublications();
+
+  showDialog() {
+      this.visible = true;
+  }
+
+  rescue(pet: Pet) {
+    this.router.navigate(['/findPet'], { queryParams: { id: pet.id } });
   }
 
   async getPublications() {
@@ -68,16 +84,42 @@ export class MapComponent implements OnInit, OnDestroy {
       );
 
       res.publications.forEach((pet: Pet) => {
+        
         const marker = L.marker(JSON.parse(pet.latlon), {
           icon: this.createIcon(pet.filename),
         }).on('click', () => {
-          console.log(pet.name);
-        });
+
+          this.pet = pet;
+
+          const latlng = JSON.parse(pet.latlon);
+          const lat = latlng.lat;
+          const lon = latlng.lng;
+
+          this.options.center = latLng(parseFloat(lat), parseFloat(lon));
+          const queryParams = {
+            lat: lat,
+            lon: lon
+          }
+
+          this.ngZone.run(() => {
+            this.router.navigate(['map'], {
+              queryParams: queryParams,
+              queryParamsHandling: 'merge',
+            });
+          });
+
+          this.showDialog();
+
+          this.map.setView(this.options.center);
+
+        })
+        
         this.layers.push(marker);
       });
     } catch (error) {}
   }
 
+  
   createIcon(filename: string) {
     return icon({
       iconSize: [48, 48],

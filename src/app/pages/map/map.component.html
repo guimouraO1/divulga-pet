@@ -1,8 +1,76 @@
 <div
-     class="map"
-     leaflet 
-     [leafletOptions]="options"
-     (leafletMapReady)="onMapReady($event)"
-     [leafletLayers]="layers"
-     >
-</div>
+  class="map"
+  leaflet
+  [leafletOptions]="options"
+  (leafletMapReady)="onMapReady($event)"
+  [leafletLayers]="layers"
+></div>
+
+@if (pet?.status == 'Encontrado') {
+<p-dialog
+  [modal]="true"
+  header="Procurando Tutor"
+  [(visible)]="visible"
+  [style]="{ width: '60vw' }"
+>
+  <div class="modal-body">
+    <div class="left">
+      <img
+        src="{{ pet?.filename }}"
+        alt=""
+      />
+    </div>
+    <div class="btn-div">
+      <div class="info">
+        <span class="item">Nome: <span>{{ pet?.name }}</span></span>
+        <span class="item">Raça: <span>{{ pet?.breed }}</span></span>
+        <span class="item">Espécie: <span>{{ pet?.species }}</span></span>
+        <span class="item">Sexo: <span>{{ pet?.sex }}</span></span>
+        <span class="item">Última localização: <span>{{ pet?.last_location }}</span></span>
+      </div>
+      <button
+        (click)="rescue(pet!)"
+        class="btn"
+        mat-flat-button
+        color="primary"
+      >
+        Resgate
+      </button>
+    </div>
+  </div>
+</p-dialog>
+
+}@else {
+<p-dialog
+  [modal]="true"
+  header="{{ pet?.status }}"
+  [(visible)]="visible"
+  [style]="{ width: '60vw' }"
+>
+  <div class="modal-body">
+    <div class="left">
+      <img
+        src="{{ pet?.filename }}"
+        alt=""
+      />
+    </div>
+    <div class="btn-div">
+      <div class="info">
+        <span class="item">Nome: <span>{{ pet?.name }}</span></span>
+        <span class="item">Raça: <span>{{ pet?.breed }}</span></span>
+        <span class="item">Espécie: <span>{{ pet?.species }}</span></span>
+        <span class="item">Sexo: <span>{{ pet?.sex }}</span></span>
+        <span class="item">Última localização: <span>{{ pet?.last_location }}</span></span>
+      </div>
+      <button
+        (click)="rescue(pet!)"
+        class="btn"
+        mat-flat-button
+        color="primary"
+      >
+        Resgate
+      </button>
+    </div>
+  </div>
+</p-dialog>
+}

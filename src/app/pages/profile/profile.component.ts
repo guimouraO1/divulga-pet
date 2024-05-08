@@ -59,6 +59,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   protected userForm: FormGroup;
   protected user: any;
   protected petList?: any = [];
+  protected petListDeleted?: any = [];
+  protected deletedOpen = false;
   private destroy$ = new Subject<void>();
   protected selectedFile: File | null = null;
   protected disableButton: boolean = false;
@@ -90,7 +92,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   async getUserPublications(){
-    this.petList = await lastValueFrom(this.petService.getUserPublications());
+    const list = await lastValueFrom(this.petService.getUserPublications());
+    list.forEach((element: any) => {
+      if(element.status != 'Deleted'){
+        this.petList.push(element);
+      } else {
+        this.petListDeleted.push(element);
+      }
+    });
+    console.log(this.petList)
+
   }
 
   private subscribeToUserChanges(): void {

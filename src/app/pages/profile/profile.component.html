@@ -145,7 +145,117 @@
     </div>
   </div>
 
-  @if (this.petList.length > 0) {
+  @if (this.petListDeleted.length > 0) { 
+    @if (deletedOpen) {
+  <div
+    class="container-posts"
+    id="container-posts"
+  >
+    <div class="petList">
+      <h3>Publicações Deletadas</h3>
+      <div class="cards-container">
+        @for (pet of petListDeleted; track pet.id) {
+        <mat-list class="cards">
+          <div class="header-card">
+            @if(!user.profile_pic){
+            <div class="header-img-name">
+              <p-skeleton
+                class="img-icon"
+                shape="circle"
+                width="60px"
+                height="60px"
+              ></p-skeleton>
+              <p class="userName">{{ user.name }}</p>
+            </div>
+            }@else {
+            <div class="header-img-name">
+              <img
+                class="img-icon"
+                src="{{ user.profile_pic }}"
+              />
+              <p class="userName">{{ user.name }}</p>
+            </div>
+            }
+            <button
+              matSuffix
+              matTooltipPosition="after"
+              color="primary"
+              mat-icon-button
+            >
+              <mat-icon color="primary">file_copy</mat-icon>
+            </button>
+          </div>
+
+          <div class="pet_image">
+            @if(pet.filename){ 
+              @defer (on viewport){
+            <img
+              class="img-pet"
+              src="{{ pet.filename }}"
+            />
+            } @placeholder (minimum 300ms) {
+            <p-skeleton
+              width="400px"
+              height="300px"
+            ></p-skeleton>
+            } } @else {
+            <p-skeleton
+              width="400px"
+              height="300px"
+            ></p-skeleton>
+            }
+          </div>
+
+          <button
+            color="warn"
+            class="btn-header"
+            mat-flat-button
+          >
+            Deletado
+          </button>
+          
+
+          <mat-list class="pet-infos">
+            <mat-list-item
+              >Nome: <span>{{ pet.name }}</span></mat-list-item
+            >
+            <mat-list-item
+              >Raça: <span>{{ pet.breed }}</span></mat-list-item
+            >
+            <mat-list-item
+              >Espécie: <span>{{ pet.species }}</span></mat-list-item
+            >
+            <mat-list-item
+              >Sexo: <span>{{ pet.sex }}</span></mat-list-item
+            >
+            <mat-list-item
+              style="cursor: pointer"
+              matTooltip="{{ pet.last_location }}"
+              >Última localização:
+              <span>{{ pet.last_location }}</span></mat-list-item
+            >
+          </mat-list>
+
+          <div class="btn-div">
+            <button
+              type="text"
+              class="btn"
+              color="warn"
+              mat-flat-button
+            >
+              Deletado
+            </button>
+          </div>
+        </mat-list>
+        }
+      </div>
+    </div>
+  </div>
+  }@else {
+  <div class="deleted">
+    <h3 (click)="deletedOpen = !deletedOpen">Visualizar posts deletados</h3>
+  </div>
+  } } @if (this.petList.length > 0) {
   <div
     class="container-posts"
     id="container-posts"

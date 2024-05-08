@@ -17,6 +17,21 @@
 // ::ng-deep .mdc-list-item__primary-text {
 
 // }
+.deleted{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  padding: 10px;
+  cursor: pointer;
+  h3{
+    background-color: $warn;
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: #fff;
+  }
+}
+
 
 .icon2 {
   border-radius: 100%;
@@ -306,19 +321,6 @@ mat-form-field {
 }
 .btn-lost {
   color: $warn !important;
-}
-
-mat-paginator {
-  width: 50vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  box-shadow: $cardShadowPrimary;
-  background-color: transparent !important;
-  margin-top: 20px;
-  background-color: $cardBackground !important;
 }
 
 .pagination-container {

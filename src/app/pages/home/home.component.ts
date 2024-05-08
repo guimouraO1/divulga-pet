@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AvatarModule } from 'primeng/avatar';
@@ -33,7 +33,7 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  constructor(private petService: PetService, private router: Router) {}
+  constructor(private petService: PetService, private router: Router, private el: ElementRef) {}
   
   protected totalPets: number = 0;
   protected petList: Pet[] = [];
@@ -65,4 +65,15 @@ export class HomeComponent implements OnInit {
   goToFindPet(){
     this.router.navigate(['findPet'])
   }
+
+  goToAboutUs(){
+    this.router.navigate(['about'])
+  }
+  scrollToContainer() {
+    const containerElement = this.el.nativeElement.querySelector('#divulga');
+    if (containerElement) {
+      containerElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
 }

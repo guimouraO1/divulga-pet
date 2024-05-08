@@ -1,0 +1,52 @@
+@use '../../../assets/colors/colors.scss' as *;
+
+.main{
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .card{
+        background-color: $cardBackground;
+        box-shadow: $cardShadowPrimary;
+        padding: 40px;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+        h1{
+            color: $primary;
+
+        }
+        .text{
+            color: $text_primary;
+            width: 50vw;
+        }
+        .imgSection{
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            margin-top: 40px;
+
+            .sec{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                p{
+                    margin: 4px;
+                    color: $text_primary;
+                }
+            }
+            img{
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+    }
+
+}

@@ -1,4 +1,5 @@
 <div class="main">
+  
   <div class="container">
     <div class="left">
       <div class="how-to-find-pet">
@@ -76,11 +77,11 @@
     </div>
   </div>
 
-  <div class="c2-h1">
+  <div (click)="scrollToContainer()" class="c2-h1">
     <h1>Como Divulga Pet Funciona?</h1>
   </div>
 
-  <div class="container">
+  <div id="divulga" class="container">
     <div class="left">
       <div class="how-to-post-pet">
         <div class="cards2">
@@ -258,5 +259,101 @@
         </p>
       </div>
     </div>
+  </div>
+
+  <div class="container">
+    <div class="left">
+      <div class="how-to-find-pet">
+        <span class="text-h1">Histórias Felizes</span>
+        <p class="welcome-text">
+          Assim que o resgate for feito, o usuário que fez a publicação confirmará o sucesso do resgate através do CHAT.
+          Em seguida, escreverá uma história detalhada sobre a experiência do resgate. Essa história será fixado na publicação na página "HISTÓRIAS FELIZES".
+          Desta forma todos os usuários terão a oportunidade de visualizar o pet resgatado e ler sobre a emocionante jornada de seu resgate.
+        </p>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="how-to-post-pet">
+        <div class="cards2">
+          <div class="header-card">
+            <div class="header-img-name">
+              <img
+                class="img-icon"
+                src="../../../assets/Guilherme.jpg"
+                alt=""
+              />
+              <p>Guilherme</p>
+            </div>
+
+            <div class="btns">
+              <button
+                matSuffix
+                matTooltipPosition="after"
+                color="primary"
+                mat-icon-button
+              >
+                <mat-icon color="primary">share</mat-icon>
+              </button>
+
+              <button
+                matSuffix
+                matTooltipPosition="after"
+                color="primary"
+                mat-icon-button
+              >
+                <mat-icon color="primary">file_copy</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="pet_image">
+            <img
+              class="img-pet"
+              src="../../../assets/boris.jpeg"
+              alt=""
+            />
+          </div>
+
+          <button
+            color="accent"
+            class="btn-header"
+            mat-flat-button
+          >
+           Encontrado
+          </button>
+
+          <mat-list class="pet-infos">
+            <mat-list-item>Nome: <span>Boris</span></mat-list-item>
+            <mat-list-item>Raça: <span>Desconhecido</span></mat-list-item>
+            <mat-list-item>Espécie: <span>Cachorro</span></mat-list-item>
+            <mat-list-item>Sexo: <span>Macho</span></mat-list-item>
+            <mat-list-item style="cursor: pointer"
+              >Última localização:
+              <span
+                >R. dos Caningás, 5A - Vila Costa e Silva, Campinas - SP,
+                13081-290, Brazil</span
+              ></mat-list-item
+            >
+          </mat-list>
+
+          <div class="btn-div">
+            <button
+              type="submit"
+              class="btn"
+              color="primary"
+              mat-flat-button
+            >
+              Ver História
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div (click)="goToAboutUs()" class="c2-h1">
+    <h1>Sobre nós</h1>
   </div>
 </div>

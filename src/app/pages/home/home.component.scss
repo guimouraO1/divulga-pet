@@ -130,6 +130,7 @@
             font-size: 20px;
             opacity: 0.7;
             color: $text_primary;
+            text-wrap: pretty;
 
           }
       }
@@ -142,6 +143,9 @@
     width: 70vw;
     background-color: #FF8200;
     border-radius: 4px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    
     h1{
       align-self: center;
     }
@@ -183,6 +187,9 @@
       flex-direction: row;
       gap: 10px;
       align-items: center;
+      p{
+        color: $text_primary;
+      }
     }
   }
   .btns{

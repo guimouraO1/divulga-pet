@@ -52,6 +52,14 @@ export const routes: Routes = [
             (p) => p.MapComponent
           ),
       },
+      {
+        path: 'about',
+        title: 'Divulga Pet | Sobre nós',
+        loadComponent: () =>
+          import('./pages/about/about.component').then(
+            (p) => p.AboutComponent
+          ),
+      },
     ],
   },
   {

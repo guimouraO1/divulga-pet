@@ -88,7 +88,7 @@ export class PostPetComponent implements OnInit {
       this.messageService.add({
         severity: 'info',
         summary: 'Sucesso',
-        detail: 'Imagem seleciona com sucesso!',
+        detail: 'Imagem selecionada com sucesso!',
       });
     }
   }

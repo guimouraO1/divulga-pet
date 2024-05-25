@@ -41,13 +41,13 @@
               class="modal-image"
               src="{{ this.petModal?.filename }}"/>
             <div class="modal-pet-id">
-              <p>Informações do Reencontro</p>
-              <mat-divider></mat-divider>
+              <button type="text" class="btn-encontrado" color="accent" mat-flat-button>
+                Encontrado
+              </button>    
             </div>
         </mat-list>
 
         <div class="right">
-
           <div class="author-modal">
               <div class="header-img-name">
                 @if ( this.petModal?.user_filename ) {                    <img
@@ -58,7 +58,7 @@
                     <mat-icon>person</mat-icon>
                   </button>     
                 }
-                <p class="userName">{{ pet.user_firstName }}</p>
+                <p class="userName">{{ petModal?.user_firstName}}</p>
               </div>
               <p>{{  this.petModal?.happyText }}</p>
           </div>

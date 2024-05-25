@@ -97,11 +97,16 @@ mat-form-field {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    align-items: start;
+    margin-top: 40px;
+    
     .author-modal {
+      width: 100%;
       border-radius: 8px;
       padding: 20px;
       background-color: $cardBackground;
       box-shadow: $cardShadowPrimary;
+      text-wrap: pretty;
 
       p {
         padding: 10px;
@@ -120,6 +125,8 @@ mat-form-field {
       padding: 20px;
       background-color: $cardBackground;
       box-shadow: $cardShadowPrimary;
+      width: 100%;
+      text-wrap: pretty;
 
       p {
         padding: 10px;
@@ -226,6 +233,14 @@ mat-list-item {
   margin: 10px 0px 10px 0px;
   width: 200px;
   color: #fff !important;
+}
+
+.btn-encontrado {
+  margin: 10px 0px 10px 0px;
+  width: 400px;
+  height: 60px;
+  color: #fff !important;
+  font-size: xx-large;
 }
 
 .btn-lost {

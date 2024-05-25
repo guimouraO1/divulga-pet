@@ -41,7 +41,7 @@
         [class.hide]="hide"
       >
         <p-dialog
-          header="Rescuing Pet"
+          header="Resgatando Pet"
           [(visible)]="visibleModal"
           [modal]="true"
           [style]="{ width: '60vw' }"
@@ -51,22 +51,22 @@
           <p class="modal-p">Estamos quase lá!</p>
           <div class="modal">
             <div style="width: 80%">
-              <p class="modal-p">Pet resgatado por {{ rescuedUser?.name }}?</p>
+              <p class="modal-p">O Pet foi resgatado por {{ rescuedUser?.name }}?</p>
               <mat-radio-group [(ngModel)]="modalRadioButton">
                 <mat-radio-button
                   color="accent"
                   [value]="true"
-                  >Yes</mat-radio-button
+                  >Sim</mat-radio-button
                 >
                 <mat-radio-button
                   color="warn"
                   [value]="false"
-                  >No</mat-radio-button
+                  >Não</mat-radio-button
                 >
               </mat-radio-group>
             </div>
             <div class="modaltextarea">
-              <p class="modal-p">Escreva um história feliz</p>
+              <p class="modal-p">Escreva uma história feliz</p>
               <textarea
                 rows="5"
                 cols="30"
@@ -85,7 +85,7 @@
                 mat-flat-button
                 class="btn"
               >
-                Resgatar
+              Publicar
               </button>
             </div>
           </div>

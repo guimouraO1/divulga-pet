@@ -69,8 +69,14 @@ export class HomeComponent implements OnInit {
   goToAboutUs(){
     this.router.navigate(['about'])
   }
-  scrollToContainer() {
+  scrollToHowWork() {
     const containerElement = this.el.nativeElement.querySelector('#divulga');
+    if (containerElement) {
+      containerElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  scrollToPraticas() {
+    const containerElement = this.el.nativeElement.querySelector('#praticas');
     if (containerElement) {
       containerElement.scrollIntoView({ behavior: 'smooth' });
     }

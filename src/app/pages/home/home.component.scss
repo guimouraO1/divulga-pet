@@ -138,10 +138,10 @@
     }
     
   }
-  .c2-h1{
+  .how-work{
     display: flex;
     justify-content: center;
-    width: 70vw;
+    padding: 0px 40px;
     background-color: #FF8200;
     border-radius: 4px;
     margin-bottom: 20px;
@@ -203,6 +203,37 @@
     flex-direction: column;
     padding-left: 20px;
     gap: 10px;
+  }
+}
+
+.cards-praticas {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  height: 580px;
+  box-shadow: $cardShadowPrimary;
+  border-radius: 8px;
+  background-color: $cardBackground !important;
+  .card-text{
+    color: $text_primary;
+    padding: 10px 20px;
+    p{
+      font-weight: bolder;
+    }
+  }
+  
+  .pet_image {
+    min-width: 400px;
+    min-height: 300px;
+    margin: 10px;
+    object-fit: cover;
+    border-radius: 20px;
+    .img-pet {
+      width: 400px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
   }
 }
 

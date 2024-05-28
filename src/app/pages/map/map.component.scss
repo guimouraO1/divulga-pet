@@ -51,8 +51,10 @@
     }
     .btn {
       margin: 20px;
+      width: 160px;
       align-self: flex-end;
       color: #fff !important;
+      background-color: $green !important;
     }
   }
 }
@@ -62,8 +64,8 @@
   color: $text_primary;
 }
 ::ng-deep .p-dialog .p-dialog-content {
-  background-color: #ffffff !important;
-  color: $text_primary !important;
+    background-color: #ffffff !important;
+    color: $text_primary !important;
     color: rgba(255, 255, 255, 0.87);
     padding: 0;
 }

@@ -152,6 +152,22 @@
     }
   }
 }
+
+.how-work-2{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0px 40px;
+  background-color: #FF8200;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  
+  h1{
+    align-self: center;
+  }
+}
+
 .img-icon {
   width: 60px;
   height: 60px;

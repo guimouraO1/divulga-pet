@@ -130,3 +130,7 @@ mat-icon {
   top: 12px !important;
   right: 15px !important;
 }
+
+::ng-deep .mat-badge-content{
+ font-size: 10px !important;
+}

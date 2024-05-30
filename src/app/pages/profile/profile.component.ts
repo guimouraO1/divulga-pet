@@ -100,7 +100,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.petListDeleted.push(element);
       }
     });
-    console.log(this.petList)
 
   }
 

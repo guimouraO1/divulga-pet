@@ -131,7 +131,6 @@ export class FindPetComponent implements OnDestroy {
       const res: any = await lastValueFrom(
         this.petService.getPublications(this.pet, this.offset, this.limit, 'find')
       );
-      console.log(res)
       
       const petList: Pet[] = res.publications;
       this.totalPet = res.totalItems;
@@ -237,7 +236,9 @@ export class FindPetComponent implements OnDestroy {
 
     try {
       const friendshipId: any = await firstValueFrom(this.petService.rescuePet(pet));
+      
       this.sendFirstMessage(pet, friendshipId);
+      
       this.messageService.add({
         severity: 'success',
         summary: 'Sucesso',
@@ -259,7 +260,7 @@ export class FindPetComponent implements OnDestroy {
 
   // Send message to private recipient in real time, and backend save on db.
   sendFirstMessage(pet: Pet, friendshipId: string) {
-    
+
     this.chatService.sendMessage(
       pet.filename, // message
       this.user.id, // authorMessageId
@@ -268,36 +269,45 @@ export class FindPetComponent implements OnDestroy {
       "img",
       friendshipId // Id post pet
     );
-    if(pet.status == 'Perdido'){
-      this.chatService.sendMessage(
-        `Olá, tudo bem? Meu nome é ${ this.user.name }, encontrei um pet parecido com a sua publicação ID [${ pet.id }], podemos conversar a respeito?`, // message
-        this.user.id, // authorMessageId
-        pet.user_id, // recipientId
-        new Date(), // time
-        "message", // type
-        friendshipId // Id post pet
-      );
+
+    try {
+      if(pet.status == 'Perdido'){
+        this.chatService.sendMessage(
+          `Olá, tudo bem? Meu nome é ${ this.user.name }, encontrei um pet parecido com a sua publicação ID [${ pet.id }], podemos conversar a respeito?`, // message
+          this.user.id, // authorMessageId
+          pet.user_id, // recipientId
+          new Date(), // time
+          "message", // type
+          friendshipId // Id post pet
+        );
+      }
+  
+      if(pet.status == 'Encontrado'){
+        this.chatService.sendMessage(
+          `Olá, tudo bem? Meu nome é  ${ this.user.name }, estou em busca do meu animal de estimação e as informações da sua publicação ID [${ pet.id }], é bem parecido(a) com o que estou procurando, podemos conversar a respeito?`, // message
+          this.user.id, // authorMessageId
+          pet.user_id, // recipientId
+          new Date(), // time
+          "message", // type
+          friendshipId // Id post pet
+        );
+      }
+  
+      if(pet.status == 'Visto nas proximidades'){
+        this.chatService.sendMessage(
+          `Olá, tudo bem? Meu nome é  ${ this.user.name }, notei que você publicou sobre um pet com o ID  [${ pet.id }], que foi visto nas proximidades. Infelizmente, perdi meu pet na mesma região. Poderia me informar mais detalhes sobre o(a) pet que você viu?`, // message
+          this.user.id, // authorMessageId
+          pet.user_id, // recipientId
+          new Date(), // time
+          "message", // type
+          friendshipId // Id post pet
+        );
+      }      
+    } catch (error) {
+      console.log(error)
     }
-    if(pet.status == 'Resgatado'){
-      this.chatService.sendMessage(
-        `Olá, tudo bem? Meu nome é  ${ this.user.name }, estou em busca do meu animal de estimação e as informações da sua publicação ID [${ pet.id }], é bem parecido(a) com o que estou procurando, podemos conversar a respeito?`, // message
-        this.user.id, // authorMessageId
-        pet.user_id, // recipientId
-        new Date(), // time
-        "message", // type
-        friendshipId // Id post pet
-      );
-    }
-    if(pet.status == 'Visto nas proximidades'){
-      this.chatService.sendMessage(
-        `Olá, tudo bem? Meu nome é  ${ this.user.name }, notei que você publicou sobre um pet com o ID  [${ pet.id }], que foi visto nas proximidades. Infelizmente, perdi meu pet na mesma região. Poderia me informar mais detalhes sobre o(a) pet que você viu?`, // message
-        this.user.id, // authorMessageId
-        pet.user_id, // recipientId
-        new Date(), // time
-        "message", // type
-        friendshipId // Id post pet
-      );
-    }
+    
+
   }
 
   confirm1(event: Event, pet: Pet) {

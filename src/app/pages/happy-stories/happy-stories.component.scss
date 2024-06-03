@@ -98,7 +98,6 @@ mat-form-field {
     flex-direction: column;
     gap: 20px;
     align-items: start;
-    margin-top: 40px;
     
     .author-modal {
       width: 100%;
@@ -312,6 +311,8 @@ mat-paginator {
   padding: 12px 0px;
   font-size: 20px;
   color: #fff !important;
+  background-color: $orange !important;
+
 }
 
 .cards2 {

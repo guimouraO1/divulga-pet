@@ -6,10 +6,9 @@
         <button
           (click)="scrollToContainer()"
           class="btn-first-card"
-          color="primary"
           mat-flat-button
         >
-          Publicações
+        Minhas Publicações
         </button>
       </div>
       <div class="userPanel">
@@ -152,7 +151,7 @@
     id="container-posts"
   >
     <div class="petList">
-      <h3>Publicações Deletadas</h3>
+      <h3>Minhas Publicações Deletadas</h3>
       <div class="cards-container">
         @for (pet of petListDeleted; track pet.id) {
         <mat-list class="cards">
@@ -261,7 +260,7 @@
     id="container-posts"
   >
     <div class="petList">
-      <h3>Suas publicações</h3>
+      <h3>Minhas Publicações</h3>
       <div class="cards-container">
         @for (pet of petList; track pet.id) {
         <mat-list class="cards">
@@ -318,8 +317,7 @@
 
           @if (pet.status == 'Resgatado') {
           <button
-            color="accent"
-            class="btn-header"
+            class="btn-header-res"
             mat-flat-button
           >
             {{ pet.status }}

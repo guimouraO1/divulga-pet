@@ -137,7 +137,7 @@
           }
           <button
             [disabled]="!this.selectedFile"
-            color="primary"
+            color="accent"
             class="btn"
             mat-flat-button
             matStepperNext
@@ -181,9 +181,9 @@
 
         <div class="mapButton">
           <button
-            class="btn2"
+            class="btn-loc"
             type="button"
-            color="accent"
+
             mat-flat-button
             (click)="getUserLocation()"
           >
@@ -223,7 +223,7 @@
             (click)="onSubmit()"
             [disabled]="disableButton"
             class="btn"
-            color="primary"
+            color="accent"
             mat-flat-button
             type="submit"
           >

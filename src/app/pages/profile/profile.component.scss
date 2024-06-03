@@ -38,13 +38,14 @@
 }
 
 h2 {
-  color: $primary;
-  padding-top: 30px;
-  padding-left: 50px;
+  color: $text_primary;
+  padding-top: 20px;
+  padding-left: 80px;
   text-wrap: wrap;
 }
 h3{
-  color: $primary;
+  font-size: 30px;
+  color: $text_primary;
 }
 
 mat-paginator {
@@ -318,6 +319,7 @@ mat-form-field {
   margin: 20px;
   width: 200px;
   color: #fff !important;
+  background-color: $orange !important;
 }
 .btn-lost {
   color: $warn !important;
@@ -356,6 +358,14 @@ mat-form-field {
   padding: 12px 0px;
   font-size: 20px;
   color: #fff !important;
+}
+.btn-header-res {
+  align-self: center;
+  width: 95%;
+  padding: 12px 0px;
+  font-size: 20px;
+  color: #fff !important;
+  background-color: $orange !important;
 }
 
 .img-icon2 {

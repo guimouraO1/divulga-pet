@@ -142,7 +142,7 @@
     display: flex;
     justify-content: center;
     padding: 0px 40px;
-    background-color: #FF8200;
+    background-color: $orange;
     border-radius: 4px;
     margin-bottom: 20px;
     cursor: pointer;
@@ -158,7 +158,7 @@
   justify-content: center;
   width: 100%;
   padding: 0px 40px;
-  background-color: #FF8200;
+  background-color: $orange;
   border-radius: 4px;
   margin-bottom: 20px;
   cursor: pointer;
@@ -235,6 +235,7 @@
     padding: 10px 20px;
     p{
       font-weight: bolder;
+      font-size: 20px;
     }
   }
   
@@ -283,7 +284,7 @@
   color: #fff !important;
   justify-content: flex-start; // Centraliza horizontalmente
   gap: 8px;
-  background-color: #FF8200 !important;
+  background-color: $orange !important;
   span{
     margin-left: 20px;
   }

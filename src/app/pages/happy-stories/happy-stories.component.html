@@ -1,214 +1,291 @@
 <div class="main">
-    <p-toast></p-toast>
-    <div class="search">
-      <div class="searchHeader">
-        <h2>Pesquisar</h2>   
-      </div>
-  
-      
-      <mat-form-field appearance="outline">
-        <mat-label>Pesquisar por ID</mat-label>
-          <input matInput  [(ngModel)]="searchId">
-          <button
-          (click)="filter(searchId, 'id')"
-          matSuffix
-          color="primary"
-          mat-icon-button
-          >
-          <mat-icon>search</mat-icon>
-        </button>
+  <p-toast></p-toast>
+  <div class="search">
+    <div class="searchHeader">
+      <h2>Pesquisar</h2>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Pesquisar por ID</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchId"
+      />
+      <button
+        (click)="filter(searchId, 'id')"
+        matSuffix
+        color="primary"
+        mat-icon-button
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class="item">
+      <mat-form-field
+        appearance="outline"
+        class="forms"
+      >
+        <mat-label>Filtrar por Espécie</mat-label>
+        <mat-select
+          value="{{ pet.species }}"
+          (selectionChange)="filter($event, 'species')"
+        >
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="Cachorro">Cachorro</mat-option>
+          <mat-option value="Gato">Gato</mat-option>
+          <mat-option value="Pássaro">Pássaro</mat-option>
+          <mat-option value="Outros">Outros</mat-option>
+        </mat-select>
       </mat-form-field>
-  
-      <div class="item">
-        <mat-form-field appearance="outline" class="forms">
-          <mat-label>Filtrar por Espécie</mat-label>
-          <mat-select value="{{ pet.species }}"  (selectionChange)="filter($event, 'species')">
-            <mat-option value="">Todos</mat-option>
-            <mat-option value="Cachorro">Cachorro</mat-option>
-            <mat-option value="Gato">Gato</mat-option>
-            <mat-option value="Pássaro">Pássaro</mat-option>
-            <mat-option value="Outros">Outros</mat-option>
-          </mat-select>
-        </mat-form-field>
+    </div>
+  </div>
+
+  <p-dialog
+    header="História feliz"
+    [(visible)]="visibleModal"
+    [modal]="true"
+    [style]="{ width: '60vw' }"
+    [draggable]="true"
+    [resizable]="false"
+  >
+    <div class="main-modal">
+      <mat-list class="left">
+        <img
+          class="modal-image"
+          src="{{ this.petModal?.filename }}"
+        />
+        <div class="modal-pet-id">
+          <button
+            type="text"
+            class="btn-encontrado"
+            color="accent"
+            mat-flat-button
+          >
+            Encontrado
+          </button>
+        </div>
+      </mat-list>
+
+      <div class="right">
+        <div class="author-modal">
+          <div class="header-img-name">
+            @if ( this.petModal?.user_filename ) {
+            <img
+              class="img-icon"
+              src="{{ this.petModal?.user_filename }}"
+            />
+            } @else {
+            <button
+              type="text"
+              color="primary"
+              mat-icon-button
+            >
+              <mat-icon>person</mat-icon>
+            </button>
+            }
+            <p class="userName">{{ petModal?.user_firstName }}</p>
+          </div>
+          <p>{{ this.petModal?.happyText }}</p>
+        </div>
+
+        <div class="recue-modal">
+          <div class="header-img-name">
+            <p class="userName">{{ userRescuedPet?.name }}</p>
+            @if (userRescuedPet?.profile_pic) {
+            <img
+              class="img-icon"
+              src="{{ userRescuedPet?.profile_pic }}"
+            />
+            } @else {
+            <button
+              type="text"
+              color="primary"
+              mat-icon-button
+            >
+              <mat-icon>person</mat-icon>
+            </button>
+            }
+          </div>
+          <p>Esse pet foi resgatado por {{ userRescuedPet?.name }}</p>
+        </div>
       </div>
     </div>
-  
-            
-    <p-dialog header="História feliz" [(visible)]="visibleModal" [modal]="true" [style]="{ width: '60vw'}" [draggable]="true" [resizable]="false">
-      <div class="main-modal">
-        <mat-list class="left">
-            <img
-              class="modal-image"
-              src="{{ this.petModal?.filename }}"/>
-            <div class="modal-pet-id">
-              <button type="text" class="btn-encontrado" color="accent" mat-flat-button>
-                Encontrado
-              </button>    
-            </div>
-        </mat-list>
-
-        <div class="right">
-          <div class="author-modal">
-              <div class="header-img-name">
-                @if ( this.petModal?.user_filename ) {                    <img
-                  class="img-icon"
-                  src="{{ this.petModal?.user_filename }}"/>
-                } @else {
-                  <button type="text" color="primary" mat-icon-button>
-                    <mat-icon>person</mat-icon>
-                  </button>     
-                }
-                <p class="userName">{{ petModal?.user_firstName}}</p>
-              </div>
-              <p>{{  this.petModal?.happyText }}</p>
-          </div>
-
-          <div class="recue-modal">
-            <div class="header-img-name">
-              <p class="userName">{{ userRescuedPet?.name }}</p>
-              @if (userRescuedPet?.profile_pic) {
-                <img
-                class="img-icon"
-                src="{{ userRescuedPet?.profile_pic }}"/>
-              } @else {
-                <button type="text" color="primary" mat-icon-button>
-                  <mat-icon>person</mat-icon>
-                </button>                   
-              }
-            </div>
-            <p>Esse pet foi resgatado por {{ userRescuedPet?.name }}</p>
-        </div>
-
-        </div>
-
-      </div>
   </p-dialog>
 
-
-    <div class="petList">
-      <div class="cards-container">
-        @for (pet of updatedListPet$ | async; track pet.id) {
-        <mat-list class="cards">
-          <div class="header-card">
-            @if(!pet.user_filename){
-              <div class="header-img-name">
-                <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
-                <p class="userName">{{ pet.user_firstName }}</p>
-              </div>
-            }@else {
-              <div class="header-img-name">
-                  <img
-                  class="img-icon"
-                  src="{{ pet.user_filename }}"/>
-                  <p class="userName">{{ pet.user_firstName }}</p>
-              </div>
-            }
-            <div>
-              <button
+  <div class="petList">
+    <div class="cards-container">
+      @for (pet of updatedListPet$ | async; track pet.id) {
+      <mat-list class="cards">
+        <div class="header-card">
+          @if(!pet.user_filename){
+          <div class="header-img-name">
+            <p-skeleton
+              class="img-icon"
+              shape="circle"
+              width="60px"
+              height="60px"
+            ></p-skeleton>
+            <p class="userName">{{ pet.user_firstName }}</p>
+          </div>
+          }@else {
+          <div class="header-img-name">
+            <img
+              class="img-icon"
+              src="{{ pet.user_filename }}"
+            />
+            <p class="userName">{{ pet.user_firstName }}</p>
+          </div>
+          }
+          <div>
+            <button
               matSuffix
               matTooltipPosition="after"
               mat-icon-button
-              [cdkCopyToClipboard]="'http://localhost:4200/findPet?id=' + pet.id" 
+              [cdkCopyToClipboard]="
+                'http://localhost:4200/findPet?id=' + pet.id
+              "
               matTooltip="Clique para compatilhar essa publicação"
-              > 
-              <mat-icon 
-                color="primary"
-                >share</mat-icon>
-              </button>
-    
-              <button
-                matSuffix
-                matTooltipPosition="after"
-                mat-icon-button
-                [cdkCopyToClipboard]="pet.id" 
-                matTooltip="Clique para copiar o ID"
-              > 
-                <mat-icon 
-                  color="primary"
-                  >file_copy</mat-icon>
-                </button>        
-              </div>
-          </div>
-  
-          <div class="pet_image">
-            @if(pet.filename){
-                <img class="img-pet" src="{{ pet.filename }}"/>
-            } @else {
-              <p-skeleton width="400px" height="300px"></p-skeleton>
-            }
-          </div>
-          
-          <button class="btn-header" mat-flat-button>
-            {{ pet.status }}
-          </button>
-          <mat-list class="pet-infos">
-            <mat-list-item>Nome: <span>{{ pet.name }}</span></mat-list-item>
-            <mat-list-item>Raça: <span>{{ pet.breed }}</span></mat-list-item>
-            <mat-list-item>Espécie: <span>{{ pet.species }}</span></mat-list-item>
-            <mat-list-item>Sexo: <span>{{ pet.sex }}</span></mat-list-item>
-            <mat-list-item 
-              style="cursor: pointer;"
-              matTooltip="{{ pet.last_location }}"
-              >Última localização: <span>{{ pet.last_location }}</span></mat-list-item>
-          </mat-list>
-          
-          <div class="btn-div">
-            <button
-              (click)="viewModal(pet)"
-              type="submit"
-              class="btn"
-              color="accent"
-              mat-flat-button
-
             >
-            Ver história
+              <mat-icon color="primary">share</mat-icon>
+            </button>
+
+            <button
+              matSuffix
+              matTooltipPosition="after"
+              mat-icon-button
+              [cdkCopyToClipboard]="pet.id"
+              matTooltip="Clique para copiar o ID"
+            >
+              <mat-icon color="primary">file_copy</mat-icon>
             </button>
           </div>
-        </mat-list>
-        
-        } @empty {
-          @defer () {
-          <div class="error">
-            <h2>Nenhum pet encontrado</h2>
-          </div>
-        } @loading (minimum 3000ms) {
-          <div class="cards2">
-            <div class="header-card">
-                <p-skeleton class="img-icon" shape="circle" width="60px" height="60px"></p-skeleton>
-                <p-skeleton class="userName"></p-skeleton>
-                <p-skeleton class="btn-header" ></p-skeleton>
-            </div>
-  
-            <div class="pet_image">
-              <p-skeleton width="400px" height="300px"></p-skeleton>
-            </div>
-  
-              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-              <p-skeleton class="itemSke" width="10rem" styleClass="mb-2"></p-skeleton>
-            <div class="btn-div">
-              <p-skeleton class="btn"></p-skeleton>
-            </div>
-          </div>
-        } }
-      </div>
-      <div class="pagination-container">
-        <mat-paginator
-          color="primary"
-          [pageSizeOptions]="pageSizeOptions"
-          [pageIndex]="pageIndex"
-          [length]="totalPet"
-          [pageSize]="pageSize"
-          aria-label="Select page"
-          (page)="pageChange($event)"
+        </div>
+
+        <div class="pet_image">
+          @if(pet.filename){
+          <img
+            class="img-pet"
+            src="{{ pet.filename }}"
+          />
+          } @else {
+          <p-skeleton
+            width="400px"
+            height="300px"
+          ></p-skeleton>
+          }
+        </div>
+
+        <button
+          class="btn-header"
+          mat-flat-button
         >
-        </mat-paginator>
+          {{ pet.status }}
+        </button>
+        <mat-list class="pet-infos">
+          <mat-list-item>
+            Data da publicação:
+            <span>{{ pet.date | date : 'dd/MM/yyyy' }}</span>
+          </mat-list-item>
+          <mat-list-item
+            >Nome: <span>{{ pet.name }}</span></mat-list-item
+          >
+          <mat-list-item
+            >Raça: <span>{{ pet.breed }}</span></mat-list-item
+          >
+          <mat-list-item
+            >Espécie: <span>{{ pet.species }}</span></mat-list-item
+          >
+          <mat-list-item
+            >Sexo: <span>{{ pet.sex }}</span></mat-list-item
+          >
+          <mat-list-item
+            style="cursor: pointer"
+            matTooltip="{{ pet.last_location }}"
+            >Última localização:
+            <span>{{ pet.last_location }}</span></mat-list-item
+          >
+        </mat-list>
+
+        <div class="btn-div">
+          <button
+            (click)="viewModal(pet)"
+            type="submit"
+            class="btn"
+            color="accent"
+            mat-flat-button
+          >
+            Ver história
+          </button>
+        </div>
+      </mat-list>
+
+      } @empty { @defer () {
+      <div class="error">
+        <h2>Nenhum pet encontrado</h2>
       </div>
+      } @loading (minimum 3000ms) {
+      <div class="cards2">
+        <div class="header-card">
+          <p-skeleton
+            class="img-icon"
+            shape="circle"
+            width="60px"
+            height="60px"
+          ></p-skeleton>
+          <p-skeleton class="userName"></p-skeleton>
+          <p-skeleton class="btn-header"></p-skeleton>
+        </div>
+
+        <div class="pet_image">
+          <p-skeleton
+            width="400px"
+            height="300px"
+          ></p-skeleton>
+        </div>
+
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <p-skeleton
+          class="itemSke"
+          width="10rem"
+          styleClass="mb-2"
+        ></p-skeleton>
+        <div class="btn-div">
+          <p-skeleton class="btn"></p-skeleton>
+        </div>
+      </div>
+      } }
     </div>
-  
-  
-    
+    <div class="pagination-container">
+      <mat-paginator
+        color="primary"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        [length]="totalPet"
+        [pageSize]="pageSize"
+        aria-label="Select page"
+        (page)="pageChange($event)"
+      >
+      </mat-paginator>
+    </div>
   </div>
-  
+</div>
